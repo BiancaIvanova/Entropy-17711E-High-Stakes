@@ -1,0 +1,40 @@
+name: Autonomous Programming Issue
+description: Report an issue with one of our autonomous routines
+title: "[AUTONOMOUS ISSUE]❗"
+labels: [bug, autonomous]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ##❗Autonomous Programming Issue
+
+  - type: dropdown
+    id: match_type
+    attributes:
+      label: In what match type does this issue occur?
+      options:
+        - Head-to-Head Match
+        - Autonomous Coding Skills Match
+
+  - type: textarea
+    id: issue_description
+    attributes:
+      label: Describe the Issue
+      description: Describe the issue with the autonomous program in detail, including the specific route it occurs in. What was the expected behavior, and what actually happened?
+      placeholder: Describe the issue in detail
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: List the steps to reproduce the bug.
+      placeholder: Step 1, Step 2, ...
+
+  - type: textarea
+    id: additional_information
+    attributes:
+      label: Additional Information
+      description: Include any additional context, photos, or videos that could help.
+      placeholder: Add any extra information here
