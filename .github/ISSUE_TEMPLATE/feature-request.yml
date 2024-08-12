@@ -16,7 +16,6 @@ body:
       label: Describe your suggested feature
       description: Please provide a detailed description of the feature you’re suggesting, including its functionality and any specific use cases.
       placeholder: Describe the feature in detail
-      required: true
 
   - type: textarea
     id: improvement_description
@@ -24,7 +23,6 @@ body:
       label: How can this improve our overall design or robot performance?
       description: Explain how the suggested feature will enhance the design of our system or improve the robot's performance.
       placeholder: Describe the potential improvement
-      required: true
 
   - type: textarea
     id: related_problem
@@ -32,7 +30,6 @@ body:
       label: Is your feature request related to a current robot problem?
       description: If applicable, describe the problem you are trying to solve with this feature request.
       placeholder: Describe the problem this feature addresses
-      required: false
 
   - type: textarea
     id: additional_context
@@ -40,7 +37,6 @@ body:
       label: Additional Context
       description: If you have any additional information, sketches, or references that can help in understanding your request.
       placeholder: Add any extra information here
-      required: false
 
   - type: checkboxes
     id: checklist
@@ -49,8 +45,5 @@ body:
       description: Please check the boxes below to ensure you've included all necessary information.
       options:
         - label: I have described the feature and its use cases.
-          required: true
         - label: I have outlined how it will improve design or performance.
-          required: true
         - label: I have explained the problem this feature aims to solve.
-          required: true
