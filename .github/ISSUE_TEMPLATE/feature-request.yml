@@ -14,7 +14,7 @@ body:
     id: feature_description
     attributes:
       label: Describe your suggested feature
-      description: Please provide a detailed description of the feature you’re suggesting, including its functionality and any specific use cases (e.g., driver control optimizations, autonomous skills challenge improvements).
+      description: Please provide a detailed description of the feature you’re suggesting, including its functionality and any specific use cases.
       placeholder: Describe the feature in detail
       required: true
 
@@ -38,7 +38,7 @@ body:
     id: additional_context
     attributes:
       label: Additional Context
-      description: If you have any additional information, sketches, or references that can help in understanding your request (e.g., YouTube videos), please include them here.
+      description: If you have any additional information, sketches, or references that can help in understanding your request.
       placeholder: Add any extra information here
       required: false
 
@@ -51,7 +51,6 @@ body:
         - label: I have described the feature and its use cases.
           required: true
         - label: I have outlined how it will improve design or performance.
-        required: true
+          required: true
         - label: I have explained the problem this feature aims to solve.
           required: true
-        
