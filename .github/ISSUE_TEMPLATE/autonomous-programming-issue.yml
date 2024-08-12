@@ -8,7 +8,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        ##❗Autonomous Programming Issue
+        ## ❗Autonomous Programming Issue
 
   - type: dropdown
     id: match_type
