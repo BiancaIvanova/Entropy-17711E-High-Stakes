@@ -3,13 +3,17 @@
 #include "driver-control.h"
 
 
-void initialize() {}
+void initialize() {
+	init_display();
+}
 
 
 void disabled() {}
 
 
-void competition_initialize() {}
+void competition_initialize() {
+	
+}
 
 
 void autonomous() {}
