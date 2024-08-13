@@ -11,6 +11,7 @@
 #include "main.h"
 #include "config.h"
 #include "lemlib/api.hpp"
+#include "pros/optical.hpp"
 #include <cmath>
 #include <iostream>
 #define _USE_MATH_DEFINES
@@ -31,13 +32,15 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 using MotorGearset = pros::MotorGearset;
 using MotorUnits = pros::v5::MotorUnits;
 
-pros::MotorGroup left_drive({10, 8, 6}, MotorGearset::blue);
-pros::MotorGroup right_drive({9, 7, 1}, MotorGearset::blue);
+pros::MotorGroup left_drive({10, 6, 8}, MotorGearset::blue);
+pros::MotorGroup right_drive({9, 1, 7}, MotorGearset::blue);
 
 pros::Motor intake(3, MotorGearset::green, MotorUnits::rotations);
-pros::Motor outtake(4, MotorGearset::green, MotorUnits::rotations);
+pros::Motor arm(4, MotorGearset::green, MotorUnits::rotations);
 pros::Imu inertial_sensor(2);
+pros::Optical optical_sensor(5);
 pros::adi::DigitalOut mobile_stake_clamp('A');
+pros::adi::DigitalOut intake_lift('B');
 
 
 // -----------------------------------------------------------------------------
@@ -89,37 +92,3 @@ lemlib::ControllerSettings angularController {
 lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 
 
-// -----------------------------------------------------------------------------
-// Other functions
-
-void intake_async(int t, int velocity)
-{
-    pros::Task task([&]()
-                    {
-    intake.move_velocity(velocity);
-    pros::delay(t);
-    intake.move_velocity(0); });
-}
-
-void intake_standard(int t, int velocity)
-{
-    intake.move_velocity(velocity);
-    pros::delay(t);
-    intake.move_velocity(0);
-}
-
-void deposit_async(int t, int velocity)
-{
-    pros::Task task([&]()
-                    {
-    outtake.move_velocity(velocity);
-    pros::delay(t);
-    outtake.move_velocity(0); });
-}
-
-void deposit_standard(int t, int velocity)
-{
-    outtake.move_velocity(velocity);
-    pros::delay(t);
-    outtake.move_velocity(0);
-}

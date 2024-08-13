@@ -1,4 +1,4 @@
 #include "main.h"
 #include "api.h"
 
-void left_side_match();
+void left_side_match_red();

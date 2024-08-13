@@ -1,9 +1,14 @@
 #include "main.h"
-#include "auton-selector.h"
+#include "autons.h"
 #include "driver-control.h"
+#include "config.h"
+#include "subsystem-control-functions.h"
 
 
-void initialize() {}
+void initialize()
+{
+	chassis.calibrate();
+}
 
 
 void disabled() {}
@@ -12,7 +17,10 @@ void disabled() {}
 void competition_initialize() {}
 
 
-void autonomous() {}
+void autonomous()
+{
+	left_side_match_red();
+}
 
 
 void opcontrol()
