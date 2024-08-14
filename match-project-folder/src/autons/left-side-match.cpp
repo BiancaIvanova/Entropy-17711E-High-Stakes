@@ -37,12 +37,13 @@ void left_side_match_red()
     intake.move_velocity(200);
     chassis.moveToPose(-48, 0, 225, 1500);
     intake_lift.set_value(false);
-    intake_into_arm();
+    // intake_into_arm(); Not an implemented function yet
 
     // Raise arm, move forward and deposit ring
     chassis.moveToPose(-60, 0, 270, 1500);
 
     // Drive directly backwards to touch ladder
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-    chassis.moveToPose(-32, 0, 270, 2000, {.forward=false, .minSpeed=30, .earlyExitRange=2});
+    chassis.moveToPose(-32, 0, 270, 2000, {.forwards=false, .minSpeed=30, .earlyExitRange=2});
+
 }
