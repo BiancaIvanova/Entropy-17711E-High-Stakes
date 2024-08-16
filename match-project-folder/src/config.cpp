@@ -33,7 +33,7 @@ using MotorGearset = pros::MotorGearset;
 using MotorUnits = pros::v5::MotorUnits;
 
 pros::MotorGroup left_drive({10, 6, 8}, MotorGearset::blue);
-pros::MotorGroup right_drive({9, 1, 7}, MotorGearset::blue);
+pros::MotorGroup right_drive({-9, -1, -7}, MotorGearset::blue);
 
 pros::Motor intake(3, MotorGearset::green, MotorUnits::rotations);
 pros::Motor arm(4, MotorGearset::green, MotorUnits::rotations);

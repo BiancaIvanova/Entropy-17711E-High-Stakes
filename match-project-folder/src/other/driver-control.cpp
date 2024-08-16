@@ -13,8 +13,8 @@ const int INTAKE_VELOCITY = 200;
 void split_curvature()
 {
     double curveGain = 4;
-    double leftY= controller.get_analog(ANALOG_LEFT_Y);
-    double rightX = controller.get_analog(ANALOG_RIGHT_X);
+    double leftY= controller.get_analog(ANALOG_LEFT_Y) * -1;
+    double rightX = controller.get_analog(ANALOG_RIGHT_X) * -1;
     chassis.curvature(leftY, rightX, curveGain);
 }
 
