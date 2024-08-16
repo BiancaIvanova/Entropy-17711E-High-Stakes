@@ -21,6 +21,7 @@ void auton_skills()
 
     // Move to collect first ring
     chassis.turnToPoint(-24, 24, 1000);
+    intake.move_velocity(200);
     chassis.moveToPose(-24, 24, 90, 1000);
 
     // Move to collect second ring
@@ -34,6 +35,7 @@ void auton_skills()
     // Move to collect fifth/last ring
     chassis.turnToPoint(-50, 56, 1000);
     chassis.moveToPose(-50, 56, 45, 1000);
+    intake.move_velocity(0);
 
     // Swing to dump the mobile stake in the corner and position to grab the other one
     chassis.swingToHeading(105, DriveSide::RIGHT, 1000);
@@ -50,6 +52,7 @@ void auton_skills()
 
     // Move to collect first ring
     chassis.turnToPoint(-24, -24, 1000);
+    intake.move_velocity(200);
     chassis.moveToPose(-24, -24, 90, 1000);
 
     // Move to collect second ring
@@ -63,6 +66,7 @@ void auton_skills()
     // Move to collect fifth/last ring
     chassis.turnToPoint(-55, -50, 1000);
     chassis.moveToPose(-55, -56, 135, 1000);
+    intake.move_velocity(0);
 
     // Swing to dump the mobile stake in the corner
     chassis.swingToHeading(75, DriveSide::LEFT, 1000);

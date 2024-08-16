@@ -39,7 +39,7 @@ pros::Motor intake(3, MotorGearset::green, MotorUnits::rotations);
 pros::Motor arm(4, MotorGearset::green, MotorUnits::rotations);
 pros::Imu inertial_sensor(2);
 pros::Optical optical_sensor(5);
-pros::adi::DigitalOut mobile_stake_clamp('A');
+pros::adi::DigitalOut mobile_stake_clamp('C');
 pros::adi::DigitalOut intake_lift('B');
 
 
