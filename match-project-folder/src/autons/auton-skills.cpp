@@ -13,7 +13,20 @@ void auton_skills()
     pros::delay(1000);
     // Put the preload on the alliance wall stake
 
+    // Deal with the close left side of the field
+    auton_skills_stage_1();
+    // Do the same with the close right side of the field
+    auton_skills_stage_2();
+    // Move to the back of the field and fill the last empty stake
+    auton_skills_stage_3();
+    // Finish by putting the two blue ring stakes into the corners
+    auton_skills_stage_4();
 
+}
+
+
+void auton_skills_stage_1()
+{
     // FIRST STAGE OF AUTON -------------------------------------
     // Move slightly forward, turn so the back is facing left mobile stake
     chassis.moveToPose(-58, 0, 90, 1000);
@@ -48,7 +61,11 @@ void auton_skills()
     chassis.moveToPose(-48, 60, 135, 1000);
     chassis.turnToHeading(315, 800);
 
+}
 
+
+void auton_skills_stage_2()
+{
     // SECOND STAGE OF AUTON -----------------------------------------------
     // Drive backwards quickly to pick up the next stake
     chassis.moveToPose(-48, -24, 30, 3000, {.forwards=false, .minSpeed=40, .earlyExitRange=3});
@@ -78,6 +95,11 @@ void auton_skills()
     mobile_stake_clamp.set_value(false);
 
 
+}
+
+
+void auton_skills_stage_3()
+{
     // THIRD STAGE OF AUTON -----------------------------------------------
     // Move to collect first ring
     chassis.turnToPoint(24, -48, 1000);
@@ -111,9 +133,12 @@ void auton_skills()
     // Turn and drop the stake (which should now have four rings on it)
     chassis.turnToHeading(100, 1000, {.direction=lemlib::AngularDirection::CW_CLOCKWISE});
     mobile_stake_clamp.set_value(false);
-    
+}
 
-    // FOURTH STAGE OF AUTON -----------------------------------------------
+
+void auton_skills_stage_4()
+{
+        // FOURTH STAGE OF AUTON -----------------------------------------------
     // Turn so the back is facing the right blue ring stake
     chassis.turnToPoint(58, -22, 1000, {.forwards=false});
 
