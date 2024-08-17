@@ -32,8 +32,8 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 using MotorGearset = pros::MotorGearset;
 using MotorUnits = pros::v5::MotorUnits;
 
-pros::MotorGroup left_drive({10, 6, 8}, MotorGearset::blue);
-pros::MotorGroup right_drive({-9, -1, -7}, MotorGearset::blue);
+pros::MotorGroup left_drive({-10, -6, -8}, MotorGearset::blue);
+pros::MotorGroup right_drive({9, 1, 7}, MotorGearset::blue);
 
 pros::Motor intake(3, MotorGearset::green, MotorUnits::rotations);
 pros::Motor arm(4, MotorGearset::green, MotorUnits::rotations);
@@ -65,22 +65,22 @@ lemlib::OdomSensors sensors {
 
 // Forward/Backward PID
 lemlib::ControllerSettings lateralController {
-    12,
+    10,
     0,
-    8,
-    0,
+    3,
+    3,
     1,
     100,
     3,
     500,
-	20
+    20
 };
  
 // Turning PID
 lemlib::ControllerSettings angularController {
-    23,
+    2,
     0,
-    20,
+    10,
     3,
     1,
     100,
