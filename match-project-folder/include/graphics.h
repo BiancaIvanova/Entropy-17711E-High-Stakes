@@ -34,7 +34,7 @@ public:
      * @return Pointer to the created label object.
      
      */
-    static lv_obj_t* create_label(const char *text, int x, int y, const lv_font_t *font, Alignment align = Alignment::LEFT, lv_obj_t *parent = lv_scr_act());
+    static lv_obj_t* create_label(const char *text, int x, int y, const lv_font_t *font, lv_color_t color, Alignment align = Alignment::LEFT, lv_obj_t *parent = lv_scr_act());
 
     /**
     * @brief Display a rectangle on the V5 screen using LVGL.
@@ -46,7 +46,7 @@ public:
     * @param parent The parent object to which the rectangle will be added. Defaults to the active screen (`lv_scr_act()`).
     * @return Pointer to the created rectangle object.
     */
-    static lv_obj_t* create_rectangle(lv_coord_t width, lv_coord_t height, lv_coord_t x, lv_coord_t y, lv_color_t color, lv_obj_t *parent = lv_scr_act());
+    static lv_obj_t* create_rectangle(lv_coord_t width, lv_coord_t height, lv_coord_t x, lv_coord_t y, lv_color_t color, lv_obj_t *parent = lv_scr_act(), int corner_radius = 0);
 };
 
 #endif
