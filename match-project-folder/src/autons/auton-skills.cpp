@@ -138,7 +138,7 @@ void auton_skills_stage_3()
 
 void auton_skills_stage_4()
 {
-        // FOURTH STAGE OF AUTON -----------------------------------------------
+    // FOURTH STAGE OF AUTON -----------------------------------------------
     // Turn so the back is facing the right blue ring stake
     chassis.turnToPoint(58, -22, 1000, {.forwards=false});
 
