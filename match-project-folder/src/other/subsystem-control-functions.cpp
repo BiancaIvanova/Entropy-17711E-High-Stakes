@@ -2,6 +2,21 @@
 #include "config.h"
 #include "lemlib/api.hpp"
 
+double x, y, heading;
+
+void logPose() {
+    while (true) {
+        x = chassis.getPose().x;
+        y = chassis.getPose().y;
+        heading = chassis.getPose().theta;
+
+        char json_str[128];
+
+        snprintf(json_str, sizeof(json_str), "{\"x\": %.2f, \"y\": %.2f, \"theta\": %.2f}", x, y, heading);
+
+        pros::delay(100);
+    }
+}
 
 void intake_async(int t, int velocity)
 {
@@ -45,3 +60,4 @@ void arm_standard(int t, int velocity)
     pros::delay(t);
     arm.move_velocity(0);
 }
+

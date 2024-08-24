@@ -8,6 +8,7 @@
 void initialize()
 {
 	chassis.calibrate();
+	pros::Task logTask(logPose, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Logger thing");
 }
 
 
@@ -19,7 +20,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	left_side_match_red();
+	auton_skills();
 }
 
 
