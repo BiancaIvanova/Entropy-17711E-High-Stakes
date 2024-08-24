@@ -7,7 +7,9 @@
 */
 // EDIT ALL OF THESE CONSTANTS AND PORTS ASAP
 
+#include "fmt/format.h"
 #include "lemlib/chassis/trackingWheel.hpp"
+#include "lemlib/pose.hpp"
 #include "main.h"
 #include "config.h"
 #include "lemlib/api.hpp"
@@ -16,7 +18,7 @@
 #include <iostream>
 #define _USE_MATH_DEFINES
 
-const float TRACKWIDTH = 12.6;
+const float TRACKWIDTH = 12.8;
 const float MOTOR_GEAR_TEETH = 36.0;
 const float MOTOR_RPM = 600.0;
 const float WHEEL_GEAR_TEETH = 60.0;
@@ -88,7 +90,5 @@ lemlib::ControllerSettings angularController {
     500,
     0
 };
-
-lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
 
 
