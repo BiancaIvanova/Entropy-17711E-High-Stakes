@@ -29,7 +29,7 @@ void auton_skills_stage_1()
 {
     // FIRST STAGE OF AUTON -------------------------------------
     // Move slightly forward, turn so the back is facing left mobile stake
-    chassis.moveToPose(-58, 0, 90, 1000);
+    chassis.moveToPoint(-54, 0, 1000);
     chassis.turnToPoint(-48, 24, 1000, {.forwards=false});
 
     // Move to pick up stake
@@ -37,21 +37,21 @@ void auton_skills_stage_1()
     mobile_stake_clamp.set_value(true);
 
     // Move to collect first ring
-    chassis.turnToPoint(-24, 24, 1000);
+    chassis.turnToPoint(-24, 24, 1500);
     intake.move_velocity(200);
-    chassis.moveToPose(-24, 24, 90, 1000);
+    chassis.moveToPose(-24, 24, 90, 1500);
 
     // Move to collect second ring
-    chassis.turnToPoint(-24, 48, 1000);
-    chassis.moveToPose(-24, 48, 0, 1000);
+    chassis.turnToPoint(-24, 48, 1500);
+    chassis.moveToPose(-24, 48, 0, 1500);
 
     // Move to collect third and fourth rings
-    chassis.turnToPoint(-55, 48, 1000);
-    chassis.moveToPose(-55, 48, 270, 1000);
+    chassis.turnToPoint(-55, 48, 1500);
+    chassis.moveToPose(-55, 48, 270, 1500);
 
     // Move to collect fifth/last ring
-    chassis.turnToPoint(-50, 56, 1000);
-    chassis.moveToPose(-50, 56, 45, 1000);
+    chassis.turnToPoint(-50, 56, 1500);
+    chassis.moveToPose(-50, 56, 45, 1500);
     intake.move_velocity(0);
 
     // Swing to dump the mobile stake in the corner and position to grab the other one
