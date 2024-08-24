@@ -4,12 +4,24 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
+void square_test() {
+    chassis.setPose(0, 0, 90);
+    chassis.turnToPoint(0, 24, 1500);
+    chassis.moveToPoint(0, 24, 1500);
+    chassis.turnToPoint(24, 24, 1500);
+    chassis.moveToPoint(24, 24, 1500);
+    chassis.turnToPoint(24, 0, 1500);
+    chassis.moveToPoint(24, 0, 1500);
+    chassis.turnToPoint(0, 0, 1500);
+    chassis.moveToPoint(0, 0, 1500);
+}
+
 void auton_skills()
 {
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
     
     // Robot starts with the back directly facing alliance wall stake
-    chassis.setPose(-62, 0, 90);
+    chassis.setPose(-64, 0, 90);
     pros::delay(1000);
     // Put the preload on the alliance wall stake
 
@@ -33,32 +45,33 @@ void auton_skills_stage_1()
     chassis.turnToPoint(-48, 24, 1000, {.forwards=false});
 
     // Move to pick up stake
-    chassis.moveToPose(-48, 24, 210, 1500, {.forwards=false}); // not sure if theta is correct
+    chassis.turnToPoint(-48, 24, 1500, {.forwards=false}); // not sure if theta is correct
+    chassis.moveToPoint(-48, 24, 1500, {.forwards=false});
     mobile_stake_clamp.set_value(true);
 
     // Move to collect first ring
     chassis.turnToPoint(-24, 24, 1500);
     intake.move_velocity(200);
-    chassis.moveToPose(-24, 24, 90, 1500);
+    chassis.moveToPoint(-24, 24, 1500);
 
     // Move to collect second ring
     chassis.turnToPoint(-24, 48, 1500);
-    chassis.moveToPose(-24, 48, 0, 1500);
+    chassis.moveToPoint(-24, 48, 1500);
 
     // Move to collect third and fourth rings
     chassis.turnToPoint(-55, 48, 1500);
-    chassis.moveToPose(-55, 48, 270, 1500);
+    chassis.moveToPoint(-55, 48, 1500);
 
     // Move to collect fifth/last ring
     chassis.turnToPoint(-50, 56, 1500);
-    chassis.moveToPose(-50, 56, 45, 1500);
+    chassis.moveToPoint(-50, 56, 1500);
     intake.move_velocity(0);
 
     // Swing to dump the mobile stake in the corner and position to grab the other one
     chassis.swingToHeading(105, DriveSide::RIGHT, 1000);
     chassis.moveToPoint(-54, 60, 1000);
     mobile_stake_clamp.set_value(false);
-    chassis.moveToPose(-48, 60, 135, 1000);
+    chassis.moveToPoint(-48, 60, 1000);
     chassis.turnToHeading(315, 800);
 
 }

@@ -80,15 +80,15 @@ lemlib::ControllerSettings lateralController {
  
 // Turning PID
 lemlib::ControllerSettings angularController {
-    2,
+    5,
     0,
     10,
-    3,
-    1,
-    100,
-    3,
-    500,
+    0,
+    0,
+    0,
+    0,
+    0,
     0
 };
 
-
+lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);

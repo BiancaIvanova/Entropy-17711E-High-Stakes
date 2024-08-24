@@ -13,7 +13,7 @@ void logPose() {
         char json_str[128];
 
         snprintf(json_str, sizeof(json_str), "{\"x\": %.2f, \"y\": %.2f, \"theta\": %.2f}", x, y, heading);
-
+        std::cout << "x: " << x << "y: " << y << "theta: " << heading;
         pros::delay(100);
     }
 }

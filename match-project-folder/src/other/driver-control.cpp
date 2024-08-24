@@ -1,5 +1,7 @@
+#include "liblvgl/extra/widgets/span/lv_span.h"
 #include "main.h"
 #include "config.h"
+#include "pros/motors.h"
 #include "driver-control.h"
 
 /*
@@ -15,6 +17,7 @@ void split_curvature()
     double curveGain = 10;
     double leftY= controller.get_analog(ANALOG_LEFT_Y);
     double rightX = controller.get_analog(ANALOG_RIGHT_X);
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
     chassis.curvature(leftY, rightX, curveGain);
 }
 

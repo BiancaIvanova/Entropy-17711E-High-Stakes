@@ -3,6 +3,7 @@
 
 void left_side_match_red();
 void auton_skills();
+void square_test();
 
 void auton_skills_stage_1();
 void auton_skills_stage_2();

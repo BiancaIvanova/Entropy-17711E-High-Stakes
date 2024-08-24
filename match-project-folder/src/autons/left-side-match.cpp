@@ -28,13 +28,13 @@ void left_side_match_red()
     // THIS IS WHERE THE AUTON BECOMES DIFFERENT (AWP) ------------------
 
     // Turn and drive to last ring stack, which is inverted
-    chassis.turnToPoint(-48, 2, 3000);
+    chassis.turnToPoint(-32, 2, 3000);
     mobile_stake_clamp.set_value(false);
-    chassis.moveToPoint(-48, 2, 1500);
+    chassis.moveToPoint(-32, 2, 1500);
 
     // Deposit ring backwards
-    chassis.turnToPoint(-62, 0, 1200, {.forwards=false});
-    chassis.moveToPoint(-62, 0, 1500, {.forwards=false});
+    chassis.turnToPoint(-72, 0, 1200, {.forwards=false});
+    chassis.moveToPoint(-72, 0, 1500, {.forwards=false});
 
     // Drive directly backwards to touch ladder
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
