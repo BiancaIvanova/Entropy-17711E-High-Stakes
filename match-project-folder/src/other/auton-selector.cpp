@@ -1,9 +1,15 @@
 #include "auton-selector.h"
+#include <map>
+#include "liblvgl/core/lv_disp.h"
 #include "liblvgl/core/lv_event.h"
 #include "liblvgl/core/lv_obj.h"
 #include "liblvgl/misc/lv_color.h"
+#include "autons.h"
+#include "config.h"
+
 
 LV_IMG_DECLARE(high_stakes_field_scaled);
+LV_IMG_DECLARE(entropy_logo_scaled);
 
 LV_FONT_DECLARE(roboto_bold_14px);
 LV_FONT_DECLARE(roboto_medium_10px);
@@ -33,6 +39,11 @@ lv_obj_t* current_selected_button = nullptr;
 
 // Current selected auton, from 1 - 4 (0 is the null value)
 int selected_auton_slot = 0;
+
+// Dictionary storing id as the key, and the value is a callable entity (ie. a function)
+std::map<int, std::function<void()>> button_callbacks;
+
+const double M_TO_IN_CONV = 39.37;
 
 
 void button_event_handler(lv_event_t* e)
@@ -64,10 +75,14 @@ void button_event_handler(lv_event_t* e)
             // Retrieve the stored ID and update the global variable
             int button_id = (int)lv_obj_get_user_data(btn); 
             selected_auton_slot = button_id;
+
+            // Call the callback function
+            if (button_callbacks.find(button_id) != button_callbacks.end()) {
+                button_callbacks[button_id]();
+            }
         }
     }
 }
-
 
 
 void init_display()
@@ -87,21 +102,48 @@ void init_display()
     lv_obj_t *optical_title = Graphics::create_label("Optical:", 220, 85, &roboto_bold_18px, white_colour, Alignment::LEFT);
     lv_obj_t *optical_r = Graphics::create_label("r: 182.53", 220, 105, &roboto_medium_16px, white_colour, Alignment::LEFT);
     lv_obj_t *optical_g = Graphics::create_label("g: 12.85", 220, 125, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    lv_obj_t *optical_b = Graphics::create_label("b: 11.95", 220, 145, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    lv_obj_t *optical_b = Graphics::create_label("b: 11.95", 220, 145, &roboto_medium_16px,white_colour, Alignment::LEFT);
 
     // Detection Status
     lv_obj_t *detection_status_text = Graphics::create_label("AUTO", 220, 175, &roboto_bold_18px, white_colour, Alignment::LEFT);
     lv_obj_t *detection_status_bar = Graphics::create_rectangle(85, 5, 220, 195, status_yellow_color);
 
-    // Radio buttons
-    create_button(325, 10, 143, 40, "Auton 1", 1);
-    create_button(325, 58, 143, 40, "Auton 2", 2);
-    create_button(325, 106, 143, 40, "Auton 3", 3);
-    create_button(325, 154, 143, 40, "Auton 4", 4);
+    // Declare buttons
+    assign_button(325, 10, 143, 40, "Left Side Match", 1, [](){left_side_match(); });
+    assign_button(325, 58, 143, 40, "Right Side Match", 2, [](){right_side_match(); });
+    assign_button(325, 106, 143, 40, "---", 3, [](){ });
+    assign_button(325, 154, 143, 40, "---", 4, [](){ });
 }
 
 
-void create_button(int x, int y, int width, int height, std::string text, int id_num)
+void ready_display() 
+{
+    // Field image
+    lv_obj_t *entropy_logo = Graphics::create_image(&entropy_logo_scaled, 18, 87);
+
+    // Selected Auton
+    lv_obj_t *selected_auton_text = Graphics::create_label("LEFT SIDE MATCH", 30, 202, &roboto_bold_18px, white_colour, Alignment::LEFT);
+
+    // Vertical bar
+    lv_obj_t *vertical_line = Graphics::create_rectangle(2, 210, 346, 18, white_colour);
+
+    // Data logs
+    lv_obj_t *gps_title = Graphics::create_label("GPS:", 370, 22, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    lv_obj_t *gps_x = Graphics::create_label("x: 294.633", 370, 42, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    lv_obj_t *gps_y = Graphics::create_label("y: 127.349", 370, 62, &roboto_medium_16px, white_colour, Alignment::LEFT);
+
+    lv_obj_t *optical_title = Graphics::create_label("Optical:", 370, 95, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    lv_obj_t *optical_r = Graphics::create_label("r: 182.53", 370, 115, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    lv_obj_t *optical_g = Graphics::create_label("g: 12.85", 370, 135, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    lv_obj_t *optical_b = Graphics::create_label("b: 11.95", 370, 155, &roboto_medium_16px,white_colour, Alignment::LEFT);
+
+    // Status 'Ready'
+    lv_obj_t *status_text = Graphics::create_label("READY", 370, 195, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    lv_obj_t *status_bar = Graphics::create_rectangle(85, 5, 370, 215, status_green_color);
+}
+
+
+void create_button(int x, int y, int width, int height, Button button)
 {
     const int WRAP_LIMIT = 20; // guess
     const int LEFT_PADDING = -3;
@@ -111,40 +153,70 @@ void create_button(int x, int y, int width, int height, std::string text, int id
     const lv_font_t *BUTTON_FONT = &roboto_medium_16px;
 
     // Create the button rectangle
-    lv_obj_t* button_rect = Graphics::create_rectangle(width, height, x, y, white_colour, lv_scr_act(), 3);
+    lv_obj_t* button_rect = Graphics::create_rectangle(width, height, x, y, white_colour, lv_scr_act());
     
     // Set the user data of the button to its ID
-    lv_obj_set_user_data(button_rect, (void*)id_num);
+    lv_obj_set_user_data(button_rect, (void*)button.id);
 
     // Add event handler
     lv_obj_add_event_cb(button_rect, button_event_handler, LV_EVENT_CLICKED, NULL);
 
+    // Put callback in the dictionary
+    button_callbacks[button.id] = button.callback;
+
     // Wrap text as necessary
-    if (int len = text.length(); len <= WRAP_LIMIT)
+    if (int len = button.name.length(); len <= WRAP_LIMIT)
     {
         // Single line of text
-        lv_obj_t* txt_1 = Graphics::create_label(text.c_str(), LEFT_PADDING, LARGE_TOP_PADDING, BUTTON_FONT, black_colour, Alignment::LEFT, button_rect);
+        lv_obj_t* txt_1 = Graphics::create_label(button.name.c_str(), LEFT_PADDING, LARGE_TOP_PADDING, BUTTON_FONT, black_colour, Alignment::LEFT, button_rect);
     }
     else
     {
         // Two lines of text (gets truncated on the second line)
-        int space_pos = text.rfind(' ', WRAP_LIMIT);
+        int space_pos = button.name.rfind(' ', WRAP_LIMIT);
 
         std::string first_line;
         if (space_pos != std::string::npos)
         {
-            first_line = text.substr(0, space_pos);
+            first_line = button.name.substr(0, space_pos);
         }
         else
         {
-            first_line = text.substr(0, WRAP_LIMIT);
+            first_line = button.name.substr(0, WRAP_LIMIT);
         }
 
         lv_obj_t* txt_1 = Graphics::create_label(first_line.c_str(), LEFT_PADDING, SMALL_TOP_PADDING, BUTTON_FONT, black_colour, Alignment::LEFT, button_rect);
-        std::string remaining_text = text.substr(space_pos + 1);
+        std::string remaining_text = button.name.substr(space_pos + 1);
         if (!remaining_text.empty())
         {
             lv_obj_t* txt_2 = Graphics::create_label(remaining_text.c_str(), LEFT_PADDING, SMALL_TOP_PADDING + TEXT_SPACING, BUTTON_FONT, black_colour, Alignment::CENTRE, button_rect);
         }
     }
+}
+
+
+void assign_button(int x, int y, int width, int height, const std::string& name, int id, std::function<void()> callback)
+{
+    Button button = { name, id, callback };
+    create_button(x, y, width, height, button);
+}
+
+
+void update_display_data()
+{
+    double gps_x_data = gps_sensor.get_position_x() * M_TO_IN_CONV;
+    double gps_y_data = gps_sensor.get_position_y() * M_TO_IN_CONV;
+    double gps_theta_data = gps_sensor.get_heading();
+    double red_data = optical_sensor.get_rgb().red;
+    double blue_data = optical_sensor.get_rgb().blue;
+    int range_data = optical_sensor.get_proximity();
+
+    /*
+    lv_label_set_text(gps_x, std::to_string(gps_x_data));
+    lv_label_set_text(gps_y, std::to_string(gps_y_data));
+    lv_label_set_text(gps_y_label, std::to_string(gps_theta_data));
+    lv_label_set_text(optical_r_label, optical_r_data.c_str());
+    lv_label_set_text(optical_g_label, optical_g_data.c_str());
+    lv_label_set_text(optical_b_label, optical_b_data.c_str());
+    */
 }
