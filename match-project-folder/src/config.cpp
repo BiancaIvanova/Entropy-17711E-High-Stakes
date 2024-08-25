@@ -11,6 +11,8 @@
 #include "main.h"
 #include "config.h"
 #include "lemlib/api.hpp"
+#include "pros/gps.hpp"
+#include "pros/optical.hpp"
 #include <cmath>
 #include <iostream>
 #define _USE_MATH_DEFINES
@@ -38,6 +40,8 @@ pros::Motor intake(3, MotorGearset::green, MotorUnits::rotations);
 pros::Motor outtake(4, MotorGearset::green, MotorUnits::rotations);
 pros::Imu inertial_sensor(2);
 pros::adi::DigitalOut mobile_stake_clamp('A');
+pros::Gps gps_sensor(10);
+pros::Optical optical_sensor(11);
 
 
 // -----------------------------------------------------------------------------

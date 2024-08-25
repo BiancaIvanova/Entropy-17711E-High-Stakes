@@ -6,7 +6,7 @@
 
 
 void initialize() {
-	init_display();
+	ready_display();
 	controller.clear();
 
 	pros::delay(200);
