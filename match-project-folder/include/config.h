@@ -14,6 +14,8 @@ extern pros::Motor intake;
 extern pros::Motor outtake;
 extern pros::Imu inertial_sensor;
 extern pros::adi::DigitalOut mobile_stake_clamp;
+extern pros::Gps gps_sensor;
+extern pros::Optical optical_sensor;
 
 // Lemlib
 extern lemlib::Drivetrain drivetrain;
