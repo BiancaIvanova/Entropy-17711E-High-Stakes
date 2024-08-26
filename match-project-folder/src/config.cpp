@@ -13,6 +13,8 @@
 #include "main.h"
 #include "config.h"
 #include "lemlib/api.hpp"
+#include "pros/motors.h"
+#include "pros/motors.hpp"
 #include "pros/optical.hpp"
 #include <cmath>
 #include <iostream>
@@ -27,6 +29,15 @@ const float WHEEL_DIAMETER = lemlib::Omniwheel::NEW_325;
 
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
+pros::Motor front_left(1, pros::v5::MotorGears::blue);
+pros::Motor middle_left(2, pros::v5::MotorGears::blue);
+pros::Motor back_left(3, pros::v5::MotorGears::blue);
+
+pros::Motor front_right(4, pros::v5::MotorGears::blue);
+pros::Motor middle_right(5, pros::v5::MotorGears::blue);
+pros::Motor back_right(6, pros::v5::MotorGears::blue);
+
+/*
 
 // -----------------------------------------------------------------------------
 // Ports Configuration
@@ -92,3 +103,5 @@ lemlib::ControllerSettings angularController {
 };
 
 lemlib::Chassis chassis(drivetrain, lateralController, angularController, sensors);
+
+*/

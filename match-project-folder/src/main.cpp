@@ -7,7 +7,7 @@
 
 void initialize()
 {
-	chassis.calibrate();
+	//chassis.calibrate();
 	pros::Task logTask(logPose, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Logger thing");
 }
 
@@ -29,7 +29,7 @@ void opcontrol()
 {
 	while (true)
 	{
-		split_curvature();
+		x_drive_control();
 		pros::delay(20);
 	}
 }

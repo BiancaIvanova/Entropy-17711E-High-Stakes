@@ -3,6 +3,8 @@
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/motors.h"
 
+/*
+
 void left_side_match_red()
 {
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
@@ -41,3 +43,5 @@ void left_side_match_red()
     chassis.moveToPose(24, 0, 270, 2000, {.minSpeed=30});
 
 }
+
+*/
