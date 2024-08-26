@@ -6,3 +6,4 @@
 void split_curvature();
 void intake_control();
 void x_drive_control();
+void drive_max();

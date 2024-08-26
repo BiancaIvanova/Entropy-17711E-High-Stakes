@@ -31,21 +31,31 @@ void x_drive_control()
     double movementX = controller.get_analog(ANALOG_LEFT_X) * overallScaleFactor;
     double movementY = controller.get_analog(ANALOG_LEFT_Y) * overallScaleFactor;
 
-    int frontLeftVel = movementY + movementX + turning; 
-    int backLeftVel = movementY - movementX + turning;
-    int frontRightVel = movementY - movementX - turning;
-    int backRightVel = movementY + movementX - turning;
+    int frontLeftVel = movementX + movementY + turning; 
+    int backLeftVel = movementX - movementY + turning;
+    int frontRightVel = movementX - movementY - turning;
+    int backRightVel = movementX + movementY - turning;
 
-    int centreLeftVel = (movementY + turning) * mainWheelSpeedFactor;
-    int centreRightVel = (movementY - turning) * mainWheelSpeedFactor;
+    int centreLeftVel = (turning + movementY) * mainWheelSpeedFactor;
+    int centreRightVel = (turning - movementY) * mainWheelSpeedFactor;
 
     front_left.move_velocity(frontLeftVel);
-    back_left.move_velocity(backLeftVel);
+    back_left.move_velocity(-backLeftVel);
     front_right.move_velocity(frontRightVel);
-    back_right.move_velocity(backRightVel);
+    back_right.move_velocity(-backRightVel);
 
     middle_left.move_velocity(centreLeftVel);
     middle_right.move_velocity(centreRightVel);
+}
+
+void drive_max() {
+    front_left.move_velocity(127);
+    back_left.move_velocity(-127);
+    front_right.move_velocity(127);
+    back_right.move_velocity(127);
+
+    middle_left.move_velocity(-127);
+    middle_right.move_velocity(127);
 }
 
 void intake_control()

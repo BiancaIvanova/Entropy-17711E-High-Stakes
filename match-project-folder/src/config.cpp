@@ -33,9 +33,9 @@ pros::Motor front_left(1, pros::v5::MotorGears::blue);
 pros::Motor middle_left(2, pros::v5::MotorGears::blue);
 pros::Motor back_left(3, pros::v5::MotorGears::blue);
 
-pros::Motor front_right(4, pros::v5::MotorGears::blue);
-pros::Motor middle_right(5, pros::v5::MotorGears::blue);
-pros::Motor back_right(6, pros::v5::MotorGears::blue);
+pros::Motor front_right(11, pros::v5::MotorGears::blue);
+pros::Motor middle_right(12, pros::v5::MotorGears::blue);
+pros::Motor back_right(13, pros::v5::MotorGears::blue);
 
 /*
 
