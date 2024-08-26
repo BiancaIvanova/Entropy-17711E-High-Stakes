@@ -1,6 +1,3 @@
-#include <iostream>
-#include "main.h"
-#include "api.h"
 #include "graphics.h"
 
 // Button struct
