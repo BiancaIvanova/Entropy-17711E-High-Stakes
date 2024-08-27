@@ -4,16 +4,6 @@
 
 extern pros::Controller controller;
 
-extern pros::Motor front_left;
-extern pros::Motor middle_left;
-extern pros::Motor back_left;
-
-extern pros::Motor front_right;
-extern pros::Motor middle_right;
-extern pros::Motor back_right;
-
-/*
-
 // Main Configuration
 extern pros::MotorGroup left_drive;
 extern pros::MotorGroup right_drive;
@@ -31,4 +21,3 @@ extern lemlib::ControllerSettings lateralController;
 extern lemlib::ControllerSettings angularController;
 extern lemlib::Chassis chassis;
 
-*/
