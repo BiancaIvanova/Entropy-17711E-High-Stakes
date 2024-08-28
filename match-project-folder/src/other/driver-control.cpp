@@ -29,14 +29,14 @@ void intake_control()
 {
     if (controller.get_digital(DIGITAL_R2))
     {
-        //intake.move_velocity(INTAKE_VELOCITY);
+        intake.move_velocity(INTAKE_VELOCITY);
     }
     else if (controller.get_digital(DIGITAL_R1))
     {
-        //intake.move_velocity(INTAKE_VELOCITY * -1);
+        intake.move_velocity(INTAKE_VELOCITY * -1);
     }
     else
     {
-        //intake.move_velocity(0);
+        intake.move_velocity(0);
     }
 }
