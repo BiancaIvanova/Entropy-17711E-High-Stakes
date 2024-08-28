@@ -18,45 +18,12 @@ void split_curvature()
     double curveGain = 10;
     double leftY= controller.get_analog(ANALOG_LEFT_Y);
     double rightX = controller.get_analog(ANALOG_RIGHT_X);
-    //chassis.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
-    //chassis.curvature(leftY, rightX, curveGain);
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
+    chassis.curvature(leftY, rightX, curveGain);
 }
 
 const double overallScaleFactor = 600.0 / 127.0;
 const double mainWheelSpeedFactor = 1.0 / 1.02857;
-
-void x_drive_control()
-{
-    double turning = controller.get_analog(ANALOG_RIGHT_X) * overallScaleFactor;
-    double movementX = controller.get_analog(ANALOG_LEFT_X) * overallScaleFactor;
-    double movementY = controller.get_analog(ANALOG_LEFT_Y) * overallScaleFactor;
-
-    int frontLeftVel = movementX + movementY + turning; 
-    int backLeftVel = movementX - movementY + turning;
-    int frontRightVel = movementX - movementY - turning;
-    int backRightVel = movementX + movementY - turning;
-
-    int centreLeftVel = (turning + movementY) * mainWheelSpeedFactor;
-    int centreRightVel = (turning - movementY) * mainWheelSpeedFactor;
-
-    front_left.move_velocity(frontLeftVel);
-    back_left.move_velocity(-backLeftVel);
-    front_right.move_velocity(frontRightVel);
-    back_right.move_velocity(-backRightVel);
-
-    middle_left.move_velocity(centreLeftVel);
-    middle_right.move_velocity(centreRightVel);
-}
-
-void drive_max() {
-    front_left.move_velocity(127);
-    back_left.move_velocity(-127);
-    front_right.move_velocity(127);
-    back_right.move_velocity(127);
-
-    middle_left.move_velocity(-127);
-    middle_right.move_velocity(127);
-}
 
 void intake_control()
 {
