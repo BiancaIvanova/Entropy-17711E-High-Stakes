@@ -4,7 +4,7 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
-/*
+
 
 void square_test() {
     chassis.setPose(0, 0, 90);
@@ -186,4 +186,3 @@ void auton_skills_stage_4()
     chassis.moveToPoint(50, 28, 2000, {.minSpeed=40});
 }
 
-*/

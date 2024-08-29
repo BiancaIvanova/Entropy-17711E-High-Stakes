@@ -3,7 +3,7 @@
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/motors.h"
 
-/*
+
 
 void left_side_match_red()
 {
@@ -44,4 +44,3 @@ void left_side_match_red()
 
 }
 
-*/
