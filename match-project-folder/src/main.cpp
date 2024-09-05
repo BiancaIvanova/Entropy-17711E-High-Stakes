@@ -3,10 +3,12 @@
 #include "driver-control.h"
 #include "config.h"
 #include "pros/misc.h"
+#include "pros/rtos.hpp"
 
 
 void initialize() {
-	ready_display();
+	init_display();
+
 	controller.clear();
 
 	pros::delay(200);
@@ -16,6 +18,11 @@ void initialize() {
 	pros::delay(200);
 	controller.print(2, 0, "Battery: %i%%", pros::c::battery_get_capacity());
 	
+	pros::Task task([&]()
+    {
+		update_display_data();
+		pros::delay(1000);
+	});
 }
 
 

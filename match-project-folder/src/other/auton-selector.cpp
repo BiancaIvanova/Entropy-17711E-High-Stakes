@@ -1,11 +1,12 @@
 #include "auton-selector.h"
 #include <map>
+#include "config.h"
 #include "liblvgl/core/lv_disp.h"
 #include "liblvgl/core/lv_event.h"
 #include "liblvgl/core/lv_obj.h"
 #include "liblvgl/misc/lv_color.h"
 #include "autons.h"
-#include "config.h"
+
 
 
 LV_IMG_DECLARE(high_stakes_field_scaled);
@@ -33,6 +34,12 @@ lv_color_t alliance_neutral_grey_colour = lv_color_hex(0x5e5e5e);
 lv_color_t status_green_color = lv_color_hex(0x00bf63);
 lv_color_t status_yellow_color = lv_color_hex(0xedde14);
 lv_color_t status_red_color = lv_color_hex(0xfd060f);
+
+// Data labels
+lv_obj_t *gps_x_label = nullptr;
+lv_obj_t *gps_y_label= nullptr;
+lv_obj_t *optical_r_label = nullptr;
+lv_obj_t *optical_b_label = nullptr;
 
 // Global variable tracking current button selection
 lv_obj_t* current_selected_button = nullptr;
@@ -85,6 +92,13 @@ void button_event_handler(lv_event_t* e)
 }
 
 
+void assign_button(int x, int y, int width, int height, const std::string& name, int id, std::function<void()> callback)
+{
+    Button button = { name, id, callback };
+    create_button(x, y, width, height, button);
+}
+
+
 void init_display()
 {
     // Field image
@@ -96,13 +110,12 @@ void init_display()
 
     // Data logs
     lv_obj_t *gps_title = Graphics::create_label("GPS:", 220, 12, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    lv_obj_t *gps_x = Graphics::create_label("x: 294.633", 220, 32, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    lv_obj_t *gps_y = Graphics::create_label("y: 127.349", 220, 52, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    gps_x_label = Graphics::create_label("x: ", 220, 32, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    gps_y_label = Graphics::create_label("y: ", 220, 52, &roboto_medium_16px, white_colour, Alignment::LEFT);
 
     lv_obj_t *optical_title = Graphics::create_label("Optical:", 220, 85, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    lv_obj_t *optical_r = Graphics::create_label("r: 182.53", 220, 105, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    lv_obj_t *optical_g = Graphics::create_label("g: 12.85", 220, 125, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    lv_obj_t *optical_b = Graphics::create_label("b: 11.95", 220, 145, &roboto_medium_16px,white_colour, Alignment::LEFT);
+    optical_r_label = Graphics::create_label("r: ", 220, 105, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    optical_b_label = Graphics::create_label("b: ", 220, 125, &roboto_medium_16px,white_colour, Alignment::LEFT);
 
     // Detection Status
     lv_obj_t *detection_status_text = Graphics::create_label("AUTO", 220, 175, &roboto_bold_18px, white_colour, Alignment::LEFT);
@@ -129,13 +142,12 @@ void ready_display()
 
     // Data logs
     lv_obj_t *gps_title = Graphics::create_label("GPS:", 370, 22, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    lv_obj_t *gps_x = Graphics::create_label("x: 294.633", 370, 42, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    lv_obj_t *gps_y = Graphics::create_label("y: 127.349", 370, 62, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    gps_x_label = Graphics::create_label("x: ", 370, 42, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    gps_y_label = Graphics::create_label("y: ", 370, 62, &roboto_medium_16px, white_colour, Alignment::LEFT);
 
     lv_obj_t *optical_title = Graphics::create_label("Optical:", 370, 95, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    lv_obj_t *optical_r = Graphics::create_label("r: 182.53", 370, 115, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    lv_obj_t *optical_g = Graphics::create_label("g: 12.85", 370, 135, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    lv_obj_t *optical_b = Graphics::create_label("b: 11.95", 370, 155, &roboto_medium_16px,white_colour, Alignment::LEFT);
+    optical_r_label = Graphics::create_label("r: ", 370, 115, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    optical_b_label = Graphics::create_label("b: ", 370, 135, &roboto_medium_16px, white_colour, Alignment::LEFT);
 
     // Status 'Ready'
     lv_obj_t *status_text = Graphics::create_label("READY", 370, 195, &roboto_bold_18px, white_colour, Alignment::LEFT);
@@ -195,13 +207,6 @@ void create_button(int x, int y, int width, int height, Button button)
 }
 
 
-void assign_button(int x, int y, int width, int height, const std::string& name, int id, std::function<void()> callback)
-{
-    Button button = { name, id, callback };
-    create_button(x, y, width, height, button);
-}
-
-
 void update_display_data()
 {
     double gps_x_data = gps_sensor.get_position_x() * M_TO_IN_CONV;
@@ -211,12 +216,8 @@ void update_display_data()
     double blue_data = optical_sensor.get_rgb().blue;
     int range_data = optical_sensor.get_proximity();
 
-    /*
-    lv_label_set_text(gps_x, std::to_string(gps_x_data));
-    lv_label_set_text(gps_y, std::to_string(gps_y_data));
-    lv_label_set_text(gps_y_label, std::to_string(gps_theta_data));
-    lv_label_set_text(optical_r_label, optical_r_data.c_str());
-    lv_label_set_text(optical_g_label, optical_g_data.c_str());
-    lv_label_set_text(optical_b_label, optical_b_data.c_str());
-    */
+    lv_label_set_text(gps_x_label, fmt::format("x: {:.2f}", gps_x_data).c_str());
+    lv_label_set_text(gps_y_label, fmt::format("y: {:.2f}", gps_y_data).c_str());
+    lv_label_set_text(optical_r_label, fmt::format("r: {:.2f}", red_data).c_str());
+    lv_label_set_text(optical_b_label, fmt::format("b: {:.2f}", blue_data).c_str());
 }

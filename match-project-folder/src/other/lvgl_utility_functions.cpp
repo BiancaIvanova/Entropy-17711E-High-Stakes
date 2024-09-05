@@ -12,7 +12,7 @@ lv_obj_t* Graphics::create_image(const lv_img_dsc_t *src, lv_coord_t x, lv_coord
     return img;
 }
 
- lv_obj_t* Graphics::create_label(const char *text, int x, int y, const lv_font_t *font, lv_color_t color, Alignment align, lv_obj_t *parent)
+lv_obj_t* Graphics::create_label(const char *text, int x, int y, const lv_font_t *font, lv_color_t color, Alignment align, lv_obj_t *parent)
 {
     lv_obj_t *temp_label = lv_label_create(parent);
     lv_label_set_text(temp_label, text);
