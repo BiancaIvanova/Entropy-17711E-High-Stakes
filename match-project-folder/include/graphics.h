@@ -44,6 +44,7 @@ public:
     * @param y Y-coordinate of the rectangle’s top-left corner relative to the parent object.
     * @param color Background color of the rectangle.
     * @param parent The parent object to which the rectangle will be added. Defaults to the active screen (`lv_scr_act()`).
+    * @param corner_radius The radius of the corners of the rectangle.
     * @return Pointer to the created rectangle object.
     */
     static lv_obj_t* create_rectangle(lv_coord_t width, lv_coord_t height, lv_coord_t x, lv_coord_t y, lv_color_t color, lv_obj_t *parent = lv_scr_act(), int corner_radius = 0);
