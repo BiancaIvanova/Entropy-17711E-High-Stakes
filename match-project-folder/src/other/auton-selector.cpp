@@ -6,8 +6,7 @@
 #include "liblvgl/core/lv_obj.h"
 #include "liblvgl/misc/lv_color.h"
 #include "autons.h"
-
-
+#include "pros/rtos.hpp"
 
 LV_IMG_DECLARE(high_stakes_field_scaled);
 LV_IMG_DECLARE(entropy_logo_scaled);
@@ -47,8 +46,14 @@ lv_obj_t* current_selected_button = nullptr;
 // Current selected auton, from 1 - 4 (0 is the null value)
 int selected_auton_slot = 0;
 
+// Selected button name
+std::string selected_button_name = "---";
+
 // Dictionary storing id as the key, and the value is a callable entity (ie. a function)
 std::map<int, std::function<void()>> button_callbacks;
+
+// Global variable storing the final selected auton
+std::function<void()> selected_auton_callback = nullptr;
 
 const double M_TO_IN_CONV = 39.37;
 
@@ -65,6 +70,10 @@ void button_event_handler(lv_event_t* e)
             lv_obj_set_style_bg_color(btn, white_colour, 0);
             current_selected_button = nullptr;
             selected_auton_slot = 0; // Reset the selected auton slot to 0 (null value)
+
+            // Reset current selected auton
+            selected_auton_callback = nullptr;
+            selected_button_name = "---";
         }
         else 
         {
@@ -83,75 +92,25 @@ void button_event_handler(lv_event_t* e)
             int button_id = (int)lv_obj_get_user_data(btn); 
             selected_auton_slot = button_id;
 
-            // Call the callback function
+            // Update the selected callback function
             if (button_callbacks.find(button_id) != button_callbacks.end()) {
-                button_callbacks[button_id]();
+                selected_auton_callback = button_callbacks[button_id];
+            }
+
+            // Update the global button name
+            switch (button_id) {
+                case 1:
+                    selected_button_name = "LEFT SIDE MATCH";
+                    break;
+                case 2:
+                    selected_button_name = "RIGHT SIDE MATCH";
+                    break;
+                default:
+                    selected_button_name = "---";
+                    break;
             }
         }
     }
-}
-
-
-void assign_button(int x, int y, int width, int height, const std::string& name, int id, std::function<void()> callback)
-{
-    Button button = { name, id, callback };
-    create_button(x, y, width, height, button);
-}
-
-
-void init_display()
-{
-    // Field image
-    lv_obj_t *field_image = Graphics::create_image(&high_stakes_field_scaled, 12, 12);
-    // Bottom status bar
-    lv_obj_t *status_bar = Graphics::create_rectangle(SCREEN_WIDTH, 32, 0, 208, alliance_neutral_grey_colour);
-    // Status text
-    lv_obj_t *status_text = Graphics::create_label("WAITING...", 200, 214, &roboto_bold_20px, white_colour, Alignment::CENTRE);
-
-    // Data logs
-    lv_obj_t *gps_title = Graphics::create_label("GPS:", 220, 12, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    gps_x_label = Graphics::create_label("x: ", 220, 32, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    gps_y_label = Graphics::create_label("y: ", 220, 52, &roboto_medium_16px, white_colour, Alignment::LEFT);
-
-    lv_obj_t *optical_title = Graphics::create_label("Optical:", 220, 85, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    optical_r_label = Graphics::create_label("r: ", 220, 105, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    optical_b_label = Graphics::create_label("b: ", 220, 125, &roboto_medium_16px,white_colour, Alignment::LEFT);
-
-    // Detection Status
-    lv_obj_t *detection_status_text = Graphics::create_label("AUTO", 220, 175, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    lv_obj_t *detection_status_bar = Graphics::create_rectangle(85, 5, 220, 195, status_yellow_color);
-
-    // Declare buttons
-    assign_button(325, 10, 143, 40, "Left Side Match", 1, [](){left_side_match(); });
-    assign_button(325, 58, 143, 40, "Right Side Match", 2, [](){right_side_match(); });
-    assign_button(325, 106, 143, 40, "---", 3, [](){ });
-    assign_button(325, 154, 143, 40, "---", 4, [](){ });
-}
-
-
-void ready_display() 
-{
-    // Field image
-    lv_obj_t *entropy_logo = Graphics::create_image(&entropy_logo_scaled, 18, 87);
-
-    // Selected Auton
-    lv_obj_t *selected_auton_text = Graphics::create_label("LEFT SIDE MATCH", 30, 202, &roboto_bold_18px, white_colour, Alignment::LEFT);
-
-    // Vertical bar
-    lv_obj_t *vertical_line = Graphics::create_rectangle(2, 210, 346, 18, white_colour);
-
-    // Data logs
-    lv_obj_t *gps_title = Graphics::create_label("GPS:", 370, 22, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    gps_x_label = Graphics::create_label("x: ", 370, 42, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    gps_y_label = Graphics::create_label("y: ", 370, 62, &roboto_medium_16px, white_colour, Alignment::LEFT);
-
-    lv_obj_t *optical_title = Graphics::create_label("Optical:", 370, 95, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    optical_r_label = Graphics::create_label("r: ", 370, 115, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    optical_b_label = Graphics::create_label("b: ", 370, 135, &roboto_medium_16px, white_colour, Alignment::LEFT);
-
-    // Status 'Ready'
-    lv_obj_t *status_text = Graphics::create_label("READY", 370, 195, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    lv_obj_t *status_bar = Graphics::create_rectangle(85, 5, 370, 215, status_green_color);
 }
 
 
@@ -204,6 +163,94 @@ void create_button(int x, int y, int width, int height, Button button)
             lv_obj_t* txt_2 = Graphics::create_label(remaining_text.c_str(), LEFT_PADDING, SMALL_TOP_PADDING + TEXT_SPACING, BUTTON_FONT, black_colour, Alignment::CENTRE, button_rect);
         }
     }
+}
+
+
+void assign_button(int x, int y, int width, int height, const std::string& name, int id, std::function<void()> callback)
+{
+    Button button = { name, id, callback };
+    create_button(x, y, width, height, button);
+}
+
+
+void init_display()
+{
+    // Field image
+    lv_obj_t *field_image = Graphics::create_image(&high_stakes_field_scaled, 12, 12);
+    // Bottom status bar
+    lv_obj_t *status_bar = Graphics::create_rectangle(SCREEN_WIDTH, 32, 0, 208, alliance_neutral_grey_colour);
+    // Status text
+    lv_obj_t *status_text = Graphics::create_label("WAITING...", 200, 214, &roboto_bold_20px, white_colour, Alignment::CENTRE);
+
+    // Data logs
+    lv_obj_t *gps_title = Graphics::create_label("GPS:", 220, 12, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    gps_x_label = Graphics::create_label("x: ", 220, 32, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    gps_y_label = Graphics::create_label("y: ", 220, 52, &roboto_medium_16px, white_colour, Alignment::LEFT);
+
+    lv_obj_t *optical_title = Graphics::create_label("Optical:", 220, 85, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    optical_r_label = Graphics::create_label("r: ", 220, 105, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    optical_b_label = Graphics::create_label("b: ", 220, 125, &roboto_medium_16px,white_colour, Alignment::LEFT);
+
+    // Detection Status
+    lv_obj_t *detection_status_text = Graphics::create_label("AUTO", 220, 175, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    lv_obj_t *detection_status_bar = Graphics::create_rectangle(85, 5, 220, 195, status_yellow_color);
+
+    // Declare radio buttons
+    assign_button(325, 10, 143, 40, "Left Side Match", 1, [](){left_side_match(); });
+    assign_button(325, 58, 143, 40, "Right Side Match", 2, [](){right_side_match(); });
+    assign_button(325, 106, 143, 40, "---", 3, [](){ });
+    assign_button(325, 154, 143, 40, "---", 4, [](){ });
+
+    // Confirm button
+    lv_obj_t *confirm_button_rect = Graphics::create_rectangle(100, 32, SCREEN_WIDTH - 100, 208, lv_color_hex(0xd4d4d4));
+
+    // Create label for the confirm button
+    lv_obj_t *confirm_label = Graphics::create_label("Confirm", 0, -8, &roboto_medium_16px, black_colour, Alignment::CENTRE, confirm_button_rect);
+
+    // Confirm button event handler
+    lv_obj_add_event_cb(confirm_button_rect, [](lv_event_t *e) {
+        if (lv_event_get_code(e) == LV_EVENT_CLICKED) {
+            confirm_selection();
+        }
+    }, LV_EVENT_CLICKED, NULL);
+}
+
+
+void confirm_selection()
+{
+    ready_display();
+    pros::delay(100);
+}
+
+
+void ready_display() 
+{
+    // Clear screen
+    lv_obj_clean(lv_scr_act());
+
+    // Field image
+    lv_obj_t *entropy_logo = Graphics::create_image(&entropy_logo_scaled, 18, 87);
+
+    // Selected Auton
+    std::string upper_button_name = selected_button_name;
+    std::transform(upper_button_name.begin(), upper_button_name.end(), upper_button_name.begin(), ::toupper);
+    lv_obj_t *selected_auton_text = Graphics::create_label(upper_button_name.c_str(), 30, 202, &roboto_bold_18px, white_colour, Alignment::LEFT);
+
+    // Vertical bar
+    lv_obj_t *vertical_line = Graphics::create_rectangle(2, 210, 346, 18, white_colour);
+
+    // Data logs
+    lv_obj_t *gps_title = Graphics::create_label("GPS:", 370, 22, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    gps_x_label = Graphics::create_label("x: ", 370, 42, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    gps_y_label = Graphics::create_label("y: ", 370, 62, &roboto_medium_16px, white_colour, Alignment::LEFT);
+
+    lv_obj_t *optical_title = Graphics::create_label("Optical:", 370, 95, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    optical_r_label = Graphics::create_label("r: ", 370, 115, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    optical_b_label = Graphics::create_label("b: ", 370, 135, &roboto_medium_16px, white_colour, Alignment::LEFT);
+
+    // Status 'Ready'
+    lv_obj_t *status_text = Graphics::create_label("READY", 370, 195, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    lv_obj_t *status_bar = Graphics::create_rectangle(85, 5, 370, 215, status_green_color);
 }
 
 

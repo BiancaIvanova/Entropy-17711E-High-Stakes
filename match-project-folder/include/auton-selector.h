@@ -12,9 +12,12 @@ struct Button {
     std::function<void()> callback;
 };
 
+extern std::function<void()> selected_auton_callback;
+
 void assign_button(int x, int y, int width, int height, const std::string& name, int id, std::function<void()> callback);
 void button_event_handler(lv_event_t* e);
 void init_display();
+void confirm_selection();
 void ready_display();
 void create_button(int x, int y, int width, int height, Button button);
 void update_display_data();

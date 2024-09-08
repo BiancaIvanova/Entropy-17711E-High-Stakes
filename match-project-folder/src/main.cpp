@@ -32,7 +32,9 @@ void disabled() {}
 void competition_initialize() {}
 
 
-void autonomous() {}
+void autonomous() {
+	selected_auton_callback();
+}
 
 
 void opcontrol()
