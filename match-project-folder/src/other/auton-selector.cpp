@@ -251,6 +251,13 @@ void ready_display()
     // Status 'Ready'
     lv_obj_t *status_text = Graphics::create_label("READY", 370, 195, &roboto_bold_18px, white_colour, Alignment::LEFT);
     lv_obj_t *status_bar = Graphics::create_rectangle(85, 5, 370, 215, status_green_color);
+
+    pros::Task update_task([]() {
+        while (true) {
+            update_display_data();
+            pros::delay(1000);
+        }
+    });
 }
 
 
