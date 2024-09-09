@@ -55,6 +55,14 @@ std::map<int, std::function<void()>> button_callbacks;
 // Global variable storing the final selected auton
 std::function<void()> selected_auton_callback = nullptr;
 
+// Sensor data
+double gps_x_data;
+double gps_y_data;
+double gps_theta_data;
+double red_data;
+double blue_data;
+double range_data;
+
 const double M_TO_IN_CONV = 39.37;
 
 
@@ -261,14 +269,31 @@ void ready_display()
 }
 
 
+void automatic_gps() {
+    const double HALF_FIELD = 96;
+
+    // Select auton based on gps coords
+    if (gps_x_data < HALF_FIELD && gps_y_data < HALF_FIELD) {
+        selected_auton_callback = left_side_match;
+    } 
+    else if (gps_x_data < HALF_FIELD && gps_y_data > HALF_FIELD) {
+        selected_auton_callback = right_side_match;
+    } 
+    else {
+        selected_auton_callback = nullptr;
+        selected_button_name = "---";  // Default to no auton
+    }
+}
+
+
 void update_display_data()
 {
-    double gps_x_data = gps_sensor.get_position_x() * M_TO_IN_CONV;
-    double gps_y_data = gps_sensor.get_position_y() * M_TO_IN_CONV;
-    double gps_theta_data = gps_sensor.get_heading();
-    double red_data = optical_sensor.get_rgb().red;
-    double blue_data = optical_sensor.get_rgb().blue;
-    int range_data = optical_sensor.get_proximity();
+    gps_x_data = gps_sensor.get_position_x() * M_TO_IN_CONV;
+    gps_y_data = gps_sensor.get_position_y() * M_TO_IN_CONV;
+    gps_theta_data = gps_sensor.get_heading();
+    red_data = optical_sensor.get_rgb().red;
+    blue_data = optical_sensor.get_rgb().blue;
+    range_data = optical_sensor.get_proximity();
 
     lv_label_set_text(gps_x_label, fmt::format("x: {:.2f}", gps_x_data).c_str());
     lv_label_set_text(gps_y_label, fmt::format("y: {:.2f}", gps_y_data).c_str());
