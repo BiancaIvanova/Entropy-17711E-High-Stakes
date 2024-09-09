@@ -20,8 +20,9 @@ void initialize() {
 	
 	pros::Task task([&]()
     {
+		if (current_detection_state == DetectionState::AUTO) {automatic_gps();}
 		update_display_data();
-		pros::delay(1000);
+		pros::delay(500);
 	});
 }
 

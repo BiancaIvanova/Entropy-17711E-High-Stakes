@@ -63,6 +63,13 @@ double red_data;
 double blue_data;
 double range_data;
 
+
+DetectionState current_detection_state = DetectionState::FAILED;
+
+lv_obj_t* detection_status_text = nullptr;
+lv_obj_t* detection_status_bar = nullptr;
+
+// Metres to inches conversion
 const double M_TO_IN_CONV = 39.37;
 
 
@@ -118,6 +125,10 @@ void button_event_handler(lv_event_t* e)
                     break;
             }
         }
+        
+        // Now it's manual override
+        current_detection_state = DetectionState::OVERRIDE;
+        update_detection_status(current_detection_state);
     }
 }
 
@@ -200,8 +211,8 @@ void init_display()
     optical_b_label = Graphics::create_label("b: ", 220, 125, &roboto_medium_16px,white_colour, Alignment::LEFT);
 
     // Detection Status
-    lv_obj_t *detection_status_text = Graphics::create_label("AUTO", 220, 175, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    lv_obj_t *detection_status_bar = Graphics::create_rectangle(85, 5, 220, 195, status_yellow_color);
+    detection_status_text = Graphics::create_label("AUTO", 220, 175, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    detection_status_bar = Graphics::create_rectangle(85, 5, 220, 195, status_yellow_color);
 
     // Declare radio buttons
     assign_button(325, 10, 143, 40, "North Side Match", 1, [](){north_side_match(); });
@@ -275,13 +286,16 @@ void automatic_gps() {
     // Select auton based on gps coords
     if (gps_x_data < HALF_FIELD && gps_y_data < HALF_FIELD) {
         selected_auton_callback = north_side_match;
+        current_detection_state = DetectionState::AUTO;
     } 
     else if (gps_x_data < HALF_FIELD && gps_y_data > HALF_FIELD) {
         selected_auton_callback = south_side_match;
+        current_detection_state = DetectionState::AUTO;
     } 
     else {
         selected_auton_callback = nullptr;
         selected_button_name = "---";  // Default to no auton
+        current_detection_state = DetectionState::FAILED;
     }
 }
 
@@ -299,4 +313,26 @@ void update_display_data()
     lv_label_set_text(gps_y_label, fmt::format("y: {:.2f}", gps_y_data).c_str());
     lv_label_set_text(optical_r_label, fmt::format("r: {:.2f}", red_data).c_str());
     lv_label_set_text(optical_b_label, fmt::format("b: {:.2f}", blue_data).c_str());
+}
+
+
+void update_detection_status(DetectionState state) {
+    switch (state) {
+        case DetectionState::AUTO:
+            lv_label_set_text(detection_status_text, "AUTO");
+            lv_obj_set_style_bg_color(detection_status_bar, status_yellow_color, 0);
+            break;
+        case DetectionState::FAILED:
+            lv_label_set_text(detection_status_text, "FAILED");
+            lv_obj_set_style_bg_color(detection_status_bar, status_red_color, 0);
+            break;
+        case DetectionState::OVERRIDE:
+            lv_label_set_text(detection_status_text, "OVERRIDE");
+            lv_obj_set_style_bg_color(detection_status_bar, status_green_color, 0);
+            break;
+    }
+}
+
+DetectionState get_detection_state() {
+    return current_detection_state;
 }
