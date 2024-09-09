@@ -1,4 +1,5 @@
 #include <iostream>
+#include "liblvgl/misc/lv_color.h"
 #include "main.h"
 #include "api.h"
 #include "liblvgl/lvgl.h"
@@ -47,7 +48,7 @@ public:
     * @param corner_radius The radius of the corners of the rectangle.
     * @return Pointer to the created rectangle object.
     */
-    static lv_obj_t* create_rectangle(lv_coord_t width, lv_coord_t height, lv_coord_t x, lv_coord_t y, lv_color_t color, lv_obj_t *parent = lv_scr_act(), int corner_radius = 0);
+    static lv_obj_t* create_rectangle(lv_coord_t width, lv_coord_t height, lv_coord_t x, lv_coord_t y, lv_color_t color, lv_obj_t *parent = lv_scr_act(), int corner_radius = 0, lv_opa_t opacity = LV_OPA_COVER);
 };
 
 #endif

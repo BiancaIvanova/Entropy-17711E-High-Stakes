@@ -1,4 +1,5 @@
 #include "liblvgl/core/lv_obj.h"
+#include "liblvgl/misc/lv_color.h"
 #include "main.h"
 #include "liblvgl/lvgl.h"
 #include "auton-selector.h"
@@ -43,7 +44,7 @@ lv_obj_t* Graphics::create_label(const char *text, int x, int y, const lv_font_t
     return label;
 }
 
-lv_obj_t* Graphics::create_rectangle(lv_coord_t width, lv_coord_t height, lv_coord_t x, lv_coord_t y, lv_color_t color, lv_obj_t *parent, int corner_radius)
+lv_obj_t* Graphics::create_rectangle(lv_coord_t width, lv_coord_t height, lv_coord_t x, lv_coord_t y, lv_color_t color, lv_obj_t *parent, int corner_radius, lv_opa_t opacity)
 {
     lv_obj_t *rect = lv_obj_create(parent);
     lv_obj_set_size(rect, width, height);
@@ -53,12 +54,12 @@ lv_obj_t* Graphics::create_rectangle(lv_coord_t width, lv_coord_t height, lv_coo
     lv_style_t *rect_style = new lv_style_t;
     lv_style_init(rect_style);
     lv_style_set_bg_color(rect_style, color);
+    lv_style_set_opa(rect_style, opacity);
     lv_style_set_border_width(rect_style, 0);
     
     lv_obj_add_style(rect, rect_style, 0);
     lv_obj_set_scrollbar_mode(rect, LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_style_radius(rect, corner_radius, LV_PART_MAIN);
 
-    // Save or manage rect_style pointer if needed for future use or deletion
     return rect;
 }
