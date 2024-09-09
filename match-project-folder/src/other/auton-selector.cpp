@@ -4,6 +4,8 @@
 #include "liblvgl/core/lv_disp.h"
 #include "liblvgl/core/lv_event.h"
 #include "liblvgl/core/lv_obj.h"
+#include "liblvgl/core/lv_obj_scroll.h"
+#include "liblvgl/misc/lv_area.h"
 #include "liblvgl/misc/lv_color.h"
 #include "autons.h"
 #include "pros/rtos.hpp"
@@ -182,6 +184,8 @@ void create_button(int x, int y, int width, int height, Button button)
             lv_obj_t* txt_2 = Graphics::create_label(remaining_text.c_str(), LEFT_PADDING, SMALL_TOP_PADDING + TEXT_SPACING, BUTTON_FONT, black_colour, Alignment::CENTRE, button_rect);
         }
     }
+
+    lv_obj_set_scroll_dir(button_rect, LV_DIR_NONE);
 }
 
 
