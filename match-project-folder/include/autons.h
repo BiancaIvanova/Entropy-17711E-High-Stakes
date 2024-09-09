@@ -1,5 +1,5 @@
 #include "main.h"
 #include "api.h"
 
-void north_side_match();
-void south_side_match();
+void red_north_side();
+void red_south_side();

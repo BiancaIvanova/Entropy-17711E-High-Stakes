@@ -1,7 +1,7 @@
 #include "autons.h"
 #include "config.h"
 
-void north_side_match()
+void red_north_side()
 {
     chassis.setPose(-60, 14, 180);
     // Outtaking as we move so robot doesn't accidentally get blue ring
