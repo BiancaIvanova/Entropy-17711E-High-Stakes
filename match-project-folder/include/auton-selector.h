@@ -33,4 +33,7 @@ void update_display_data();
 void update_detection_status(DetectionState state);
 void automatic_gps();
 
+DetectionState get_detection_state();
+void set_detection_state(DetectionState state);
+
 #endif

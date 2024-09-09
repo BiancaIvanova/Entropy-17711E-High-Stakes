@@ -336,3 +336,8 @@ void update_detection_status(DetectionState state) {
 DetectionState get_detection_state() {
     return current_detection_state;
 }
+
+void set_detection_state(DetectionState state) {
+    current_detection_state = state;
+    update_detection_status(state);
+}
