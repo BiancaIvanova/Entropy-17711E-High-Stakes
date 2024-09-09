@@ -108,10 +108,10 @@ void button_event_handler(lv_event_t* e)
             // Update the global button name
             switch (button_id) {
                 case 1:
-                    selected_button_name = "LEFT SIDE MATCH";
+                    selected_button_name = "NORTH SIDE MATCH";
                     break;
                 case 2:
-                    selected_button_name = "RIGHT SIDE MATCH";
+                    selected_button_name = "SOUTH SIDE MATCH";
                     break;
                 default:
                     selected_button_name = "---";
@@ -204,8 +204,8 @@ void init_display()
     lv_obj_t *detection_status_bar = Graphics::create_rectangle(85, 5, 220, 195, status_yellow_color);
 
     // Declare radio buttons
-    assign_button(325, 10, 143, 40, "Left Side Match", 1, [](){left_side_match(); });
-    assign_button(325, 58, 143, 40, "Right Side Match", 2, [](){right_side_match(); });
+    assign_button(325, 10, 143, 40, "North Side Match", 1, [](){north_side_match(); });
+    assign_button(325, 58, 143, 40, "South Side Match", 2, [](){south_side_match(); });
     assign_button(325, 106, 143, 40, "---", 3, [](){ });
     assign_button(325, 154, 143, 40, "---", 4, [](){ });
 
@@ -274,10 +274,10 @@ void automatic_gps() {
 
     // Select auton based on gps coords
     if (gps_x_data < HALF_FIELD && gps_y_data < HALF_FIELD) {
-        selected_auton_callback = left_side_match;
+        selected_auton_callback = north_side_match;
     } 
     else if (gps_x_data < HALF_FIELD && gps_y_data > HALF_FIELD) {
-        selected_auton_callback = right_side_match;
+        selected_auton_callback = south_side_match;
     } 
     else {
         selected_auton_callback = nullptr;
