@@ -32,6 +32,7 @@ void create_button(int x, int y, int width, int height, Button button);
 void update_display_data();
 void update_detection_status(DetectionState state);
 void automatic_gps();
+void highlight_field();
 
 DetectionState get_detection_state();
 void set_detection_state(DetectionState state);

@@ -57,6 +57,11 @@ std::map<int, std::function<void()>> button_callbacks;
 // Global variable storing the final selected auton
 std::function<void()> selected_auton_callback = nullptr;
 
+// Field image and highlight
+lv_obj_t *field_image = nullptr;
+lv_obj_t* field_highlight = nullptr;
+const int BOX_WIDTH = 40, BOX_HEIGHT = 38;
+
 // Sensor data
 double gps_x_data;
 double gps_y_data;
@@ -131,6 +136,7 @@ void button_event_handler(lv_event_t* e)
         // Now it's manual override
         current_detection_state = DetectionState::OVERRIDE;
         update_detection_status(current_detection_state);
+        highlight_field();
     }
 }
 
@@ -199,11 +205,14 @@ void assign_button(int x, int y, int width, int height, const std::string& name,
 void init_display()
 {
     // Field image
-    lv_obj_t *field_image = Graphics::create_image(&high_stakes_field_scaled, 12, 12);
+    field_image = Graphics::create_image(&high_stakes_field_scaled, 12, 12);
     // Bottom status bar
     lv_obj_t *status_bar = Graphics::create_rectangle(SCREEN_WIDTH, 32, 0, 208, alliance_neutral_grey_colour);
     // Status text
     lv_obj_t *status_text = Graphics::create_label("WAITING...", 200, 214, &roboto_bold_20px, white_colour, Alignment::CENTRE);
+
+    // Field highlight
+    field_highlight = Graphics::create_rectangle(BOX_WIDTH, BOX_HEIGHT, 0, 0, alliance_blue_colour, field_image, 0, LV_OPA_MIN);
 
     // Data logs
     lv_obj_t *gps_title = Graphics::create_label("GPS:", 220, 12, &roboto_bold_18px, white_colour, Alignment::LEFT);
@@ -344,4 +353,33 @@ DetectionState get_detection_state() {
 void set_detection_state(DetectionState state) {
     current_detection_state = state;
     update_detection_status(state);
+}
+
+void highlight_field() {
+    
+    lv_coord_t x = 0, y = 0;
+    lv_color_t colour;
+    
+    switch (selected_auton_slot) {
+        case 0:
+            lv_obj_set_style_bg_opa(field_highlight, LV_OPA_MIN, LV_PART_MAIN);
+            return;
+        case 1:
+            x = 20, y = 20;
+            colour = alliance_red_colour;
+        case 2:
+            x = 20, y = 80;
+            colour = alliance_red_colour;
+        case 3:
+            x = 80, y = 20;
+            colour = alliance_blue_colour;
+        case 4:
+            x = 80, y = 80;
+            colour = alliance_blue_colour;
+    }
+
+    lv_obj_set_pos(field_highlight, x, y);
+    lv_obj_set_style_bg_color(field_highlight, colour, LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(field_highlight, LV_OPA_50, LV_PART_MAIN);
+
 }
