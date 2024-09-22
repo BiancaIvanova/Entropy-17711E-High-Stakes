@@ -5,7 +5,7 @@
   \____\___/|_| \_|_|   |___\____|
                                   
 */
-// EDIT ALL OF THESE CONSTANTS AND PORTS ASAP
+// FINAL COMPETITION ROBOT PORTS DONE
 
 #include "fmt/format.h"
 #include "lemlib/chassis/trackingWheel.hpp"
@@ -36,14 +36,14 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 using MotorGearset = pros::MotorGearset;
 using MotorUnits = pros::v5::MotorUnits;
 
-pros::MotorGroup left_drive({-10, -6, -8}, MotorGearset::blue);
-pros::MotorGroup right_drive({9, 1, 7}, MotorGearset::blue);
+pros::MotorGroup left_drive({-11, -12, 13}, MotorGearset::blue);
+pros::MotorGroup right_drive({16, 15, -14}, MotorGearset::blue);
 
-pros::Motor intake(3, MotorGearset::green, MotorUnits::rotations);
-pros::Motor arm(4, MotorGearset::green, MotorUnits::rotations);
-pros::Imu inertial_sensor(2);
-pros::Optical optical_sensor(5);
-pros::adi::DigitalOut mobile_stake_clamp('C');
+pros::Motor intake(18, MotorGearset::blue, MotorUnits::rotations);
+pros::Motor arm(19, MotorGearset::green, MotorUnits::rotations);
+pros::Imu inertial_sensor(17);
+pros::GPS gps_sensor(20);
+pros::adi::DigitalOut mobile_stake_clamp('A');
 pros::adi::DigitalOut intake_lift('B');
 
 
