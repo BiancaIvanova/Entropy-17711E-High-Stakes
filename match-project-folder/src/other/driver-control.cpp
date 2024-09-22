@@ -10,7 +10,8 @@ Ensure that when these functions are used in a competition function, eg. autonom
 is a minimum 10 millisecond delay using pros::delay();
 */
 
-const int INTAKE_VELOCITY = 200;
+const int INTAKE_VELOCITY = 600;
+const int ARM_VELOCITY = 100;
 
 
 void split_curvature()
@@ -20,6 +21,10 @@ void split_curvature()
     double rightX = controller.get_analog(ANALOG_RIGHT_X);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
     chassis.curvature(leftY, rightX, curveGain);
+    
+    intake_control();
+    arm_control();
+    stake_clamp_control();
 }
 
 const double overallScaleFactor = 600.0 / 127.0;
@@ -38,5 +43,46 @@ void intake_control()
     else
     {
         intake.move_velocity(0);
+    }
+}
+
+void arm_control()
+{
+    arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
+    if (controller.get_digital(DIGITAL_Y))
+    {
+        arm.move_velocity(ARM_VELOCITY);
+    }
+    else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))
+    {
+        arm.move_velocity(ARM_VELOCITY * -1);
+    }
+    else
+    {
+        arm.move_velocity(0);
+    }
+}
+
+bool stakeClampOpen, stakeClampLatch;
+
+void stake_clamp_control()
+{
+    if (controller.get_digital(DIGITAL_L2))
+    {
+
+        if (!stakeClampLatch)
+        {
+            stakeClampOpen = !stakeClampOpen;
+
+            mobile_stake_clamp.set_value(stakeClampOpen);
+            mobile_stake_clamp.set_value(stakeClampOpen);
+
+            stakeClampLatch = true;
+        }
+    }
+    else
+    {
+        stakeClampLatch = false;
     }
 }

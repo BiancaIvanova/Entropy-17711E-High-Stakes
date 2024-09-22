@@ -186,3 +186,12 @@ void auton_skills_stage_4()
     chassis.moveToPoint(50, 28, 2000, {.minSpeed=40});
 }
 
+void driveSquare() {
+    for (int i = 0; i < 4; i++) {
+        chassis.moveForward(24);
+        pros::delay(500); 
+
+        chassis.turnAngle(90);
+        pros::delay(500); 
+    }
+}

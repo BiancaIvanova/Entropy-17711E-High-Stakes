@@ -5,3 +5,5 @@
 
 void split_curvature();
 void intake_control();
+void arm_control();
+void stake_clamp_control();
