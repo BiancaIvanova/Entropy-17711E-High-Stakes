@@ -86,3 +86,27 @@ void stake_clamp_control()
         stakeClampLatch = false;
     }
 }
+
+
+bool intakeOpen, intakeLatch;
+
+void intake_lift_control()
+{
+    if (controller.get_digital(DIGITAL_L1))
+    {
+
+        if (!intakeLatch)
+        {
+            intakeOpen = !intakeOpen;
+
+            intake_lift.set_value(intakeOpen);
+            intake_lift.set_value(intakeOpen);
+
+            intakeLatch = true;
+        }
+    }
+    else
+    {
+        intakeLatch = false;
+    }
+}

@@ -2,8 +2,10 @@
 #include "api.h"
 
 void left_side_match_red();
+void left_side_match_blue();
 void auton_skills();
-void square_test();
+void drive_square();
+void turn_test();
 
 void auton_skills_stage_1();
 void auton_skills_stage_2();
