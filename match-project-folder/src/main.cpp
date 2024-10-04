@@ -20,7 +20,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	left_side_match_red();
+	auton_skills();
 }
 
 
