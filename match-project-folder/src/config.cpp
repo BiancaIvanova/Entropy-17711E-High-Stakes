@@ -82,14 +82,14 @@ lemlib::ControllerSettings lateralController {
  
 // Turning PID
 lemlib::ControllerSettings angularController {
-    5,
+    2,
     0,
     10,
-    0,
-    0,
-    0,
-    0,
-    0,
+    3,
+    1,
+    100,
+    3,
+    500,
     0
 };
 
