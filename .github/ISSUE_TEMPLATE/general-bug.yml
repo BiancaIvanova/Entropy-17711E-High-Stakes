@@ -1,0 +1,32 @@
+name: General Bug
+description: Report a bug anywhere within the robot software
+title: "[BUG] "
+labels: [bug]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Robot Software Bug
+
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: Describe the bug
+      description: Please provide a detailed description of the software bug you are experiencing.
+      placeholder: Describe the bug in detail
+
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: List the steps to reproduce the bug.
+      placeholder: Step 1, Step 2, ...
+  
+  - type: textarea
+    id: additional_information
+    attributes:
+      label: Additional Information
+      description: Include any additional context, photos, or videos that could help.
+      placeholder: Add any extra information here

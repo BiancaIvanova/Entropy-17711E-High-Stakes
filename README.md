@@ -3,10 +3,15 @@
   Entropy 17711E Codebase for the VEX V5 Robotics Competition High Stakes Season (2024-2025)
 </div>
 
-<!--
-Competition             | Date
------------------------ | -------------
-TBD                     | TBD
-TBD                     | TBD
-TBD                     | TBD
--->
+&nbsp;
+## Competition Schedule
+
+| Competition                    | Date         | Status     |
+|--------------------------------|--------------|------------|
+| JWS Regional                   | 28-Sep-2024  | Registered |
+| BGS South East Regional        | 2-Nov-2024   | Registered |
+| Coventry Regional              | 16-Nov-2024  | Registered |
+| SLBS Autumn Regional           | 23-Nov-2024  | Potential  |
+| Cranleigh Regional             | 7-Dec-2024   | Potential  |
+| SLBS Winter Regional           | 11-Jan-2025  | Potential  |
+| Essex Regional                 | 18-Jan-2025  | Potential  |
