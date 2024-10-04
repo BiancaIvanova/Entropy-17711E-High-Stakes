@@ -1,14 +1,29 @@
 #include "main.h"
-#include "autons.h"
+#include "auton-selector.h"
 #include "driver-control.h"
 #include "config.h"
-#include "subsystem-control-functions.h"
+#include "pros/misc.h"
+#include "pros/rtos.hpp"
 
 
-void initialize()
-{
-	chassis.calibrate();
-	pros::Task logTask(logPose, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Logger thing");
+void initialize() {
+	init_display();
+
+	controller.clear();
+
+	pros::delay(200);
+	controller.print(0, 0, "Time Left: %ds");
+	pros::delay(200);
+	controller.print(1, 0, "Auton 1");
+	pros::delay(200);
+	controller.print(2, 0, "Battery: %i%%", pros::c::battery_get_capacity());
+	
+	pros::Task task([&]()
+    {
+		if (get_detection_state() == DetectionState::AUTO) {automatic_gps();}
+		update_display_data();
+		pros::delay(500);
+	});
 }
 
 
@@ -18,9 +33,8 @@ void disabled() {}
 void competition_initialize() {}
 
 
-void autonomous()
-{
-	left_side_match_red();
+void autonomous() {
+	selected_auton_callback();
 }
 
 
