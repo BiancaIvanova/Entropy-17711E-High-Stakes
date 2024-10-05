@@ -18,6 +18,80 @@ void logPose() {
     }
 }
 
+
+void handle_intake_jam(int velocity)
+{
+    const int REVERSE_DISTANCE = 600;
+    const int REVERSE_VELOCITY = 300;
+    const int GRACE_PERIOD_MS = 100;
+    
+    intake.move_velocity(0);
+    controller.rumble(".");
+
+    intake.move_relative(-REVERSE_DISTANCE, REVERSE_VELOCITY);
+    pros::delay(600);
+    intake.move_velocity(velocity);
+
+    for (int i = 0; i < floor(GRACE_PERIOD_MS / 20); ++i)
+    {
+        pros::delay(20); 
+    }
+}
+
+
+void intake_controlled(int velocity)
+{
+    static pros::Task* intake_task = nullptr; 
+
+    if (velocity == 0)
+    {
+        if (intake_task)
+        {
+            intake_task->suspend();
+            delete intake_task;
+            intake_task = nullptr;
+        }
+        intake.move_velocity(0);
+        return;
+    }
+
+    if (!intake_task) 
+    {
+        intake_task = new pros::Task([velocity]()
+        {
+            const int JAM_TIME_THRESHOLD = 750;
+            const int MIN_VELOCITY_THRESHOLD = velocity * 0.2;
+
+            intake.move_velocity(velocity);
+            int jam_time = 0;
+            
+            while (true)
+            {
+                int actual_velocity = intake.get_actual_velocity();
+
+                if (actual_velocity < MIN_VELOCITY_THRESHOLD && velocity != 0)
+                {
+                    jam_time += 10;
+                }
+                else
+                {
+                    jam_time = 0;
+                }
+
+                if (jam_time >= JAM_TIME_THRESHOLD)
+                {
+                    handle_intake_jam(velocity);
+                    jam_time = 0;
+                }
+
+                pros::delay(20);
+            }
+        });
+    }
+}
+
+
+
 void intake_async(int t, int velocity)
 {
     pros::Task task([&]()

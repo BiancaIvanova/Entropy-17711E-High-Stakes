@@ -2,6 +2,7 @@
 #include "autons.h"
 #include "driver-control.h"
 #include "config.h"
+#include "pros/rtos.hpp"
 #include "subsystem-control-functions.h"
 
 
@@ -20,7 +21,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	left_side_match_red();
+	intake_controlled(600);
 }
 
 
