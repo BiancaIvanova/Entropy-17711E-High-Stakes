@@ -41,37 +41,55 @@ void handle_intake_jam(int velocity)
 
 void intake_controlled(int velocity)
 {
-    pros::Task task([velocity]()
+    static pros::Task* intake_task = nullptr; 
+
+    if (velocity == 0)
     {
-        const int JAM_TIME_THRESHOLD = 750;
-        const int MIN_VELOCITY_THRESHOLD = velocity * 0.2;
-
-        intake.move_velocity(velocity);
-        int jam_time = 0;
-        
-        while (true)
+        if (intake_task)
         {
-            int actual_velocity = intake.get_actual_velocity();
-
-            if (actual_velocity < MIN_VELOCITY_THRESHOLD && velocity != 0)
-            {
-                jam_time += 10;
-            }
-            else
-            {
-                jam_time = 0;
-            }
-
-            if (jam_time >= JAM_TIME_THRESHOLD)
-            {
-                handle_intake_jam(velocity);
-                jam_time = 0;
-            }
-
-            pros::delay(20);
+            intake_task->suspend();
+            delete intake_task;
+            intake_task = nullptr;
         }
-    });
+        intake.move_velocity(0);
+        return;
+    }
+
+    if (!intake_task) 
+    {
+        intake_task = new pros::Task([velocity]()
+        {
+            const int JAM_TIME_THRESHOLD = 750;
+            const int MIN_VELOCITY_THRESHOLD = velocity * 0.2;
+
+            intake.move_velocity(velocity);
+            int jam_time = 0;
+            
+            while (true)
+            {
+                int actual_velocity = intake.get_actual_velocity();
+
+                if (actual_velocity < MIN_VELOCITY_THRESHOLD && velocity != 0)
+                {
+                    jam_time += 10;
+                }
+                else
+                {
+                    jam_time = 0;
+                }
+
+                if (jam_time >= JAM_TIME_THRESHOLD)
+                {
+                    handle_intake_jam(velocity);
+                    jam_time = 0;
+                }
+
+                pros::delay(20);
+            }
+        });
+    }
 }
+
 
 
 void intake_async(int t, int velocity)

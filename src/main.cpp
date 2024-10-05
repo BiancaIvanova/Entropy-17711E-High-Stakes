@@ -2,6 +2,7 @@
 #include "autons.h"
 #include "driver-control.h"
 #include "config.h"
+#include "pros/rtos.hpp"
 #include "subsystem-control-functions.h"
 
 
@@ -21,6 +22,8 @@ void competition_initialize() {}
 void autonomous()
 {
 	intake_controlled(600);
+	pros::delay(5000);
+	intake_controlled(0);
 }
 
 
