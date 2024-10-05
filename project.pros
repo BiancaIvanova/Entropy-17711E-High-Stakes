@@ -1,7 +1,7 @@
 {
   "py/object": "pros.conductor.project.Project",
   "py/state": {
-    "project_name": "north-red",
+    "project_name": "intake-jam-detection",
     "target": "v5",
     "templates": {
       "LemLib": {
