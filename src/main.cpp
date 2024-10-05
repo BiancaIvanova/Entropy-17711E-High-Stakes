@@ -22,8 +22,6 @@ void competition_initialize() {}
 void autonomous()
 {
 	intake_controlled(600);
-	pros::delay(5000);
-	intake_controlled(0);
 }
 
 
