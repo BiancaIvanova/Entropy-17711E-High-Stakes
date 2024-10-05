@@ -32,9 +32,9 @@ void handle_intake_jam(int velocity)
     pros::delay(600);
     intake.move_velocity(velocity);
 
-    for (int i = 0; i < floor(GRACE_PERIOD_MS / 20); ++i)
+    for (int i = 0; i < floor(GRACE_PERIOD_MS / TASK_DELAY_MS); ++i)
     {
-        pros::delay(20); 
+        pros::delay(TASK_DELAY_MS); 
     }
 }
 
@@ -59,7 +59,7 @@ void intake_controlled(int velocity)
     {
         intake_task = new pros::Task([velocity]()
         {
-            const int JAM_TIME_THRESHOLD = 750;
+            const int JAM_TIME_THRESHOLD = 1200;
             const int MIN_VELOCITY_THRESHOLD = velocity * 0.2;
 
             intake.move_velocity(velocity);
@@ -71,7 +71,7 @@ void intake_controlled(int velocity)
 
                 if (actual_velocity < MIN_VELOCITY_THRESHOLD && velocity != 0)
                 {
-                    jam_time += 10;
+                    jam_time += TASK_DELAY_MS;
                 }
                 else
                 {
@@ -84,7 +84,7 @@ void intake_controlled(int velocity)
                     jam_time = 0;
                 }
 
-                pros::delay(20);
+                pros::delay(TASK_DELAY_MS);
             }
         });
     }

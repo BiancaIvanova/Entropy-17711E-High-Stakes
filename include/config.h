@@ -4,6 +4,8 @@
 
 extern pros::Controller controller;
 
+extern const int TASK_DELAY_MS;
+
 // Main Configuration
 extern pros::MotorGroup left_drive;
 extern pros::MotorGroup right_drive;
