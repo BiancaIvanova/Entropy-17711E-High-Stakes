@@ -3,11 +3,6 @@
 #include "driver-control.h"
 #include "lemlib/api.hpp"
 
-enum class AllianceColour
-{
-    RED,
-    BLUE
-};
 
 void start_ring_colour_detection(AllianceColour alliance)
 {

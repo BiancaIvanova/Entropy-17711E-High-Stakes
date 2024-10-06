@@ -3,7 +3,11 @@
 #include "api.h"
 #pragma once
 
-enum class AllianceColour;
+enum class AllianceColour
+{
+    RED,
+    BLUE
+};
 
 void start_ring_colour_detection(AllianceColour alliance);
 
