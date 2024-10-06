@@ -2,6 +2,7 @@
 #include "autons.h"
 #include "driver-control.h"
 #include "config.h"
+#include "fmt/core.h"
 #include "pros/rtos.hpp"
 #include "subsystem-control-functions.h"
 
@@ -27,6 +28,7 @@ void autonomous()
 
 void opcontrol()
 {
+	start_ring_colour_detection(AllianceColour::RED);
 	
 	while (true)
 	{

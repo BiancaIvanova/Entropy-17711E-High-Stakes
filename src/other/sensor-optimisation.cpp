@@ -3,42 +3,57 @@
 #include "driver-control.h"
 #include "lemlib/api.hpp"
 
-struct AllianceColour
+enum class AllianceColour
 {
-    int red;
-    int blue;
+    RED,
+    BLUE
 };
 
-void start_ring_colour_detection()
+void start_ring_colour_detection(AllianceColour alliance)
 {
-    const int RED_HUE_LOW_THRESHOLD = 0;
-    const int RED_HUE_HIGH_THRESHOLD = 100;
-    const int BLUE_HUE_LOW_THRESHOLD = 0;
-    const int BLUE_HUE_HIGH_THRESHOLD = 100;
-
-    bool ringDetected = false;
+    optical_sensor.set_led_pwm(75);
 
     pros::Task ring_colour_task([]()
-                    {
-        while (true)
+    {
+        const int RED_HUE_LOW_THRESHOLD = 0;
+        const int RED_HUE_HIGH_THRESHOLD = 100;
+        const int BLUE_HUE_LOW_THRESHOLD = 0;
+        const int BLUE_HUE_HIGH_THRESHOLD = 100;
+        const int PROXIMITY_THRESHOLD = 100;
+
+        bool ringDetected = false;
+
+        while ((pros::competition::get_status() & COMPETITION_CONNECTED) == true)
         {
             int measured_hue = optical_sensor.get_hue();
 
-            if (measured_hue >= RED_HUE_LOW_THRESHOLD && measured_hue <= RED_HUE_HIGH_THRESHOLD)
+            if (optical_sensor.get_proximity() < 100)
             {
                 controller.rumble(".");
-                ringDetected = true;
             }
-            else if (measured_hue >= BLUE_HUE_LOW_THRESHOLD && measured_hue <= BLUE_HUE_HIGH_THRESHOLD)
+
+
+            if (!ringDetected && optical_sensor.get_proximity() > 100)
             {
-                controller.rumble(".");
-                ringDetected = true;
+                /*
+                if (measured_hue >= RED_HUE_LOW_THRESHOLD && measured_hue <= RED_HUE_HIGH_THRESHOLD)
+                {
+                    controller.rumble(".");
+                    ringDetected = true;
+                }
+                else if (measured_hue >= BLUE_HUE_LOW_THRESHOLD && measured_hue <= BLUE_HUE_HIGH_THRESHOLD)
+                {
+                    controller.rumble(".");
+                    ringDetected = true;
+                }
+                else
+                {
+                    ringDetected = false;
+                }
+                */
             }
-            else
-            {
-                ringDetected = false;
-            }
-            pros::delay(20);
         }
+
+        pros::delay(20);
     });
 }

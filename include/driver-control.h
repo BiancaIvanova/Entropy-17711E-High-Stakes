@@ -3,7 +3,9 @@
 #include "api.h"
 #pragma once
 
-void start_ring_colour_detection();
+enum class AllianceColour;
+
+void start_ring_colour_detection(AllianceColour alliance);
 
 void split_curvature();
 void intake_control();
