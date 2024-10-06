@@ -2,10 +2,10 @@
 #include "config.h"
 #include "lemlib/chassis/chassis.hpp"
 #include "pros/motors.h"
+#include "pros/rtos.hpp"
 
 
-
-void left_side_match_red()
+void north_side_red()
 {
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 
@@ -63,7 +63,7 @@ void left_side_match_red()
     */
 }
 
-void left_side_match_blue()
+void north_side_blue()
 {
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
 

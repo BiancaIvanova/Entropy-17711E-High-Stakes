@@ -5,25 +5,6 @@
 #include "pros/rtos.hpp"
 
 
-
-void square_test() {
-    chassis.setPose(0, 0, 90);
-    chassis.turnToPoint(0, 24, 1500);
-    chassis.moveToPoint(0, 24, 1500);
-    chassis.turnToPoint(24, 24, 1500);
-    chassis.moveToPoint(24, 24, 1500);
-    chassis.turnToPoint(24, 0, 1500);
-    chassis.moveToPoint(24, 0, 1500);
-    chassis.turnToPoint(0, 0, 1500);
-    chassis.moveToPoint(0, 0, 1500);
-}
-
-void turn_test() {
-    // set position to x:0, y:0, heading:0
-    chassis.setPose(0, 0, 0);
-    chassis.moveToPoint(0, 24, 100000);
-}
-
 void auton_skills()
 {
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_COAST);
@@ -198,14 +179,3 @@ void auton_skills_stage_4()
     chassis.moveToPoint(50, 28, 2000, {.minSpeed=40});
 }
 
-void drive_square() {
-    chassis.setPose(0, 0, 0);
-    chassis.moveToPose(0, 24, 0, 2000);
-    chassis.turnToPoint(24, 24, 2000);
-    chassis.moveToPose(24, 24, 90, 2000);
-    chassis.turnToPoint(24, 0, 2000);
-    chassis.moveToPose(24, 0, 180, 2000);
-    chassis.turnToPoint(0, 0, 2000);
-    chassis.moveToPose(0, 0, 270, 2000);
-    chassis.turnToPoint(0, 24, 2000);
-}
