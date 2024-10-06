@@ -3,6 +3,8 @@
 #include "api.h"
 #pragma once
 
+void start_ring_colour_detection();
+
 void split_curvature();
 void intake_control();
 void arm_control();

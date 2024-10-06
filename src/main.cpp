@@ -27,9 +27,11 @@ void autonomous()
 
 void opcontrol()
 {
+	
 	while (true)
 	{
 		split_curvature();
+		
 		pros::delay(20);
 	}
 }
