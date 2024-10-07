@@ -11,7 +11,7 @@
 | JWS Regional                   | 28-Sep-2024  | Registered |
 | BGS South East Regional        | 2-Nov-2024   | Registered |
 | Coventry Regional              | 16-Nov-2024  | Registered |
-| Radley Robot Rumble            | 17-Nov-2024  | Potential  |
+| Radley Robot Rumble            | 17-Nov-2024  | Registered |
 | SLBS Autumn Regional           | 23-Nov-2024  | Potential  |
 | Cranleigh Regional             | 7-Dec-2024   | Potential  |
 | SLBS Winter Regional           | 11-Jan-2025  | Potential  |
