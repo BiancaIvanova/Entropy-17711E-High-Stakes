@@ -5,13 +5,8 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
-enum class SouthVariant {
-    MIDDLE,
-    CORNER
-};
 
-
-void south_side_red(SouthVariant south_variant)
+void south_side_red()
 {
     chassis.setPose(-50, -60, 90);
 
@@ -41,39 +36,43 @@ void south_side_red(SouthVariant south_variant)
     pros::delay(750);
     mobile_stake_clamp.set_value(true);
 
-    if (south_variant == SouthVariant::MIDDLE)
-    {
-        // Move to pick up third ring beside the ladder
-        chassis.turnToPoint(-44, -3, 1500);
-        chassis.moveToPoint(-44, -3, 1500);
-        // intake until reaches sensor
-        chassis.turnToPoint(-35, 7, 1500);
-        // outtake ring fully
-        chassis.turnToPoint(-48.5, 2, 1500);
-        intake_controlled(600);
-        chassis.moveToPoint(-48.5, 2, 1500, {.maxSpeed = 60});
+    south_side_red_corner();
+}
 
-        // Turn and touch ladder
-        chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-        chassis.turnToPoint(-26.5, 0, 1500);
-        chassis.moveToPoint(-26.5, 0, 1500);
 
-    }
-    else if (south_variant == SouthVariant::CORNER)
-    {
-        // Move to pick up third ring
-        chassis.turnToPoint(-37, -52, 1500);
-        chassis.moveToPoint(-37, -52, 1500);
-        intake_controlled(600);
-        chassis.turnToPoint(-59, -62, 1500);
-        chassis.moveToPoint(-59, -62, 1500);
-        pros::delay(750);
+void south_side_red_middle()
+{
+    // Move to pick up third ring beside the ladder
+    chassis.turnToPoint(-44, -3, 1500);
+    chassis.moveToPoint(-44, -3, 1500);
+    // intake until reaches sensor
+    chassis.turnToPoint(-35, 7, 1500);
+    // outtake ring fully
+    chassis.turnToPoint(-48.5, 2, 1500);
+    intake_controlled(600);
+    chassis.moveToPoint(-48.5, 2, 1500, {.maxSpeed = 60});
 
-        // Move to touch ladder
-        chassis.turnToPoint(-37, -52, 1500, {.forwards=false});
-        chassis.moveToPoint(-37, -52, 1500, {.forwards=false});
-        chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-        chassis.turnToPoint(-26, -7, 1500);
-        chassis.moveToPoint(-26,-7, 1500);
-    }
+    // Turn and touch ladder
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+    chassis.turnToPoint(-26.5, 0, 1500);
+    chassis.moveToPoint(-26.5, 0, 1500);
+}
+
+
+void south_side_red_corner()
+{
+    // Move to pick up third ring
+    chassis.turnToPoint(-37, -52, 1500);
+    chassis.moveToPoint(-37, -52, 1500);
+    intake_controlled(600);
+    chassis.turnToPoint(-59, -62, 1500);
+    chassis.moveToPoint(-59, -62, 1500);
+    pros::delay(750);
+
+    // Move to touch ladder
+    chassis.turnToPoint(-37, -52, 1500, {.forwards=false});
+    chassis.moveToPoint(-37, -52, 1500, {.forwards=false});
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+    chassis.turnToPoint(-26, -7, 1500);
+    chassis.moveToPoint(-26,-7, 1500);
 }

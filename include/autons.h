@@ -11,6 +11,9 @@ void north_side_red();
 void north_side_blue();
 
 void south_side_red();
+void south_side_red_middle();
+void south_side_red_corner();
+
 void south_side_blue();
 
 void drive_square();
