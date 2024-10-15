@@ -7,6 +7,7 @@
 */
 // FINAL COMPETITION ROBOT PORTS DONE
 
+#include "fmt/core.h"
 #include "fmt/format.h"
 #include "lemlib/chassis/trackingWheel.hpp"
 #include "lemlib/pose.hpp"
@@ -44,6 +45,8 @@ pros::Motor arm(19, MotorGearset::green, MotorUnits::rotations);
 pros::Imu inertial_sensor(17);
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(8);
+pros::Distance left_distance_sensor(6);
+pros::Distance right_distance_sensor(7);
 pros::adi::DigitalOut mobile_stake_clamp('A');
 pros::adi::DigitalOut intake_lift('B');
 

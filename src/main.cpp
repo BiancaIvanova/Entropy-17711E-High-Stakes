@@ -10,6 +10,7 @@ void initialize()
 {
 	chassis.calibrate();
 	pros::Task logTask(logPose, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Logger thing");
+	left_distance_sensor.get_distance();
 }
 
 
