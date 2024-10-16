@@ -20,6 +20,8 @@
 #include <iostream>
 #define _USE_MATH_DEFINES
 
+const int TASK_DELAY_MS = 20;
+
 const float TRACKWIDTH = 12.8;
 const float MOTOR_GEAR_TEETH = 36.0;
 const float MOTOR_RPM = 600.0;
