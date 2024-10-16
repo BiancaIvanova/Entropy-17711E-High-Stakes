@@ -1,6 +1,7 @@
 #include "main.h"
 #include "config.h"
 #include "lemlib/api.hpp"
+#include "pros/misc.hpp"
 
 double x, y, heading;
 
@@ -82,6 +83,13 @@ void intake_controlled(int velocity)
                 {
                     handle_intake_jam(velocity);
                     jam_time = 0;
+                }
+
+                if (!pros::competition::is_autonomous())
+                {
+                    intake_task->suspend();
+                    delete intake_task;
+                    intake_task = nullptr;
                 }
 
                 pros::delay(20);
