@@ -29,7 +29,7 @@ class DistanceSensorLocaliser
 
         std::optional<Pose> getCurrentPose() const {
             // assumes bottom left corner (temporarily)
-            // uses the corner as the origin of the graph (temprarily)
+            // uses the corner as the origin of the graph (temporarily)
             Pose current_pose;
 
             double d_left = left_sensor->get_distance(); // in mm
