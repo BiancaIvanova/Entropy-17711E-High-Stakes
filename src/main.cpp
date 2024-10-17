@@ -30,6 +30,6 @@ void opcontrol()
 	while (true)
 	{
 		split_curvature();
-		pros::delay(20);
+		pros::delay(TASK_DELAY_MS);
 	}
 }
