@@ -12,7 +12,7 @@ extern pros::Motor arm;
 extern pros::Imu inertial_sensor;
 extern pros::Optical optical_sensor;
 extern pros::adi::DigitalOut mobile_stake_clamp;
-extern pros::adi::DigitalOut intake_lift;
+extern pros::adi::DigitalOut arm_flip;
 
 // Lemlib
 extern lemlib::Drivetrain drivetrain;

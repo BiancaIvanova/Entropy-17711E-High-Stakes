@@ -25,6 +25,7 @@ void split_curvature()
     intake_control();
     arm_control();
     stake_clamp_control();
+    arm_flip_control();
 }
 
 const double overallScaleFactor = 600.0 / 127.0;
@@ -88,25 +89,26 @@ void stake_clamp_control()
 }
 
 
-bool intakeOpen, intakeLatch;
+bool armOpen, armLatch;
 
-void intake_lift_control()
+
+void arm_flip_control()
 {
-    if (controller.get_digital(DIGITAL_L1))
+    if (controller.get_digital(DIGITAL_DOWN))
     {
 
-        if (!intakeLatch)
+        if (!armLatch)
         {
-            intakeOpen = !intakeOpen;
+            armOpen = !armOpen;
 
-            intake_lift.set_value(intakeOpen);
-            intake_lift.set_value(intakeOpen);
+            arm_flip.set_value(armOpen);
+            arm_flip.set_value(armOpen);
 
-            intakeLatch = true;
+            armLatch = true;
         }
     }
     else
     {
-        intakeLatch = false;
+        armLatch = false;
     }
 }
