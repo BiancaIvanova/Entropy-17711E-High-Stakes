@@ -20,6 +20,8 @@
 #include <iostream>
 #define _USE_MATH_DEFINES
 
+const int TASK_DELAY_MS = 20;
+
 const float TRACKWIDTH = 12.8;
 const float MOTOR_GEAR_TEETH = 36.0;
 const float MOTOR_RPM = 600.0;
@@ -45,7 +47,7 @@ pros::Imu inertial_sensor(17);
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(8);
 pros::adi::DigitalOut mobile_stake_clamp('A');
-pros::adi::DigitalOut intake_lift('B');
+pros::adi::DigitalOut arm_flip('B');
 
 
 // -----------------------------------------------------------------------------
