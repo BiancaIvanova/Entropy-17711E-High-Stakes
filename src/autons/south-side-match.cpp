@@ -8,13 +8,15 @@
 
 void south_side_red()
 {
-    chassis.setPose(-50, -60, 90);
+    chassis.setPose(-50, -60, 270);
+    mobile_stake_clamp.set_value(true);
 
     // Move to pick up stake on the autonomous line
     chassis.moveToPoint(-20, -60, 1500, {.forwards=false});
     chassis.turnToPoint(-9.5, -53, 1500, {.forwards=false});
     chassis.moveToPoint(-9.5, -53, 1500, {.forwards=false});
-    mobile_stake_clamp.set_value(true);
+    pros::delay(1000);
+    mobile_stake_clamp.set_value(false);
 
     // Start scoring rings
     intake_controlled(600);
@@ -26,7 +28,7 @@ void south_side_red()
 
     // Let go of first stake
     intake_controlled(0);
-    mobile_stake_clamp.set_value(false);
+    mobile_stake_clamp.set_value(true);
 
     // Move to pick up second stake
     chassis.turnToPoint(-24, -43, 1500);
@@ -34,7 +36,7 @@ void south_side_red()
     chassis.turnToPoint(-24, -25, 1500, {.forwards=false});
     chassis.moveToPoint(-24, -25, 1500, {.forwards=false});
     pros::delay(750);
-    mobile_stake_clamp.set_value(true);
+    mobile_stake_clamp.set_value(false);
 
     south_side_red_corner();
 }
