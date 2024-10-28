@@ -21,7 +21,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	intake_controlled(600);
+	auton_skills();
 }
 
 

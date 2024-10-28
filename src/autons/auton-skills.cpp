@@ -1,28 +1,10 @@
 #include "autons.h"
 #include "config.h"
 #include "lemlib/chassis/chassis.hpp"
+#include "subsystem-control-functions.h"
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
-
-
-void square_test() {
-    chassis.setPose(0, 0, 90);
-    chassis.turnToPoint(0, 24, 1500);
-    chassis.moveToPoint(0, 24, 1500);
-    chassis.turnToPoint(24, 24, 1500);
-    chassis.moveToPoint(24, 24, 1500);
-    chassis.turnToPoint(24, 0, 1500);
-    chassis.moveToPoint(24, 0, 1500);
-    chassis.turnToPoint(0, 0, 1500);
-    chassis.moveToPoint(0, 0, 1500);
-}
-
-void turn_test() {
-    // set position to x:0, y:0, heading:0
-    chassis.setPose(0, 0, 0);
-    chassis.moveToPoint(0, 24, 100000);
-}
 
 void auton_skills()
 {
@@ -38,7 +20,7 @@ void auton_skills()
     // Do the same with the close right side of the field
     auton_skills_stage_2();
     // Move to the back of the field and fill the last empty stake
-    //auton_skills_stage_3();
+    auton_skills_stage_3();
     // Finish by putting the two blue ring stakes into the corners
     //auton_skills_stage_4();
 
@@ -49,21 +31,22 @@ void auton_skills_stage_1()
 {
     // FIRST STAGE OF AUTON -------------------------------------
     mobile_stake_clamp.set_value(true);
-
-    // Move to pick up stake
+    pros::delay(500);
     chassis.moveToPoint(-42, 24, 1500, {.forwards=false});
     pros::delay(750);
     mobile_stake_clamp.set_value(false);
-    pros::delay(1500);
-    intake.move_velocity(600);
+    pros::delay(750);
+
+    // Move to pick up stake
+    intake_controlled(600);
     
     // Move to collect first ring
-    chassis.turnToPoint(-24, 24, 2000);
-    chassis.moveToPoint(-24, 24, 2000);
+    chassis.turnToPoint(-29, 23, 2000, {.maxSpeed = 50});
+    chassis.moveToPoint(-29, 24, 2000);
 
     // Move to collect second ring
-    chassis.turnToPoint(-24, 52, 2000, {.maxSpeed = 60});
-    chassis.moveToPoint(-24, 52, 2000);
+    chassis.turnToPoint(-24, 50, 2000, {.maxSpeed = 50});
+    chassis.moveToPoint(-24, 50, 2000);
 
     // Move to collect third and fourth rings
     chassis.turnToPoint(-68, 52, 2000);
@@ -72,14 +55,14 @@ void auton_skills_stage_1()
 
     // Move to collect fifth/last ring
     chassis.turnToPoint(-60, 48, 2000);
-    chassis.moveToPoint(-60, 48, 2000, {.maxSpeed = 80});
+    chassis.moveToPoint(-60, 48, 2000, {.maxSpeed = 50});
 
     // Swing to dump the mobile stake in the corner and position to grab the other one
     chassis.turnToPoint(-72, 72, 2000, {.forwards = false});
     chassis.moveToPoint(-72, 72, 2000, {.forwards = false});
-    intake.move_velocity(0);
+    intake_controlled(0);
     mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(-48, 48, 2000);
+    chassis.moveToPoint(-54, 42, 2000, {.maxSpeed = 65});
     
 }
 
@@ -87,65 +70,82 @@ void auton_skills_stage_1()
 void auton_skills_stage_2()
 {
     // SECOND STAGE OF AUTON -----------------------------------------------
-    // Drive backwards quickly to pick up the next stake
-    chassis.turnToPoint(-48, -28, 2500, {.forwards = false, .maxSpeed = 60});
-    chassis.moveToPoint(-48, -28, 3000, {.forwards=false, .maxSpeed = 50});
-    pros::delay(1000);
+    // Move out into path of the stake
+    chassis.turnToPoint(-64, -18, 2500, {.forwards = false, .maxSpeed = 60});
+
+    // Drive backwards slowly to pick up the next stake
+    chassis.moveToPoint(-64, -12, 3000, {.forwards=false, .maxSpeed = 50}, false);
+    chassis.moveToPoint(-64, -18, 3000, {.forwards=false, .maxSpeed = 105}, false);
+    pros::delay(500);
     mobile_stake_clamp.set_value(false);
+    pros::delay(500);
 
-    //NEW
-    chassis.turnToPoint(-200, -200, 2500, {.forwards = false, .maxSpeed = 40});
-    chassis.moveToPoint(-200, -200, 3000, {.forwards=false, .maxSpeed = 50});
+    // Reset pose
+    chassis.setPose(-48, -28.5, 0);
 
-    /*
+    // Start scoring rings
+    intake_controlled(600);
 
     // Move to collect first ring
     chassis.turnToPoint(-24, -24, 1000);
-    intake.move_velocity(600);
-    chassis.moveToPose(-24, -24, 90, 1000);
+    chassis.moveToPoint(-24, -24, 1000);
 
     // Move to collect second ring
-    chassis.turnToPoint(-24, -48, 1000);
-    chassis.moveToPose(-24, -48, 90, 1000);
+    chassis.turnToPoint(-20, -48, 1000);
+    chassis.moveToPoint(-20, -48, 1000);
 
     // Move to collect third and fourth rings
-    chassis.turnToPoint(-55, 48, 1000);
-    chassis.moveToPose(-55, 48, 270, 1000);
+    chassis.turnToPoint(-65, -53, 1000);
+    chassis.moveToPoint(-65, -53, 2500, {.maxSpeed = 50}, false);
+    pros::delay(500);
 
-    // Move to collect fifth/last ring
-    chassis.turnToPoint(-55, -50, 1000);
-    chassis.moveToPose(-55, -56, 135, 1000);
-
-    // Swing to dump the mobile stake in the corner
-    chassis.swingToHeading(75, DriveSide::LEFT, 1000);
-    chassis.moveToPoint(-54, -60, 1000);
+    // Swing to dump the mobile stake in the corne
+    pros::delay(750);
+    chassis.turnToPoint(-70, -73, 1000, {.forwards=false});
+    chassis.moveToPoint(-70, -73, 1000, {.forwards = false}, false);
     mobile_stake_clamp.set_value(true);
+    intake_controlled(0);
 
-    */
+    chassis.turnToPoint(-42, -50, 1500, {.maxSpeed = 50});
+    chassis.moveToPoint(-42, -50, 2000);
+
 }
 
 
 void auton_skills_stage_3()
 {
     // THIRD STAGE OF AUTON -----------------------------------------------
+
+    // Square off
+    chassis.turnToPoint(-100, -50, 1000, {.forwards=false});
+    chassis.moveToPoint(-100, -50, 2000, {.forwards=false, .maxSpeed=70});
+    // Reset pose
+    chassis.setPose(-32, -44, 85);
+
     // Move to collect first ring
-    chassis.turnToPoint(24, -48, 1000);
-    intake.move_velocity(600);
-    chassis.moveToPoint(24, -48, 3000);
-    intake.move_velocity(0);
+    chassis.moveToPoint(-9, -47, 3000, {}, false);
+    intake_controlled(600);
+    // Actually collect first ring
+    chassis.moveToPoint(22, -47, 3000, {.maxSpeed=50}, false);
+    pros::delay(1000);
+    intake_controlled(0);
 
     // Move to collect second ring
-    chassis.turnToPoint(24, -24, 1000);
-    chassis.moveToPose(24, -32, 0, 1000);
-    intake.move_velocity(600);
-    chassis.moveToPose(24, -24, 0, 1000);
-    intake.move_velocity(0);
+    chassis.turnToPoint(22, -22, 1000, {.maxSpeed=50});
+    intake_controlled(600);
+    chassis.moveToPoint(22, -22, 1000, {.maxSpeed=70});
+    pros::delay(500);
+    intake_controlled(0);
+    pros::delay(1000);
 
     // Grab last empty stake and put the rings onto it
-    chassis.turnToPoint(43, -7, 1000, {.forwards=false});
-    chassis.moveToPose(43, -7, 30, 1000, {.forwards=false});
+    chassis.turnToPoint(46, 2, 1000, {.forwards=false, .maxSpeed=70});
+    chassis.moveToPoint(46, 2, 1000, {.forwards=false, .maxSpeed=70});
+    pros::delay(1000);
     mobile_stake_clamp.set_value(false);
     intake.move_velocity(600);
+    
+    /*
     chassis.turnToPoint(48, 0, 1000, {.forwards=false});
     chassis.moveToPose(48, 0, 30, 1000, {.forwards=false});
 
@@ -160,6 +160,7 @@ void auton_skills_stage_3()
     // Turn and drop the stake (which should now have four rings on it)
     chassis.turnToHeading(100, 1000, {.direction=lemlib::AngularDirection::CW_CLOCKWISE});
     mobile_stake_clamp.set_value(true);
+    */
 }
 
 
