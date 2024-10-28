@@ -13,7 +13,6 @@ void auton_skills()
     // Robot starts with the back directly facing alliance wall stake
     chassis.setPose(-64, 24, 270);
     pros::delay(1000);
-    // Put the preload on the alliance wall stake
 
     // Deal with the close left side of the field
     auton_skills_stage_1();
