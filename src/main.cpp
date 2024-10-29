@@ -28,6 +28,7 @@ void autonomous()
 
 void opcontrol()
 {
+	intake_controlled(0);
 	while (true)
 	{
 		split_curvature();
