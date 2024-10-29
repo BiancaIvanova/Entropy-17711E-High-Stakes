@@ -9,7 +9,8 @@
 void initialize()
 {
 	chassis.calibrate();
-	pros::Task logTask(logPose, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Logger thing");
+	arm_rotation_sensor.set_position(0);
+	//pros::Task logTask(logPose, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Logger thing");
 }
 
 
@@ -21,13 +22,12 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	auton_skills();
+	new_north_side_red();
 }
 
 
 void opcontrol()
 {
-	mobile_stake_clamp.set_value(true);
 	while (true)
 	{
 		split_curvature();

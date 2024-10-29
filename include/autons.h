@@ -2,6 +2,7 @@
 #include "api.h"
 
 void left_side_match_red();
+void new_north_side_red();
 void left_side_match_blue();
 void auton_skills();
 void drive_square();

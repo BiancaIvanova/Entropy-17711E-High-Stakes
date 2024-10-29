@@ -41,7 +41,7 @@ void south_side_red()
     pros::delay(750);
     mobile_stake_clamp.set_value(false);
 
-    south_side_red_corner();
+    //south_side_red_corner();
 }
 
 
