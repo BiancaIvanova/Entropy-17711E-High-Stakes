@@ -27,6 +27,7 @@ void autonomous()
 
 void opcontrol()
 {
+	mobile_stake_clamp.set_value(true);
 	while (true)
 	{
 		split_curvature();

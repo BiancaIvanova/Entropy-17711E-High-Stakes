@@ -135,3 +135,24 @@ void arm_standard(int t, int velocity)
     arm.move_velocity(0);
 }
 
+
+void intake_detect()
+{
+    optical_sensor.set_led_pwm(100);
+    while (optical_sensor.get_hue() > 9 && optical_sensor.get_hue() < 25)
+    {
+        intake.move_velocity(400);
+    }
+    intake.move_velocity(0);
+    intake.move_relative(50, -600);
+    optical_sensor.set_led_pwm(0);
+}
+
+
+void move_arm_absolute(int position)
+{
+    while (arm_rotation_sensor.get_position())
+    {
+        arm.move_velocity(100);
+    }
+}

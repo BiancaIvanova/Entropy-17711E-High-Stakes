@@ -16,6 +16,7 @@
 #include "pros/motors.h"
 #include "pros/motors.hpp"
 #include "pros/optical.hpp"
+#include "pros/rotation.hpp"
 #include <cmath>
 #include <iostream>
 #define _USE_MATH_DEFINES
@@ -45,7 +46,8 @@ pros::Motor intake(18, MotorGearset::blue, MotorUnits::rotations);
 pros::Motor arm(19, MotorGearset::green, MotorUnits::rotations);
 pros::Imu inertial_sensor(17);
 pros::GPS gps_sensor(20);
-pros::Optical optical_sensor(8);
+pros::Optical optical_sensor(10);
+pros::Rotation arm_rotation_sensor(9);
 pros::adi::DigitalOut mobile_stake_clamp('A');
 pros::adi::DigitalOut arm_flip('B');
 

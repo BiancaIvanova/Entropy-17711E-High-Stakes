@@ -13,3 +13,5 @@ void handle_intake_jam(int velocity);
 
 void arm_async(int t, int velocity);
 void arm_standard(int t, int velocity);
+
+void intake_detect();
