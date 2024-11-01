@@ -4,6 +4,7 @@
 #include "config.h"
 #include "pros/rtos.hpp"
 #include "subsystem-control-functions.h"
+#include "distance-sensor-localiser.h"
 
 
 void initialize()
@@ -30,7 +31,8 @@ void opcontrol()
 {
 	while (true)
 	{
-		split_curvature();
+		DistanceSensorLocaliser localiser(/* provide necessary arguments here */);
+		localiser.getCurrentPose();
 		pros::delay(20);
 	}
 }
