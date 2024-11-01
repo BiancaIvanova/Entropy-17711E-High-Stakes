@@ -73,7 +73,7 @@ void auton_skills_stage_2()
     chassis.turnToPoint(-64, -18, 1750, {.forwards = false, .maxSpeed = 60});
 
     // Drive backwards slowly to pick up the next stake
-    chassis.moveToPoint(-64, -12, 3000, {.forwards=false, .maxSpeed = 50}, false);
+    chassis.moveToPoint(-64, -12, 3000, {.forwards=false, .maxSpeed = 70}, false);
     chassis.moveToPoint(-64, -18, 3000, {.forwards=false, .maxSpeed = 105}, false);
     pros::delay(500);
     mobile_stake_clamp.set_value(false);
@@ -177,7 +177,7 @@ void auton_skills_stage_4()
 
     // Shove it in the corner
     chassis.turnToPoint(78, 76, 500, {.forwards=false});
-    chassis.moveToPoint(78, 76, 1000, {.forwards=false, .minSpeed=100});
+    chassis.moveToPoint(78, 76, 1200, {.forwards=false, .minSpeed=120});
 
     // Back off the stake
     chassis.moveToPoint(-50, -50, 1000);

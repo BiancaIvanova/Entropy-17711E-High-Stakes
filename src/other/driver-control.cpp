@@ -94,7 +94,7 @@ bool armOpen, armLatch;
 
 void arm_flip_control()
 {
-    if (controller.get_digital(DIGITAL_DOWN))
+    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_B))
     {
 
         if (!armLatch)

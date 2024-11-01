@@ -29,7 +29,7 @@ void new_north_side_red()
     pros::delay(1750);
 
     // Move back to stake
-    chassis.moveToPoint(-20, 26, 1000, {.forwards=false, .maxSpeed=60});
+    chassis.moveToPoint(-20, 26, 1750, {.forwards=false, .maxSpeed=60});
     //chassis.moveToPoint(-12, 29, 1000, {.forwards=false, .maxSpeed=60});
 
     // Fold arm back
@@ -48,8 +48,8 @@ void new_north_side_red()
     chassis.moveToPoint(-24, 40, 1500, {.maxSpeed=70}, false);
 
     // Score second ring
-    chassis.turnToPoint(-12, 40, 1000, {.maxSpeed=70});
-    chassis.moveToPoint(-12, 40, 1000, {.maxSpeed=70}, false);
+    chassis.turnToPoint(-12, 41, 1000, {.maxSpeed=70});
+    chassis.moveToPoint(-12, 41, 1000, {.maxSpeed=70}, false);
     pros::delay(500);
 
     // Move back

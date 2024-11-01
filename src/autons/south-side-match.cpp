@@ -97,7 +97,7 @@ void south_side_red()
     
 }
 
-
+/*
 void south_side_blue()
 {
     chassis.setPose(50.5, -60, 90);
@@ -182,6 +182,7 @@ void south_side_blue()
     //south_side_red_corner();
     
 }
+*/
 
 
 void south_side_red_middle()

@@ -23,13 +23,14 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	south_side_red();
+	auton_skills();
 }
 
 
 void opcontrol()
 {
 	intake_controlled(0);
+	driver_skills_auton();
 	while (true)
 	{
 		split_curvature();

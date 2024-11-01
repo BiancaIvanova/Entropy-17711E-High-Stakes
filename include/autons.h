@@ -16,3 +16,5 @@ void auton_skills_stage_1();
 void auton_skills_stage_2();
 void auton_skills_stage_3();
 void auton_skills_stage_4();
+
+void driver_skills_auton();
