@@ -97,6 +97,98 @@ void south_side_red()
     
 }
 
+
+void south_side_blue()
+{
+    chassis.setPose(50.5, -60, 90);
+    arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+    mobile_stake_clamp.set_value(true);
+
+    // Move to pick up stake on the autonomous line
+    chassis.moveToPoint(24, -60, 1000, {.forwards=false});
+    chassis.turnToPoint(8, -53, 1000, {.forwards=false, .maxSpeed=100});
+    chassis.moveToPoint(8, -53, 1000, {.forwards=false, .maxSpeed=80});
+    //chassis.moveToPose(-6, -53.5, 240, 1500, {.forwards=false});
+    pros::delay(1000);
+    mobile_stake_clamp.set_value(false);
+    pros::delay(1000);
+
+    // Start scoring rings
+    intake_controlled(600);
+
+    // Move to pick up second ring
+    chassis.turnToPoint(22, -49, 1500);
+    chassis.moveToPoint(22, -49, 1500);
+
+    // Let go of first stake
+    pros::delay(2000);
+    mobile_stake_clamp.set_value(true);
+    intake_controlled(0);
+
+    // Move to pick up second stake
+    chassis.turnToPoint(20, -22, 1000, {.forwards=false});
+    chassis.moveToPoint(20, -22, 1500, {.forwards=false});
+
+    pros::delay(750);
+    mobile_stake_clamp.set_value(false);
+
+    // Start scoring
+    intake_controlled(600);
+
+    // Turn to corner
+    chassis.turnToPoint(75, -75, 1000);
+
+    // Open arm
+    /*
+    arm_rotation_sensor.set_position(0);
+    int timer = 0;
+    while (arm_rotation_sensor.get_position() < 400 && timer * 20 < 1000)
+    {
+        arm.move_velocity(100);
+        pros::delay(20);
+        timer++;
+    }
+    arm.move_velocity(0);
+    */
+    chassis.waitUntilDone();
+
+    // Drive to corner
+    //arm_flip.set_value(true);
+    intake.move_velocity(-600);
+    chassis.moveToPoint(75, -75, 2000, {.maxSpeed=100}, false);
+    intake_controlled(0);
+
+    // Reset position
+    chassis.setPose(56, -56, 145);
+
+    // Back off
+    chassis.moveToPoint(42, -33, 1000, {.forwards=false}, false);    
+    /*
+    int timer = 0;
+    while (arm_rotation_sensor.get_position() < 5500 && timer * 20 < 1000)
+    {
+        arm.move_velocity(100);
+        pros::delay(20);
+        timer++;
+    }
+    arm.move_velocity(0);
+    */
+
+    // Alliance stake
+    chassis.turnToPoint(61, -11, 1000, {}, false);
+    chassis.moveToPoint(61, -11, 1500, {}, false);
+    pros::delay(250);
+    //arm.move_velocity(-100);
+
+    // Turn and touch ladder
+    chassis.turnToPoint(29, -2, 1000, {}, false);
+    //arm_flip.set_value(false);
+    chassis.moveToPoint(29, -2, 1000, {}, false);
+    //south_side_red_corner();
+    
+}
+
 /*
 void south_side_blue()
 {
@@ -183,6 +275,8 @@ void south_side_blue()
     
 }
 */
+
+
 
 
 void south_side_red_middle()
