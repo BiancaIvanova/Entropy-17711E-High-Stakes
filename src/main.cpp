@@ -2,6 +2,7 @@
 #include "autons.h"
 #include "driver-control.h"
 #include "config.h"
+#include "pros/motors.h"
 #include "pros/rtos.hpp"
 #include "subsystem-control-functions.h"
 
@@ -22,7 +23,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	new_north_side_red();
+	south_side_red();
 }
 
 
