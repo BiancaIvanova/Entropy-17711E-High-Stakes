@@ -74,7 +74,7 @@ void new_north_side_blue()
 {
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-    chassis.setPose(-55, 11, 180);
+    chassis.setPose(55, 11, -180);
 
     // Open mogo clamp
     mobile_stake_clamp.set_value(true);
@@ -89,7 +89,7 @@ void new_north_side_blue()
     arm_flip.set_value(true);
 
     // Turn to alliance stake
-    chassis.swingToHeading(115, DriveSide::LEFT, 1000, {.maxSpeed=60}, false);
+    chassis.swingToHeading(-245, DriveSide::LEFT, 1000, {.maxSpeed=60}, false);
     arm.move_velocity(-100);
     pros::delay(1000);
 

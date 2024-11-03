@@ -58,7 +58,7 @@ void south_side_red()
         timer++;
     }
     arm.move_velocity(0);
-    */
+    
     chassis.waitUntilDone();
 
     // Drive to corner
@@ -81,7 +81,7 @@ void south_side_red()
         timer++;
     }
     arm.move_velocity(0);
-    */
+    
 
     // Alliance stake
     chassis.turnToPoint(-61, -11, 1000, {}, false);
@@ -94,6 +94,7 @@ void south_side_red()
     //arm_flip.set_value(false);
     chassis.moveToPoint(-29, -2, 1000, {}, false);
     //south_side_red_corner();
+    */
     
 }
 
@@ -135,6 +136,8 @@ void south_side_blue()
 
     // Start scoring
     intake_controlled(600);
+
+    /*
 
     // Turn to corner
     chassis.turnToPoint(75, -75, 1000);
