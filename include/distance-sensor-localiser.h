@@ -1,46 +1,55 @@
 #ifndef DISTANCE_SENSOR_LOCALISER_H
 #define DISTANCE_SENSOR_LOCALISER_H
 
-#include "pros/distance.hpp" // Include the PROS distance sensor library
-#include "pros/imu.hpp"      // Include the PROS IMU library
-#include <optional>          // For std::optional
+#include "pros/distance.hpp"
+#include "pros/imu.hpp"
+#include <optional>
 
 class DistanceSensorLocaliser {
 public:
     struct Pose {
-        double x;        // X-coordinate of the robot's position
-        double y;        // Y-coordinate of the robot's position
-        double heading;  // Robot's heading in degrees
+        double x;
+        double y;
+        double heading;
     };
 
-    // Constructor
-    DistanceSensorLocaliser(pros::Distance& left_sensor, pros::Distance& right_sensor, pros::Imu& imu, 
-                            double angle = 0, double x = 0, double y = 0);
+    enum FieldCorner {
+        SOUTH_WEST = 0,
+        NORTH_WEST = 90,
+        NORTH_EAST = 180,
+        SOUTH_EAST = 270      
+    };
 
-    // Configure offsets for the sensors (forward and side offsets)
-    bool configureOffsets(double forward_offset, double side_offset);
+    // Constructor to initialize the localiser with sensors, initial position, and sensor offsets
+    DistanceSensorLocaliser (
+        pros::Distance& left_sensor,
+        pros::Distance& right_sensor,
+        pros::Imu& imu, 
+        double angle,
+        double x,
+        double y,
+        double FORWARD_OFFSET,
+        double SIDE_OFFSE
+    );
 
-    // Get the current pose of the robot
-    std::optional<Pose> getCurrentPose() const;
+    // Function to get the current pose of the robot
+    // Takes an optional parameter for the expected field corner
+    std::optional<Pose> getCurrentPose(std::optional<FieldCorner> corner = std::nullopt) const;
 
 private:
-    pros::Distance* left_sensor;  // Pointer to the left distance sensor
-    pros::Distance* right_sensor; // Pointer to the right distance sensor
-    pros::Imu* imu;               // Pointer to the IMU sensor
+    // Pointers to the distance sensors and IMU
+    pros::Distance* left_sensor;
+    pros::Distance* right_sensor;
+    pros::Imu* imu;
 
-    double angle;                 // Robot's current angle (optional for future use)
-    double x, y;                  // Robot's initial position
+    double angle;
+    double x;
+    double y;
 
-    // Sensor offsets (distances between sensors and robot's center)
-    double forward_offset; 
-    double side_offset;
-    
-    // Flags to track if offsets are configured
-    bool forward_offset_set;
-    bool side_offset_set;
+    double FORWARD_OFFSET;
+    double SIDE_OFFSET;
 
-    // Initial heading offset to account for the robot's starting orientation
     double initial_heading_offset;
 };
 
-#endif // DISTANCE_SENSOR_LOCALISER_H
+#endif
