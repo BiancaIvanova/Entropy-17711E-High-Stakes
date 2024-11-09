@@ -25,11 +25,9 @@ public:
         pros::Distance& left_sensor,
         pros::Distance& right_sensor,
         pros::Imu& imu, 
-        double angle,
-        double x,
-        double y,
         double FORWARD_OFFSET,
-        double SIDE_OFFSE
+        double SIDE_OFFSET,
+        double initial_heading_offset
     );
 
     // Function to get the current pose of the robot
@@ -41,10 +39,6 @@ private:
     pros::Distance* left_sensor;
     pros::Distance* right_sensor;
     pros::Imu* imu;
-
-    double angle;
-    double x;
-    double y;
 
     double FORWARD_OFFSET;
     double SIDE_OFFSET;

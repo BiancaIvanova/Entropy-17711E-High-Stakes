@@ -31,12 +31,12 @@ void autonomous()
 
 void opcontrol()
 {
-    DistanceSensorLocaliser localiser(left_distance_sensor, right_distance_sensor, inertial_sensor, 45, 0, 0);
-    localiser.configureOffsets(0, 0);
+    DistanceSensorLocaliser localiser(left_distance_sensor, right_distance_sensor, inertial_sensor, 8.0, 6.8, 45);
+    //localiser.configureOffsets(0, 0);
     
     while (true)
     {
-        auto pose_opt = localiser.getCurrentPose();
+        auto pose_opt = localiser.getCurrentPose(DistanceSensorLocaliser::FieldCorner::NORTH_WEST);
         
         if (pose_opt) {
             auto pose = pose_opt.value();

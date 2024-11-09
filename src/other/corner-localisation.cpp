@@ -7,20 +7,15 @@ DistanceSensorLocaliser::DistanceSensorLocaliser(
     pros::Distance& left_sensor,
     pros::Distance& right_sensor,
     pros::Imu& imu,
-    double angle,
-    double x,
-    double y,
     double forward_offset,
-    double side_offset)
+    double side_offset,
+    double initial_heading_offset)
     : 
     left_sensor(&left_sensor),
     right_sensor(&right_sensor),
     imu(&imu),
-    angle(angle),
-    x(x),
-    y(y),
-    FORWARD_OFFSET(FORWARD_OFFSET),
-    SIDE_OFFSET(SIDE_OFFSET),
+    FORWARD_OFFSET(forward_offset),
+    SIDE_OFFSET(side_offset),
     initial_heading_offset(45)
 {}
 
@@ -68,8 +63,40 @@ std::optional<DistanceSensorLocaliser::Pose> DistanceSensorLocaliser::getCurrent
     const double MM_TO_INCHES = 1.0 / 25.4; // Conversion factor
 
     // Calculate relative robot pose
-    double x_temp = (d_left * cos(alpha) - FORWARD_OFFSET) * MM_TO_INCHES;
-    double y_temp = (d_right * cos(alpha) - SIDE_OFFSET) * MM_TO_INCHES;
+    double left_temp = (d_left * cos(45)) * MM_TO_INCHES;
+    double right_temp = (d_right * cos(45)) * MM_TO_INCHES;
+
+    double hypotenuse = sqrt(FORWARD_OFFSET * FORWARD_OFFSET + SIDE_OFFSET * SIDE_OFFSET);
+    double arbitrary_angle = 45 - atan(SIDE_OFFSET / FORWARD_OFFSET);
+
+    double added_x = sin(arbitrary_angle) * hypotenuse;
+    double added_y = cos(arbitrary_angle) * hypotenuse;
+
+    switch (corner.value())
+    {
+        case FieldCorner::SOUTH_EAST:
+            current_pose.x = 72 + left_temp;
+            current_pose.y = 72 + right_temp;
+            break;
+        case FieldCorner::NORTH_EAST:
+            current_pose.x = 72 + right_temp;
+            current_pose.y = -72 - left_temp;
+            break;
+        case FieldCorner::SOUTH_WEST:
+            current_pose.x = -72 - right_temp;
+            current_pose.y = -72 - left_temp;
+            break;
+        case FieldCorner::NORTH_WEST:
+            current_pose.x = -72 + (left_temp + added_y);
+            current_pose.y = 72 - (right_temp + added_y);
+            break;
+    }
+
+    std::cout << "x: " << current_pose.x << " y: " << current_pose.y << " theta: " << current_pose.heading << std::endl;
+    std::cout << "right_temp: " << right_temp << " left_temp: " << left_temp << std::endl;
+    std::cout << "added_x: " << added_x << " added_y: " << added_y << std::endl;
+    std::cout << "arbitrary_angle: " << arbitrary_angle << std::endl;
+    std::cout << "FORWARD_OFFSET: " << FORWARD_OFFSET << " SIDE_OFFSET: " << SIDE_OFFSET << std::endl;
 
     current_pose.heading = measured_heading;
 
