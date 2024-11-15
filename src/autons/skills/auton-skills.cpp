@@ -134,13 +134,6 @@ void auton_skills_stage_2()
 void auton_skills_stage_3()
 {
     // THIRD STAGE OF AUTON -----------------------------------------------
-    /*
-    // Square off
-    chassis.turnToPoint(-100, -50, 1000, {.forwards=false});
-    chassis.moveToPoint(-100, -50, 2000, {.forwards=false, .maxSpeed=70});
-    // Reset pose
-    chassis.setPose(-28, -44, 85);
-    */
     chassis.turnToPoint(-9, -44, 1000, {}, false);
 
     // Move to collect first ring
@@ -151,16 +144,6 @@ void auton_skills_stage_3()
     pros::delay(500);
     intake_controlled(0);
     pros::delay(500);
-
-    /*
-    // Move to collect second ring
-    chassis.turnToPoint(28, -22, 1000, {.maxSpeed=50});
-    intake_controlled(200);
-    chassis.moveToPoint(28, -22, 1000, {.maxSpeed=70});
-    pros::delay(1500);
-    intake_controlled(0);
-    pros::delay(500);
-    */
 
     // Grab last empty stake and put the rings onto it
     chassis.turnToPoint(38, -3, 1000, {.forwards=false, .maxSpeed=70});
@@ -214,14 +197,3 @@ void auton_skills_stage_4()
     chassis.moveToPoint(9, 9, 2000, {.maxSpeed=80});
 }
 
-void drive_square() {
-    chassis.setPose(0, 0, 0);
-    chassis.moveToPose(0, 24, 0, 2000);
-    chassis.turnToPoint(24, 24, 2000);
-    chassis.moveToPose(24, 24, 90, 2000);
-    chassis.turnToPoint(24, 0, 2000);
-    chassis.moveToPose(24, 0, 180, 2000);
-    chassis.turnToPoint(0, 0, 2000);
-    chassis.moveToPose(0, 0, 270, 2000);
-    chassis.turnToPoint(0, 24, 2000);
-}
