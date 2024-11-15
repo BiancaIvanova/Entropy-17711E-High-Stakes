@@ -43,7 +43,7 @@ void new_north_side_red()
     pros::delay(500);
 
     // Score first ring
-    intake_controlled(600);
+    intake.move_velocity(600);
     chassis.turnToPoint(-24, 40, 1000, {.maxSpeed=70}, false);
     chassis.moveToPoint(-24, 40, 1500, {.maxSpeed=80}, false);
 
@@ -66,7 +66,6 @@ void new_north_side_red()
     // Turn and touch ladder
     chassis.turnToPoint(-18, 2, 1000, {}, false);
     chassis.moveToPoint(-18, 2, 3000, {.maxSpeed=80});
-    intake_controlled(0);
 }
 
 
@@ -108,31 +107,29 @@ void new_north_side_blue()
     pros::delay(500);
 
     // Score first ring
-    intake_controlled(600);
-    chassis.turnToPoint(24, 40, 1000, {.maxSpeed=70}, false);
-    chassis.moveToPoint(24, 40, 1500, {.maxSpeed=80}, false);
+    intake.move_velocity(600);
+    chassis.turnToPoint(20, 40, 1000, {.maxSpeed=70}, false);
+    chassis.moveToPoint(20, 40, 1500, {.maxSpeed=80}, false);
 
     // Score second ring
-    chassis.turnToPoint(12, 43, 1000, {.maxSpeed=70}, false);
-    chassis.moveToPoint(12, 43, 1000, {.maxSpeed=80}, false);
+    chassis.turnToPoint(8, 43, 1000, {.maxSpeed=70}, false);
+    chassis.moveToPoint(8, 43, 1000, {.maxSpeed=80}, false);
     pros::delay(500);
 
     // Move back
-    chassis.moveToPoint(21, 43, 1500, {.forwards=false, .maxSpeed=50}, false);
+    chassis.moveToPoint(17, 43, 1500, {.forwards=false, .maxSpeed=50}, false);
 
     // Score third ring
-    chassis.turnToPoint(10, 53, 1000, {.maxSpeed=80}, false);
-    chassis.moveToPoint(10, 51, 1000, {.maxSpeed=90}, false);
+    chassis.turnToPoint(5, 51, 1000, {.maxSpeed=80}, false);
+    chassis.moveToPoint(4, 49, 1000, {.maxSpeed=90}, false);
     pros::delay(500);
 
     // Move back
-    chassis.moveToPoint(26, 40, 1500, {.forwards=false}, false);
+    chassis.moveToPoint(22, 40, 1500, {.forwards=false}, false);
 
     // Turn and touch ladder
     chassis.turnToPoint(18, 2, 1000, {}, false);
     chassis.moveToPoint(18, 2, 3000, {.maxSpeed=80});
-    intake_controlled(0);
-
 }
 
 
