@@ -35,17 +35,34 @@ void south_side_red()
     intake_controlled(0);
 
     // Move to pick up second stake
-    chassis.turnToPoint(-20, -22, 1000, {.forwards=false});
-    chassis.moveToPoint(-20, -22, 1500, {.forwards=false});
+    chassis.turnToPoint(-22, -25, 1000, {.forwards=false});
+    chassis.moveToPoint(-22, -25, 1500, {.forwards=false, .maxSpeed=70});
+    chassis.moveToPoint(-22, -23.5, 1500, {.forwards=false, .minSpeed=80}, false);
 
     pros::delay(750);
     mobile_stake_clamp.set_value(false);
-
-    // Start scoring
-    intake_controlled(600);
+    pros::delay(750);
 
     // Turn to corner
-    chassis.turnToPoint(-75, -75, 1000);
+    chassis.turnToPoint(-46.5, -1.5, 1000, {}, false);
+    intake.move_velocity(600);
+    chassis.moveToPoint(-46.5, -5.5, 1000, {.maxSpeed=60}, false);
+
+    // Move to intake both red and blue ring
+    chassis.moveToPoint(-58, 11, 1000, {.maxSpeed=80});
+    pros::delay(1000);
+    intake.move_velocity(0);
+    pros::delay(500);
+    intake.move_velocity(0);
+
+    // Score ring
+    intake_controlled(600);
+
+    // Move to touch ladder
+    chassis.moveToPoint(-24, -22, 1000, {.forwards=false}, false);
+    chassis.turnToPoint(-29, -4, 1000, {}, false);
+    chassis.moveToPoint(-29, -4, 1000);
+    intake_controlled(0);
 
     // Open arm
     /*
