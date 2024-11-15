@@ -5,7 +5,7 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
-void new_north_side_red()
+void north_side_red()
 {
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
@@ -69,7 +69,7 @@ void new_north_side_red()
 }
 
 
-void new_north_side_blue()
+void north_side_blue()
 {
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);

@@ -23,7 +23,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	new_north_side_blue();
+	north_side_blue();
 }
 
 
