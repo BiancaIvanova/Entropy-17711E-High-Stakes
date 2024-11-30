@@ -25,3 +25,6 @@ void north_side_blue();
 // South Side Match
 void south_side_red();
 void south_side_blue();
+
+void new_south();
+void new_red_south();
