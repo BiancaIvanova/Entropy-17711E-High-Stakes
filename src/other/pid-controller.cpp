@@ -1,24 +1,20 @@
-class PIDController {
-public:
-    double kP, kI, kD;
-    double prevError = 0;
-    double integral = 0;
+#include "main.h"
+#include "config.h"
+#include "pid-controller.h"
 
-    PIDController(double kP, double kI, double kD) {
-        : kP(kP), kI(kI), kD(kD) {}
-    }
+PIDController::PIDController(double kP, double kI, double kD)
+    : kP(kP), kI(kI), kD(kD) {}
 
-    double calculate(double error, double time_step) {
-        // Calculate integral (sum of errors) 
-        integral += (error * time_step);
-        
-        // Calculate derivative (change in error)
-        double derivative = (error - prevError) / time_step;
+double PIDController::calculate(double error, double time_step) {
+    // Calculate integral (sum of errors) 
+    integral += (error * time_step);
 
-        // Sum everything
-        double output = (kP * error) + (kI * integral) + (kD * derivative);
+    // Calculate derivative (change in error)
+    double derivative = (error - prevError) / time_step;
 
-        prevError = error;
-        return output;
-    }
-};
+    // Sum everything
+    double output = (kP * error) + (kI * integral) + (kD * derivative);
+
+    prevError = error;
+    return output;
+}
