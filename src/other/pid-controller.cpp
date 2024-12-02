@@ -5,7 +5,7 @@
 PIDController::PIDController(double kP, double kI, double kD)
     : kP(kP), kI(kI), kD(kD) {}
 
-double PIDController::calculate(double error, double time_step) {
+double PIDController::update(double error, double time_step) {
     // Calculate integral (sum of errors) 
     integral += (error * time_step);
 
@@ -18,3 +18,6 @@ double PIDController::calculate(double error, double time_step) {
     prevError = error;
     return output;
 }
+
+
+

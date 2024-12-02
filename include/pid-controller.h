@@ -6,5 +6,5 @@ public:
 
     PIDController(double kP, double kI, double kD);
 
-    double calculate(double error, double time_step);
+    double update(double error, double time_step);
 };
