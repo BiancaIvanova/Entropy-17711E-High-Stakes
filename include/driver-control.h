@@ -4,8 +4,7 @@
 #pragma once
 
 void split_curvature();
-void intake_control();
-void arm_control();
-void intake_lift_control();
-void stake_clamp_control();
-void arm_flip_control();
+void intake_control(bool in, bool out);
+void arm_control(bool up, bool down);
+void stake_clamp_control(bool control);
+void arm_flip_control(bool control);

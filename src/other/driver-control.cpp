@@ -22,22 +22,22 @@ void split_curvature()
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_BRAKE);
     chassis.curvature(leftY, rightX, curveGain);
     
-    intake_control();
-    arm_control();
-    stake_clamp_control();
-    arm_flip_control();
+    intake_control(controller.get_digital(DIGITAL_R2), controller.get_digital(DIGITAL_R1));
+    arm_control(controller.get_digital(DIGITAL_Y), controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT));
+    stake_clamp_control(controller.get_digital(DIGITAL_L2));
+    arm_flip_control(pros::E_CONTROLLER_DIGITAL_B);
 }
 
 const double overallScaleFactor = 600.0 / 127.0;
 const double mainWheelSpeedFactor = 1.0 / 1.02857;
 
-void intake_control()
+void intake_control(bool in, bool out)
 {
-    if (controller.get_digital(DIGITAL_R2))
+    if (in)
     {
         intake.move_velocity(INTAKE_VELOCITY);
     }
-    else if (controller.get_digital(DIGITAL_R1))
+    else if (out)
     {
         intake.move_velocity(INTAKE_VELOCITY * -1);
     }
@@ -47,15 +47,15 @@ void intake_control()
     }
 }
 
-void arm_control()
+void arm_control(bool up, bool down)
 {
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
-    if (controller.get_digital(DIGITAL_Y))
+    if (up)
     {
         arm.move_velocity(ARM_VELOCITY);
     }
-    else if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT))
+    else if (down)
     {
         arm.move_velocity(ARM_VELOCITY * -1);
     }
@@ -67,9 +67,9 @@ void arm_control()
 
 bool stakeClampOpen, stakeClampLatch;
 
-void stake_clamp_control()
+void stake_clamp_control(bool control)
 {
-    if (controller.get_digital(DIGITAL_L2))
+    if (control)
     {
 
         if (!stakeClampLatch)
@@ -92,9 +92,9 @@ void stake_clamp_control()
 bool armOpen, armLatch;
 
 
-void arm_flip_control()
+void arm_flip_control(bool control)
 {
-    if (controller.get_digital(pros::E_CONTROLLER_DIGITAL_B))
+    if (control)
     {
 
         if (!armLatch)

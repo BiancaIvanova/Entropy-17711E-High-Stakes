@@ -57,14 +57,14 @@ void double_side_red()
 
     // Move out to the middle of the field and let go of stake
     chassis.turnToPoint(-43, -2, 1000, {.minSpeed=60}, false);
-    mobile_goal_clamp.set_value(true);
+    mobile_stake_clamp.set_value(true);
     intake.move_velocity(0);
     chassis.moveToPoint(-10, -2, 1000, {.minSpeed=60}, false);
     
-    // Turn and grab other mobile goal
+    // Turn and grab other mobile stake
     chassis.turnToPoint(-23, -23, 1000, {.forwards=false, .maxSpeed=80}, false);
     chassis.moveToPoint(-23, -23, 1000, {.forwards=false, .maxSpeed=80}, false);
-    mobile_goal_clamp.set_value(false);
+    mobile_stake_clamp.set_value(false);
     pros::delay(500);
 
     // Turn and score last ring
@@ -130,14 +130,14 @@ void double_side_blue()
 
     // Move out to the middle of the field and let go of stake
     chassis.turnToPoint(43, -2, 1000, {.minSpeed=60}, false);
-    mobile_goal_clamp.set_value(true);
+    mobile_stake_clamp.set_value(true);
     intake.move_velocity(0);
     chassis.moveToPoint(10, -2, 1000, {.minSpeed=60}, false);
     
-    // Turn and grab other mobile goal
+    // Turn and grab other mobile stake
     chassis.turnToPoint(23, -23, 1000, {.forwards=false, .maxSpeed=80}, false);
     chassis.moveToPoint(23, -23, 1000, {.forwards=false, .maxSpeed=80}, false);
-    mobile_goal_clamp.set_value(false);
+    mobile_stake_clamp.set_value(false);
     pros::delay(500);
 
     // Turn and score last ring
