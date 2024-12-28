@@ -29,7 +29,10 @@ void autonomous()
 void opcontrol()
 {
 	intake_controlled(0);
-
-	read_logs_from_file();
-	replay_logs();
+	
+	while (true)
+	{
+		split_curvature();
+		pros::delay(TASK_DELAY_MS);
+	}
 }
