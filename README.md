@@ -12,7 +12,7 @@
 | BGS South East Regional        | 2-Nov-2024   | Registered |
 | Coventry Regional              | 16-Nov-2024  | Registered |
 | Radley Robot Rumble            | 17-Nov-2024  | Registered |
-| Birmigham Regional             | 04-Jan-2025  | Potential  |
-| SLBS Winter Regional           | 11-Jan-2025  | Potential  |
-| Essex Regional                 | 18-Jan-2025  | Potential  |
-| GCA Regional                   | 25-Jan-2025  | Potential  |
+| Birmigham Regional             | 04-Jan-2025  | Registered |
+| SLBS Winter Regional           | 11-Jan-2025  | Registered |
+| Essex Regional                 | 18-Jan-2025  | Registered |
+| GCA Regional                   | 25-Jan-2025  | Registered |
