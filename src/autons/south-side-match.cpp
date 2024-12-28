@@ -49,20 +49,20 @@ void south_side_red()
     chassis.moveToPoint(-46.5, -5.5, 1000, {.maxSpeed=60}, false);
 
     // Move to intake both red and blue ring
-    chassis.moveToPoint(-58, 11, 1000, {.maxSpeed=80});
-    pros::delay(1000);
-    intake.move_velocity(0);
-    pros::delay(500);
-    intake.move_velocity(0);
+    chassis.moveToPoint(-58, 11, 1000);
+    //pros::delay(1000);
+    //intake.move_velocity(0);
+    //pros::delay(500);
+    //intake.move_velocity(0);
 
     // Score ring
-    intake_controlled(600);
+    //intake_controlled(600);
 
     // Move to touch ladder
-    chassis.moveToPoint(-24, -22, 1000, {.forwards=false}, false);
-    chassis.turnToPoint(-29, -4, 1000, {}, false);
-    chassis.moveToPoint(-29, -4, 1000);
-    intake_controlled(0);
+    //chassis.moveToPoint(-24, -22, 1000, {.forwards=false, .minSpeed = 60}, false);
+    chassis.turnToPoint(0, 0, 1000, {}, false);
+    chassis.moveToPoint(0, 0, 1000, {.minSpeed = 60});
+    //intake_controlled(0);
 
     // Open arm
     /*

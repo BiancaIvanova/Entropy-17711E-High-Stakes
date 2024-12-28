@@ -43,7 +43,7 @@ void north_side_red()
     pros::delay(500);
 
     // Score first ring
-    intake.move_velocity(600);
+    intake_controlled(600);
     chassis.turnToPoint(-24, 40, 1000, {.maxSpeed=70}, false);
     chassis.moveToPoint(-24, 40, 1500, {.maxSpeed=80}, false);
 
@@ -107,7 +107,7 @@ void north_side_blue()
     pros::delay(500);
 
     // Score first ring
-    intake.move_velocity(600);
+    intake_controlled(600);
     chassis.turnToPoint(20, 40, 1000, {.maxSpeed=70}, false);
     chassis.moveToPoint(20, 40, 1500, {.maxSpeed=80}, false);
 
