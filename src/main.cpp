@@ -5,13 +5,12 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 #include "subsystem-control-functions.h"
-
+#include "data-logger.h"
 
 void initialize()
 {
 	chassis.calibrate();
 	arm_rotation_sensor.set_position(0);
-	//pros::Task logTask(logPose, TASK_PRIORITY_DEFAULT, TASK_STACK_DEPTH_DEFAULT, "Logger thing");
 }
 
 
@@ -30,9 +29,7 @@ void autonomous()
 void opcontrol()
 {
 	intake_controlled(0);
-	while (true)
-	{
-		split_curvature();
-		pros::delay(TASK_DELAY_MS);
-	}
+
+	read_logs_from_file();
+	replay_logs();
 }

@@ -61,7 +61,7 @@ void double_side_red()
     intake.move_velocity(0);
     chassis.moveToPoint(-10, -2, 1000, {.minSpeed=60}, false);
     
-    // Turn and grab other mobile goal
+    // Turn and grab other mobile stake
     chassis.turnToPoint(-23, -23, 1000, {.forwards=false, .maxSpeed=80}, false);
     chassis.moveToPoint(-23, -23, 1000, {.forwards=false, .maxSpeed=80}, false);
     mobile_stake_clamp.set_value(false);
@@ -134,7 +134,7 @@ void double_side_blue()
     intake.move_velocity(0);
     chassis.moveToPoint(10, -2, 1000, {.minSpeed=60}, false);
     
-    // Turn and grab other mobile goal
+    // Turn and grab other mobile stake
     chassis.turnToPoint(23, -23, 1000, {.forwards=false, .maxSpeed=80}, false);
     chassis.moveToPoint(23, -23, 1000, {.forwards=false, .maxSpeed=80}, false);
     mobile_stake_clamp.set_value(false);
