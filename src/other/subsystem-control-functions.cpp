@@ -25,13 +25,16 @@ void handle_intake_jam(int velocity)
     const int REVERSE_VELOCITY = 300;
     const int GRACE_PERIOD_MS = 100;
     
+    // Stop the intake and vibrate the controller
     intake.move_velocity(0);
     controller.rumble(".");
 
+    // Reverse the intake to clear the jam
     intake.move_relative(-REVERSE_DISTANCE, REVERSE_VELOCITY);
     pros::delay(600);
     intake.move_velocity(velocity);
 
+    // Grace period to prevent immediate detection of another jam
     for (int i = 0; i < floor(GRACE_PERIOD_MS / TASK_DELAY_MS); ++i)
     {
         pros::delay(TASK_DELAY_MS); 
@@ -45,6 +48,7 @@ void intake_controlled(int velocity)
 
     if (velocity == 0)
     {
+        // If the velocity has been set to 0, stop the intake
         if (intake_task)
         {
             intake_task->suspend();
@@ -55,6 +59,7 @@ void intake_controlled(int velocity)
         return;
     }
 
+    // Create new thread for intake control
     if (!intake_task) 
     {
         intake_task = new pros::Task([velocity]()
@@ -62,6 +67,7 @@ void intake_controlled(int velocity)
             const int JAM_TIME_THRESHOLD = 1200;
             const int MIN_VELOCITY_THRESHOLD = velocity * 0.2;
 
+            // Start moving intake at input velocity
             intake.move_velocity(velocity);
             int jam_time = 0;
             
@@ -69,6 +75,7 @@ void intake_controlled(int velocity)
             {
                 int actual_velocity = intake.get_actual_velocity();
 
+                // If velocity drops below threshold, start a timer
                 if (actual_velocity < MIN_VELOCITY_THRESHOLD && velocity != 0)
                 {
                     jam_time += TASK_DELAY_MS;
@@ -78,6 +85,7 @@ void intake_controlled(int velocity)
                     jam_time = 0;
                 }
 
+                // Handle jam if it has been stuck for longer than the threshold time
                 if (jam_time >= JAM_TIME_THRESHOLD)
                 {
                     handle_intake_jam(velocity);
