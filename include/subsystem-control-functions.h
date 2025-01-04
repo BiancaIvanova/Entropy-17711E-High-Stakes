@@ -14,4 +14,5 @@ void handle_intake_jam(int velocity);
 void arm_async(int t, int velocity);
 void arm_standard(int t, int velocity);
 
-void intake_detect();
+void intake_ring_detect(int velocity);
+void handle_wrong_ring(int velocity);

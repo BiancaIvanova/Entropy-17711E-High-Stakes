@@ -7,6 +7,8 @@
 
 void double_side_red()
 {
+    currentAllianceColour = AllianceColour::RED;
+    AllianceColour currentAllianceColour = AllianceColour::RED;
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setPose(-55, 11, 180);
@@ -80,6 +82,7 @@ void double_side_red()
 
 void double_side_blue()
 {
+    currentAllianceColour = AllianceColour::BLUE;
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setPose(55, 11, -180);

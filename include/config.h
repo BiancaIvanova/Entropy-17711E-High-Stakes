@@ -6,6 +6,15 @@ extern pros::Controller controller;
 
 extern const int TASK_DELAY_MS;
 
+enum AllianceColour
+{
+    RED,
+    BLUE
+};
+
+// Global variable defining our alliance colour
+extern AllianceColour currentAllianceColour;
+
 // Main Configuration
 extern pros::MotorGroup left_drive;
 extern pros::MotorGroup right_drive;

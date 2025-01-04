@@ -1,6 +1,7 @@
 #include "main.h"
 #include "config.h"
 #include "lemlib/api.hpp"
+#include "subsystem-control-functions.h"
 
 double x, y, heading;
 
@@ -98,6 +99,45 @@ void intake_controlled(int velocity)
     }
 }
 
+void intake_ring_detect(int velocity)
+{
+    const int RED_LOWER_THRESHOLD = 5;
+    const int RED_UPPER_THRESHOLD = 25;
+    const int BLUE_LOWER_THRESHOLD = 208;
+    const int BLUE_UPPER_THRESHOLD = 215;
+
+    AllianceColour currentAllianceColour = AllianceColour::RED;
+
+    if (currentAllianceColour == AllianceColour::RED)
+    {
+        if (optical_sensor.get_hue() > BLUE_LOWER_THRESHOLD && optical_sensor.get_hue() < BLUE_UPPER_THRESHOLD)
+        {
+            handle_wrong_ring(velocity);
+        }
+    }
+    else if (currentAllianceColour == AllianceColour::BLUE)
+    {
+        if (optical_sensor.get_hue() > RED_LOWER_THRESHOLD && optical_sensor.get_hue() < RED_UPPER_THRESHOLD)
+        {
+            handle_wrong_ring(velocity);
+        }
+    }
+}
+
+void handle_wrong_ring(int velocity)
+{
+    const int FLING_DISTANCE_THRESHOLD = 500;
+    int start_intake_position = intake.get_position();
+
+    while (abs(intake.get_position() - start_intake_position) < FLING_DISTANCE_THRESHOLD)
+    {
+        pros::delay(TASK_DELAY_MS);
+    }
+
+    intake.move_velocity(0);
+    pros::delay(200);
+    intake.move_velocity(velocity);
+}
 
 
 void intake_async(int t, int velocity)
@@ -142,20 +182,6 @@ void arm_standard(int t, int velocity)
     pros::delay(t);
     arm.move_velocity(0);
 }
-
-
-void intake_detect()
-{
-    optical_sensor.set_led_pwm(100);
-    while (optical_sensor.get_hue() > 9 && optical_sensor.get_hue() < 25)
-    {
-        intake.move_velocity(400);
-    }
-    intake.move_velocity(0);
-    intake.move_relative(50, -600);
-    optical_sensor.set_led_pwm(0);
-}
-
 
 void move_arm_absolute(int position)
 {

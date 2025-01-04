@@ -5,9 +5,9 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
-
 void south_side_red()
 {
+    //currentAllianceColour = AllianceColour::RED;
     chassis.setPose(-50.5, -60, 270);
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
@@ -118,6 +118,7 @@ void south_side_red()
 
 void south_side_blue()
 {
+    //currentAllianceColour = AllianceColour::BLUE;
     chassis.setPose(50.5, -60, 90);
     arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);

@@ -44,14 +44,14 @@ void auton_skills_stage_1()
     pros::delay(1000);
 
     // Move back
-    chassis.moveToPoint(-47, 0, 1500, {.forwards=false});
+    chassis.moveToPoint(-50, 0, 1500, {.forwards=false});
     arm_flip.set_value(false);
-    chassis.turnToPoint(-47, 24, 1500, {.forwards=false});
+    chassis.turnToPoint(-50, 24, 1500, {.forwards=false});
 
     // Move to pick up stake
     mobile_stake_clamp.set_value(true);
     pros::delay(500);
-    chassis.moveToPoint(-47, 24, 1500, {.forwards=false});
+    chassis.moveToPoint(-50, 24, 1500, {.forwards=false});
     pros::delay(750);
     mobile_stake_clamp.set_value(false);
     pros::delay(750);
@@ -106,17 +106,17 @@ void auton_skills_stage_2()
     intake_controlled(600);
 
     // Move to collect first ring
-    chassis.turnToPoint(-24, -24, 1000);
-    chassis.moveToPoint(-24, -24, 1000);
+    chassis.turnToPoint(-20, -21, 1000);
+    chassis.moveToPoint(-20, -21, 1000);
 
     // Move to collect second ring
-    chassis.turnToPoint(-20, -48, 1000);
-    chassis.moveToPoint(-20, -48, 1000);
+    chassis.turnToPoint(-18, -48, 1000);
+    chassis.moveToPoint(-18, -48, 1000);
 
     // Move to collect third and fourth rings
-    chassis.turnToPoint(-55, -53, 1000);
-    chassis.moveToPoint(-55, -53, 2500, {.maxSpeed = 50}, false);
-    pros::delay(500);
+    chassis.turnToPoint(-68, -53, 1000);
+    chassis.moveToPoint(-68, -53, 2500, {.maxSpeed = 60}, false);
+    pros::delay(350);
 
     // Swing to dump the mobile stake in the corner
     pros::delay(750);
@@ -147,8 +147,8 @@ void auton_skills_stage_3()
 
     // Grab last empty stake and put the rings onto it
     chassis.turnToPoint(38, -3, 1000, {.forwards=false, .maxSpeed=70});
-    chassis.moveToPoint(38, -3, 2000, {.forwards=false, .maxSpeed=70}, false);
-    chassis.moveToPoint(42.5, 4, 2000, {.forwards=false, .minSpeed=80}, false);
+    chassis.moveToPoint(35, -3, 2000, {.forwards=false, .maxSpeed=70}, false);
+    chassis.moveToPoint(35, 4, 2000, {.forwards=false, .minSpeed=80}, false);
     pros::delay(500);
     mobile_stake_clamp.set_value(false);
     pros::delay(500);
@@ -184,16 +184,16 @@ void auton_skills_stage_4()
     chassis.moveToPoint(70, 26, 500, {.forwards=false, .minSpeed=40});
 
     // Shove it in the corner
-    chassis.turnToPoint(78, 76, 500, {.forwards=false});
-    chassis.moveToPoint(78, 76, 1200, {.forwards=false, .minSpeed=120});
+    chassis.turnToPoint(68, 76, 500, {.forwards=false});
+    chassis.moveToPoint(68, 76, 1200, {.forwards=false, .minSpeed=120});
 
     // Back off the stake
-    chassis.setPose(-65, -65, chassis.getPose().theta);
-    chassis.moveToPoint(50, 50, 1000);
+    chassis.moveToPoint(50, 50, 1000, {.forwards=false});
 
     // Turn to ladder rung
     arm.move_velocity(100);
-    chassis.turnToPoint(9, 9, 1000, {}, false);
-    chassis.moveToPoint(9, 9, 2000, {.maxSpeed=80});
+    chassis.turnToPoint(9, -22, 1000, {}, false);
+    chassis.moveToPoint(9, -22, 2000, {.minSpeed=100});
+    chassis.tank(-127, -127, false);
 }
 

@@ -6,9 +6,11 @@
 #include "pros/rtos.hpp"
 #include "subsystem-control-functions.h"
 #include "data-logger.h"
+#include "errno.h"
 
 void initialize()
 {
+	optical_sensor.set_led_pwm(100);
 	chassis.calibrate();
 	arm_rotation_sensor.set_position(0);
 }
@@ -22,17 +24,16 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	north_side_blue();
+	south_side_blue();
 }
 
 
 void opcontrol()
 {
 	intake_controlled(0);
-	
+
 	while (true)
 	{
 		split_curvature();
-		pros::delay(TASK_DELAY_MS);
 	}
 }

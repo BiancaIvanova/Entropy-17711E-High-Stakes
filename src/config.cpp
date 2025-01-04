@@ -42,8 +42,8 @@ using MotorUnits = pros::v5::MotorUnits;
 pros::MotorGroup left_drive({-11, -12, 13}, MotorGearset::blue);
 pros::MotorGroup right_drive({16, 15, -14}, MotorGearset::blue);
 
-pros::Motor intake(18, MotorGearset::blue, MotorUnits::rotations);
-pros::Motor arm(19, MotorGearset::green, MotorUnits::rotations);
+pros::Motor intake(18, MotorGearset::blue, MotorUnits::degrees);
+pros::Motor arm(19, MotorGearset::green, MotorUnits::degrees);
 pros::Imu inertial_sensor(17);
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(10);

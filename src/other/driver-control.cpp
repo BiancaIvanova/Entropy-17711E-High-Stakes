@@ -25,7 +25,7 @@ void split_curvature()
     intake_control(controller.get_digital(DIGITAL_R2), controller.get_digital(DIGITAL_R1));
     arm_control(controller.get_digital(DIGITAL_Y), controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT));
     stake_clamp_control(controller.get_digital(DIGITAL_L2));
-    arm_flip_control(pros::E_CONTROLLER_DIGITAL_B);
+    arm_flip_control(controller.get_digital(DIGITAL_B));
 }
 
 const double overallScaleFactor = 600.0 / 127.0;
@@ -96,7 +96,6 @@ void arm_flip_control(bool control)
 {
     if (control)
     {
-
         if (!armLatch)
         {
             armOpen = !armOpen;
