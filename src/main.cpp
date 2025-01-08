@@ -24,7 +24,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	auton_skills();
+	auton_skills_new();
 }
 
 
