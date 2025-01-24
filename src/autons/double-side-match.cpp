@@ -152,3 +152,105 @@ void double_side_blue()
     chassis.turnToPoint(23, -7, 1000, {.maxSpeed=127}, false);
     chassis.moveToPoint(23, -7, 1000, {.maxSpeed=110}, false);
 }
+
+
+void elims_red()
+{
+    chassis.setPose(-51, 30, 72);
+    intake_controlled(600);
+    
+    // rush ring stacks
+    mobile_stake_clamp.set_value(true);
+    chassis.moveToPoint(-9, 42.5, 1500, {.minSpeed=85});
+    pros::delay(1500);
+    chassis.moveToPoint(-16, 40, 750, {.forwards=false}, false);
+
+    // turn to grab stake
+    chassis.turnToPoint(-23, 24.5, 1000, {.forwards=false});
+    intake_controlled(0);
+    chassis.moveToPoint(-22, 26, 1000, {.forwards=false}, false);
+    chassis.moveToPoint(-23, 25.5, 750, {.forwards=false}, false);
+    mobile_stake_clamp.set_value(false);
+    pros::delay(250);
+    intake_controlled(600);
+
+    // turn to grab ring
+    chassis.turnToPoint(-23, 50, 1500);
+    chassis.moveToPoint(-23, 50, 1500);
+    pros::delay(750);
+
+    // alliance stake
+    chassis.turnToPoint(-52, -5.5, 1500);
+    chassis.moveToPoint(-52, -10, 2000); // forward
+    pros::delay(250);
+    arm.move_velocity(100);
+    chassis.moveToPoint(-52, -5.5, 1000, {.forwards=false}); // back
+    intake_controlled(0);
+    chassis.turnToHeading(270, 1000);
+
+    // go forward
+    chassis.moveToPoint(-57, -5.5, 1500);
+    pros::delay(750);
+
+    // put wall stake
+    arm_flip.set_value(true);
+    arm.move_velocity(-100);
+    pros::delay(1250);
+
+    // back off
+    chassis.moveToPoint(-50, -5.5, 1500, {.forwards=false, .minSpeed=60});
+
+    // positive corner
+    chassis.moveToPoint(-60, -53, 2000, {.minSpeed=85});
+}
+
+
+void elims_blue()
+{
+    chassis.setPose(51, 30, 288);
+    intake_controlled(600);
+    
+    // rush ring stacks
+    mobile_stake_clamp.set_value(true);
+    chassis.moveToPoint(9, 42.5, 1500, {.minSpeed=85});
+    pros::delay(1500);
+    chassis.moveToPoint(16, 40, 750, {.forwards=false}, false);
+
+    // turn to grab stake
+    chassis.turnToPoint(23, 24.5, 1000, {.forwards=false});
+    intake_controlled(0);
+    chassis.moveToPoint(22, 26, 1000, {.forwards=false}, false);
+    chassis.moveToPoint(23, 25.5, 750, {.forwards=false}, false);
+    mobile_stake_clamp.set_value(false);
+    pros::delay(250);
+    intake_controlled(600);
+
+    // turn to grab ring
+    chassis.turnToPoint(23, 50, 1500);
+    chassis.moveToPoint(23, 50, 1500);
+    pros::delay(750);
+
+    // alliance stake
+    chassis.turnToPoint(52, -5.5, 1500);
+    chassis.moveToPoint(52, -10, 2000); // forward
+    pros::delay(250);
+    arm.move_velocity(100);
+    chassis.moveToPoint(52, -5.5, 1000, {.forwards=false}); // back
+    intake_controlled(0);
+    chassis.turnToHeading(90, 1000);
+
+    // go forward
+    chassis.moveToPoint(57, -5.5, 1500);
+    pros::delay(750);
+
+    // put wall stake
+    arm_flip.set_value(true);
+    arm.move_velocity(-100);
+    pros::delay(1250);
+
+    // back off
+    chassis.moveToPoint(50, -5.5, 1500, {.forwards=false, .minSpeed=60});
+
+    // positive corner
+    chassis.moveToPoint(60, -53, 2000, {.minSpeed=85});
+}

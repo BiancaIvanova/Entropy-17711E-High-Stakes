@@ -32,3 +32,7 @@ void north_side_blue();
 // South Side Match
 void south_side_red();
 void south_side_blue();
+
+// Elims auton
+void elims_red();
+void elims_blue();
