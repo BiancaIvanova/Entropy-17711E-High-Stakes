@@ -43,6 +43,8 @@ void south_side_red()
     mobile_stake_clamp.set_value(false);
     pros::delay(750);
 
+    /*
+
     // Turn to corner
     chassis.turnToPoint(-46.5, -1.5, 1000, {}, false);
     intake.move_velocity(600);
@@ -152,10 +154,10 @@ void south_side_blue()
     pros::delay(750);
     mobile_stake_clamp.set_value(false);
 
+    /*
+
     // Start scoring
     intake_controlled(600);
-
-    /*
 
     // Turn to corner
     chassis.turnToPoint(75, -75, 1000);

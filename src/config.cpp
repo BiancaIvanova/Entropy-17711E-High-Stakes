@@ -39,11 +39,17 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 using MotorGearset = pros::MotorGearset;
 using MotorUnits = pros::v5::MotorUnits;
 
-pros::MotorGroup left_drive({-11, -12, 13}, MotorGearset::blue);
-pros::MotorGroup right_drive({16, 15, -14}, MotorGearset::blue);
+//pros::MotorGroup left_drive({-11, -12, 13}, MotorGearset::blue); OLD ROBOT
+//pros::MotorGroup right_drive({16, 15, -14}, MotorGearset::blue); OLD ROBOT
 
-pros::Motor intake(18, MotorGearset::blue, MotorUnits::degrees);
-pros::Motor arm(19, MotorGearset::green, MotorUnits::degrees);
+pros::MotorGroup left_drive({-12, -13, -20}, MotorGearset::blue);
+pros::MotorGroup right_drive({14, 15, 19}, MotorGearset::blue);
+
+//pros::Motor intake(18, MotorGearset::blue, MotorUnits::degrees); OLD ROBOT
+pros::Motor intake(16, MotorGearset::blue, MotorUnits::degrees);
+//pros::Motor arm(19, MotorGearset::green, MotorUnits::degrees); OLD ROBOT
+pros::Motor arm(17, MotorGearset::green, MotorUnits::degrees);
+pros::Motor right_arm(-18, MotorGearset::green, MotorUnits::degrees);
 pros::Imu inertial_sensor(17);
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(10);
@@ -69,7 +75,7 @@ lemlib::OdomSensors sensors {
     nullptr,
     nullptr,
     nullptr,
-    &inertial_sensor
+    nullptr
 };
 
 // Forward/Backward PID

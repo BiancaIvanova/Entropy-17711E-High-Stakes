@@ -26,7 +26,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	elims_red();
+	north_side_red();
 }
 
 

@@ -19,7 +19,9 @@ extern AllianceColour currentAllianceColour;
 extern pros::MotorGroup left_drive;
 extern pros::MotorGroup right_drive;
 extern pros::Motor intake;
+//extern pros::Motor arm; OLD ROBOT
 extern pros::Motor arm;
+extern pros::Motor right_arm;
 extern pros::Imu inertial_sensor;
 extern pros::Optical optical_sensor;
 extern pros::Rotation arm_rotation_sensor;
