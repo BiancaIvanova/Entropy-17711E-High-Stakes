@@ -26,7 +26,9 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	north_side_red();
+	ArmController armController
+	
+	//north_side_red();
 }
 
 
