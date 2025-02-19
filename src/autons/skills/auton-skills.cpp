@@ -33,14 +33,14 @@ void auton_skills_stage_1()
     arm_rotation_sensor.set_position(0);
     while (arm_rotation_sensor.get_position() < 6500)
     {
-        arm.move_velocity(100);
+        ////arm.move_velocity(100);
     }
-    arm.move_velocity(0);
+    ////arm.move_velocity(0);
     arm_flip.set_value(true);
     pros::delay(500);
 
     // Put ring on alliance stake
-    arm.move_velocity(-100);
+    ////arm.move_velocity(-100);
     pros::delay(1000);
 
     // Move back
@@ -191,7 +191,7 @@ void auton_skills_stage_4()
     chassis.moveToPoint(50, 50, 1000, {.forwards=false});
 
     // Turn to ladder rung
-    arm.move_velocity(100);
+    //arm.move_velocity(100);
     chassis.turnToPoint(9, -22, 1000, {}, false);
     chassis.moveToPoint(9, -22, 2000, {.minSpeed=100});
     chassis.tank(-127, -127, false);

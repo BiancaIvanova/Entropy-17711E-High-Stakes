@@ -48,7 +48,7 @@ pros::MotorGroup right_drive({14, 15, 19}, MotorGearset::blue);
 //pros::Motor intake(18, MotorGearset::blue, MotorUnits::degrees); OLD ROBOT
 pros::Motor intake(16, MotorGearset::blue, MotorUnits::degrees);
 //pros::Motor arm(19, MotorGearset::green, MotorUnits::degrees); OLD ROBOT
-pros::Motor arm(17, MotorGearset::green, MotorUnits::degrees);
+pros::Motor left_arm(17, MotorGearset::green, MotorUnits::degrees);
 pros::Motor right_arm(-18, MotorGearset::green, MotorUnits::degrees);
 pros::Imu inertial_sensor(17);
 pros::GPS gps_sensor(20);

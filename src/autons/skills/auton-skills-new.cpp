@@ -77,14 +77,14 @@ void auton_skills_stage_1_new()
     arm_rotation_sensor.set_position(0);
     while (arm_rotation_sensor.get_position() < 6500)
     {
-        arm.move_velocity(100);
+        ////arm.move_velocity(100);
     }
-    arm.move_velocity(0);
+    ////arm.move_velocity(0);
     arm_flip.set_value(true);
     pros::delay(400);
 
     // Put ring on alliance stake
-    arm.move_velocity(-100);
+    ////arm.move_velocity(-100);
     pros::delay(700);
 
     // Move back, and grab left stake
@@ -137,14 +137,14 @@ void auton_skills_stage_1_new()
         // Raise arm
         while (arm_rotation_sensor.get_position() < 9000)
         {
-            arm.move_velocity(100);
+            ////arm.move_velocity(100);
         }
         
         // Move forward
         chassis.moveToPoint(0, 58, 500);
 
         // Lower arm
-        arm.move_velocity(-100);
+        ////arm.move_velocity(-100);
     }
 
     // If it got the ring or not, move back

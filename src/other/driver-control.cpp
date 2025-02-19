@@ -49,19 +49,24 @@ void intake_control(bool in, bool out)
 
 void arm_control(bool up, bool down)
 {
-    arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    left_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    right_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+
 
     if (up)
     {
-        arm.move_velocity(ARM_VELOCITY);
+        left_arm.move_velocity(ARM_VELOCITY);
+        right_arm.move_velocity(ARM_VELOCITY);
     }
     else if (down)
     {
-        arm.move_velocity(ARM_VELOCITY * -1);
+        left_arm.move_velocity(ARM_VELOCITY * -1);
+        right_arm.move_velocity(ARM_VELOCITY * -1);
     }
     else
     {
-        arm.move_velocity(0);
+        left_arm.move_velocity(0);
+        right_arm.move_velocity(0);
     }
 }
 

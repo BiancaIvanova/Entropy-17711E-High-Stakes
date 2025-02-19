@@ -8,7 +8,7 @@
 void north_side_red()
 {
     //currentAllianceColour = AllianceColour::RED;
-    arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    ////arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setPose(-55, 11, 180);
 
@@ -21,15 +21,15 @@ void north_side_red()
     arm_rotation_sensor.set_position(0);
     while (arm_rotation_sensor.get_position() < 5500)
     {
-        arm.move_velocity(100);
+        ////arm.move_velocity(100);
     }
-    arm.move_velocity(0);
+    ////arm.move_velocity(0);
     arm_flip.set_value(true);
 
     // Turn to alliance stake
     intake_controlled(600);
     chassis.swingToHeading(245, DriveSide::RIGHT, 1000, {.maxSpeed=60}, false);
-    arm.move_velocity(-100);
+    ////arm.move_velocity(-100);
     pros::delay(1000);
 
     // Move back to stake
@@ -44,7 +44,7 @@ void north_side_red()
     chassis.waitUntilDone();
     pros::delay(500);
     mobile_stake_clamp.set_value(false);
-    arm.move_velocity(0);
+    ////arm.move_velocity(0);
     pros::delay(500);
 
     // Score first ring
@@ -77,7 +77,7 @@ void north_side_red()
 void north_side_blue()
 {
     //AllianceColour currentAllianceColour = AllianceColour::BLUE;
-    arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    ////arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setPose(55, 11, -180);
 
@@ -88,15 +88,15 @@ void north_side_blue()
     arm_rotation_sensor.set_position(0);
     while (arm_rotation_sensor.get_position() < 5500)
     {
-        arm.move_velocity(100);
+        ////arm.move_velocity(100);
     }
-    arm.move_velocity(0);
+    ////arm.move_velocity(0);
     arm_flip.set_value(true);
 
     // Turn to alliance stake
     intake_controlled(600);
     chassis.swingToHeading(-245, DriveSide::LEFT, 1000, {.maxSpeed=60}, false);
-    arm.move_velocity(-100);
+    ////arm.move_velocity(-100);
     pros::delay(1000);
 
     // Move back to stake
@@ -111,7 +111,7 @@ void north_side_blue()
     chassis.waitUntilDone();
     pros::delay(500);
     mobile_stake_clamp.set_value(false);
-    arm.move_velocity(0);
+    ////arm.move_velocity(0);
     pros::delay(500);
 
     // Score first ring

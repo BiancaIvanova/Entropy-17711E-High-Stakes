@@ -9,7 +9,7 @@ void south_side_red()
 {
     //currentAllianceColour = AllianceColour::RED;
     chassis.setPose(-50.5, -60, 270);
-    arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    ////arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     mobile_stake_clamp.set_value(true);
 
@@ -72,11 +72,11 @@ void south_side_red()
     int timer = 0;
     while (arm_rotation_sensor.get_position() < 400 && timer * 20 < 1000)
     {
-        arm.move_velocity(100);
+        //arm.move_velocity(100);
         pros::delay(20);
         timer++;
     }
-    arm.move_velocity(0);
+    //arm.move_velocity(0);
     
     chassis.waitUntilDone();
 
@@ -95,18 +95,18 @@ void south_side_red()
     int timer = 0;
     while (arm_rotation_sensor.get_position() < 5500 && timer * 20 < 1000)
     {
-        arm.move_velocity(100);
+        //arm.move_velocity(100);
         pros::delay(20);
         timer++;
     }
-    arm.move_velocity(0);
+    //arm.move_velocity(0);
     
 
     // Alliance stake
     chassis.turnToPoint(-61, -11, 1000, {}, false);
     chassis.moveToPoint(-61, -11, 1500, {}, false);
     pros::delay(250);
-    //arm.move_velocity(-100);
+    ////arm.move_velocity(-100);
 
     // Turn and touch ladder
     chassis.turnToPoint(-29, -2, 1000, {}, false);
@@ -122,7 +122,7 @@ void south_side_blue()
 {
     //currentAllianceColour = AllianceColour::BLUE;
     chassis.setPose(50.5, -60, 90);
-    arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    ////arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     mobile_stake_clamp.set_value(true);
 
@@ -168,11 +168,11 @@ void south_side_blue()
     int timer = 0;
     while (arm_rotation_sensor.get_position() < 400 && timer * 20 < 1000)
     {
-        arm.move_velocity(100);
+        //arm.move_velocity(100);
         pros::delay(20);
         timer++;
     }
-    arm.move_velocity(0);
+    //arm.move_velocity(0);
     */
     chassis.waitUntilDone();
 
@@ -191,18 +191,18 @@ void south_side_blue()
     int timer = 0;
     while (arm_rotation_sensor.get_position() < 5500 && timer * 20 < 1000)
     {
-        arm.move_velocity(100);
+        //arm.move_velocity(100);
         pros::delay(20);
         timer++;
     }
-    arm.move_velocity(0);
+    //arm.move_velocity(0);
     */
 
     // Alliance stake
     chassis.turnToPoint(61, -11, 1000, {}, false);
     chassis.moveToPoint(61, -11, 1500, {}, false);
     pros::delay(250);
-    //arm.move_velocity(-100);
+    ////arm.move_velocity(-100);
 
     // Turn and touch ladder
     chassis.turnToPoint(29, -2, 1000, {}, false);
@@ -216,7 +216,7 @@ void south_side_blue()
 void south_side_blue()
 {
     chassis.setPose(50.5, -60, 90);
-    arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+    //arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     mobile_stake_clamp.set_value(true);
 
@@ -259,11 +259,11 @@ void south_side_blue()
     int timer = 0;
     while (arm_rotation_sensor.get_position() < 500 || timer * 20 < 1000)
     {
-        arm.move_velocity(100);
+        //arm.move_velocity(100);
         pros::delay(20);
         timer++;
     }
-    arm.move_velocity(0);
+    //arm.move_velocity(0);
     chassis.waitUntilDone();
 
     // Drive to corner
@@ -279,16 +279,16 @@ void south_side_blue()
 
     while (arm_rotation_sensor.get_position() < 5500)
     {
-        arm.move_velocity(100);
+        //arm.move_velocity(100);
     }
-    arm.move_velocity(0);
+    //arm.move_velocity(0);
     
 
     // Alliance stake
     chassis.turnToPoint(61, -11, 1000);
     chassis.moveToPoint(61, -11, 1500, {}, false);
     pros::delay(250);
-    arm.move_velocity(-100);
+    //arm.move_velocity(-100);
 
     // Turn and touch ladder
     chassis.turnToPoint(29, -2, 1000);

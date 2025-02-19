@@ -171,22 +171,23 @@ void arm_async(int t, int velocity)
 {
     pros::Task task([&]()
                     {
-    arm.move_velocity(velocity);
+    //arm.move_velocity(velocity);
     pros::delay(t);
-    arm.move_velocity(0); });
+    //arm.move_velocity(0);
+    });
 }
 
 void arm_standard(int t, int velocity)
 {
-    arm.move_velocity(velocity);
+    //arm.move_velocity(velocity);
     pros::delay(t);
-    arm.move_velocity(0);
+    //arm.move_velocity(0);
 }
 
 void move_arm_absolute(int position)
 {
     while (arm_rotation_sensor.get_position())
     {
-        arm.move_velocity(100);
+        //arm.move_velocity(100);
     }
 }
