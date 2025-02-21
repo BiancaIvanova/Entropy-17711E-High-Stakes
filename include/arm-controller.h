@@ -6,6 +6,14 @@
 #include "pros/rotation.hpp"
 #include "pid-controller.h"
 
+enum ArmPosition {
+    DOWN = 0,
+    LOAD = 25,
+    UP = 65,
+    WALL_STAKE = 80,
+    ALLIANCE_STAKE = 140
+};
+
 class ArmController {
     PIDController pid;
     double currentPosition = 0;

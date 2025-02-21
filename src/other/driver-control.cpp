@@ -47,26 +47,34 @@ void intake_control(bool in, bool out)
     }
 }
 
-void arm_control(bool up, bool down)
-{
+std::vector<double> armPositions = {
+    ArmPosition::DOWN,
+    ArmPosition::LOAD,
+    ArmPosition::UP,
+    ArmPosition::WALL_STAKE,
+    ArmPosition::ALLIANCE_STAKE
+};
+
+int currentIndex = 0;
+bool prevUp = false;
+bool prevDown = false;
+
+void arm_control(bool up, bool down) {
     left_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     right_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
 
-    if (up)
-    {
-        left_arm.move_velocity(ARM_VELOCITY);
-        right_arm.move_velocity(ARM_VELOCITY);
+    // Rising edge detection
+    if (up && !prevUp && currentIndex < armPositions.size() - 1) {
+        currentIndex++;
+        arm.moveToPosition(armPositions[currentIndex]);
     }
-    else if (down)
-    {
-        left_arm.move_velocity(ARM_VELOCITY * -1);
-        right_arm.move_velocity(ARM_VELOCITY * -1);
+    else if (down && !prevDown && currentIndex > 0) {
+        currentIndex--;
+        arm.moveToPosition(armPositions[currentIndex]);
     }
-    else
-    {
-        left_arm.move_velocity(0);
-        right_arm.move_velocity(0);
-    }
+
+    prevUp = up;
+    prevDown = down;
 }
 
 bool stakeClampOpen, stakeClampLatch;
