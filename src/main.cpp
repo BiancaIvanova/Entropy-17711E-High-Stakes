@@ -41,7 +41,7 @@ void autonomous()
 	armController.moveToPosition(3000);
 	*/
 
-	south_side_blue();
+	arm_test();
 }
 
 

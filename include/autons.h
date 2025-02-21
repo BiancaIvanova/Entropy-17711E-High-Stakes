@@ -20,6 +20,7 @@ void driver_skills_auton();
 
 // Testing Autons
 void drive_square();
+void arm_test();
 
 // Double Side Match
 void double_side_red();

@@ -17,6 +17,7 @@
 #include "pros/motors.hpp"
 #include "pros/optical.hpp"
 #include "pros/rotation.hpp"
+#include "arm-controller.h"
 #include <cmath>
 #include <iostream>
 #define _USE_MATH_DEFINES
@@ -50,12 +51,24 @@ pros::Motor intake(16, MotorGearset::blue, MotorUnits::degrees);
 //pros::Motor arm(19, MotorGearset::green, MotorUnits::degrees); OLD ROBOT
 pros::Motor left_arm(17, MotorGearset::green, MotorUnits::degrees);
 pros::Motor right_arm(-18, MotorGearset::green, MotorUnits::degrees);
-pros::Imu inertial_sensor(17);
+pros::Imu inertial_sensor_left(9);
+pros::Imu inertial_sensor_right(10);
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(10);
-pros::Rotation arm_rotation_sensor(9);
+pros::Rotation arm_rotation_sensor(8);
 pros::adi::DigitalOut mobile_stake_clamp('A');
-pros::adi::DigitalOut arm_flip('B');
+pros::adi::DigitalOut doinker('B');
+
+// -----------------------------------------------------------------------------
+// PID configuration
+ArmController arm (
+    0.05,
+    0.0,
+    0.8,
+    left_arm,
+    right_arm,
+    arm_rotation_sensor
+);
 
 
 // -----------------------------------------------------------------------------
@@ -71,11 +84,11 @@ lemlib::Drivetrain drivetrain {
 };
 
 lemlib::OdomSensors sensors {
-	nullptr,
     nullptr,
     nullptr,
     nullptr,
-    nullptr
+    nullptr,
+    &left_inertial_sensor,
 };
 
 // Forward/Backward PID

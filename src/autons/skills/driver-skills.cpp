@@ -19,14 +19,14 @@ void driver_skills_auton()
         //arm.move_velocity(100);
     }
     //arm.move_velocity(0);
-    arm_flip.set_value(true);
+    doinker.set_value(true);
 
     // Move arm down
     //arm.move_velocity(-100);
     pros::delay(1750);
 
     chassis.moveToPoint(-48, 0, 700, {.forwards=false}, false);
-    arm_flip.set_value(false);
+    doinker.set_value(false);
     chassis.turnToPoint(-48, 22, 700, {.forwards=false}, false);
     mobile_stake_clamp.set_value(true);
     chassis.moveToPoint(-48, 22, 700, {.forwards=false}, false);

@@ -80,7 +80,7 @@ void auton_skills_stage_1_new()
         ////arm.move_velocity(100);
     }
     ////arm.move_velocity(0);
-    arm_flip.set_value(true);
+    doinker.set_value(true);
     pros::delay(400);
 
     // Put ring on alliance stake
@@ -89,7 +89,7 @@ void auton_skills_stage_1_new()
 
     // Move back, and grab left stake
     chassis.moveToPoint(-50, 0, 1500, {.forwards=false});
-    arm_flip.set_value(false);
+    doinker.set_value(false);
     chassis.turnToPoint(-50, 24, 1500, {.forwards=false});
     chassis.moveToPoint(-50, 24, 1500, {.forwards=false}, false);
     mobile_stake_clamp.set_value(false);
@@ -130,7 +130,7 @@ void auton_skills_stage_1_new()
     if (ring_successful)
     {
         // Intake slightly further, then outtake into arm
-        arm_flip.set_value(false);
+        doinker.set_value(false);
         intake.move_relative(600, 300);
         intake.move_relative(-2000, 600);
 

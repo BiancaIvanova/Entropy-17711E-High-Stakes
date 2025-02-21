@@ -23,7 +23,7 @@ void double_side_red()
         ////arm.move_velocity(100);
     }
     ////arm.move_velocity(0);
-    arm_flip.set_value(true);
+    doinker.set_value(true);
 
     // Turn to alliance stake
     chassis.swingToHeading(245, DriveSide::RIGHT, 1000, {.maxSpeed=60}, false);
@@ -35,7 +35,7 @@ void double_side_red()
     //chassis.moveToPoint(-12, 29, 1000, {.forwards=false, .maxSpeed=60});
 
     // Fold arm back
-    arm_flip.set_value(false);
+    doinker.set_value(false);
 
     // Clamp on stake
     chassis.waitUntilDone();
@@ -97,7 +97,7 @@ void double_side_blue()
         /////arm.move_velocity(100);
     }
     ////arm.move_velocity(0);
-    arm_flip.set_value(true);
+    doinker.set_value(true);
 
     // Turn to alliance stake
     chassis.swingToHeading(-245, DriveSide::LEFT, 1000, {.maxSpeed=60}, false);
@@ -109,7 +109,7 @@ void double_side_blue()
     //chassis.moveToPoint(-12, 29, 1000, {.forwards=false, .maxSpeed=60});
 
     // Fold arm back
-    arm_flip.set_value(false);
+    doinker.set_value(false);
 
     // Clamp on stake
     chassis.waitUntilDone();
@@ -193,7 +193,7 @@ void elims_red()
     pros::delay(750);
 
     // put wall stake
-    arm_flip.set_value(true);
+    doinker.set_value(true);
     ////arm.move_velocity(-100);
     pros::delay(1250);
 
@@ -244,7 +244,7 @@ void elims_blue()
     pros::delay(750);
 
     // put wall stake
-    arm_flip.set_value(true);
+    doinker.set_value(true);
     ////arm.move_velocity(-100);
     pros::delay(1250);
 

@@ -36,7 +36,7 @@ void auton_skills_stage_1()
         ////arm.move_velocity(100);
     }
     ////arm.move_velocity(0);
-    arm_flip.set_value(true);
+    doinker.set_value(true);
     pros::delay(500);
 
     // Put ring on alliance stake
@@ -45,7 +45,7 @@ void auton_skills_stage_1()
 
     // Move back
     chassis.moveToPoint(-50, 0, 1500, {.forwards=false});
-    arm_flip.set_value(false);
+    doinker.set_value(false);
     chassis.turnToPoint(-50, 24, 1500, {.forwards=false});
 
     // Move to pick up stake

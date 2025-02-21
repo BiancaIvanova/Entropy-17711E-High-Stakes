@@ -24,7 +24,7 @@ void north_side_red()
         ////arm.move_velocity(100);
     }
     ////arm.move_velocity(0);
-    arm_flip.set_value(true);
+    doinker.set_value(true);
 
     // Turn to alliance stake
     intake_controlled(600);
@@ -38,7 +38,7 @@ void north_side_red()
     //chassis.moveToPoint(-12, 29, 1000, {.forwards=false, .maxSpeed=60});
 
     // Fold arm back
-    arm_flip.set_value(false);
+    doinker.set_value(false);
 
     // Clamp on stake
     chassis.waitUntilDone();
@@ -91,7 +91,7 @@ void north_side_blue()
         ////arm.move_velocity(100);
     }
     ////arm.move_velocity(0);
-    arm_flip.set_value(true);
+    doinker.set_value(true);
 
     // Turn to alliance stake
     intake_controlled(600);
@@ -105,7 +105,7 @@ void north_side_blue()
     //chassis.moveToPoint(-12, 29, 1000, {.forwards=false, .maxSpeed=60});
 
     // Fold arm back
-    arm_flip.set_value(false);
+    doinker.set_value(false);
 
     // Clamp on stake
     chassis.waitUntilDone();

@@ -81,7 +81,7 @@ void south_side_red()
     chassis.waitUntilDone();
 
     // Drive to corner
-    //arm_flip.set_value(true);
+    //doinker.set_value(true);
     intake.move_velocity(-600);
     chassis.moveToPoint(-75, -75, 2000, {.maxSpeed=100}, false);
     intake_controlled(0);
@@ -110,7 +110,7 @@ void south_side_red()
 
     // Turn and touch ladder
     chassis.turnToPoint(-29, -2, 1000, {}, false);
-    //arm_flip.set_value(false);
+    //doinker.set_value(false);
     chassis.moveToPoint(-29, -2, 1000, {}, false);
     //south_side_red_corner();
     */
@@ -177,7 +177,7 @@ void south_side_blue()
     chassis.waitUntilDone();
 
     // Drive to corner
-    //arm_flip.set_value(true);
+    //doinker.set_value(true);
     intake.move_velocity(-600);
     chassis.moveToPoint(75, -75, 2000, {.maxSpeed=100}, false);
     intake_controlled(0);
@@ -206,7 +206,7 @@ void south_side_blue()
 
     // Turn and touch ladder
     chassis.turnToPoint(29, -2, 1000, {}, false);
-    //arm_flip.set_value(false);
+    //doinker.set_value(false);
     chassis.moveToPoint(29, -2, 1000, {}, false);
     //south_side_red_corner();
     
@@ -269,7 +269,7 @@ void south_side_blue()
     // Drive to corner
     chassis.moveToPoint(75, -75, 2000, {.maxSpeed=100});
     intake_controlled(0);
-    arm_flip.set_value(true);
+    doinker.set_value(true);
     
     // Back off
     chassis.moveToPoint(42, -33, 1000, {.forwards=false});
@@ -292,7 +292,7 @@ void south_side_blue()
 
     // Turn and touch ladder
     chassis.turnToPoint(29, -2, 1000);
-    arm_flip.set_value(false);
+    doinker.set_value(false);
     chassis.moveToPoint(29, -2, 1000);
     //south_side_red_corner();
     

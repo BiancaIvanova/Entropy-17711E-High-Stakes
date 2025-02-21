@@ -116,7 +116,7 @@ void replay_logs()
         intake_control(log.R2, log.R1);
         arm_control(log.Y, log.RIGHT);
         stake_clamp_control(log.L2);
-        arm_flip_control(log.B);
+        doinker_control(log.B);
 
         pros::delay(20);
     }

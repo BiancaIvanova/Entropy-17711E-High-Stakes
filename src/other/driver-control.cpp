@@ -25,7 +25,7 @@ void split_curvature()
     intake_control(controller.get_digital(DIGITAL_R2), controller.get_digital(DIGITAL_R1));
     arm_control(controller.get_digital(DIGITAL_Y), controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT));
     stake_clamp_control(controller.get_digital(DIGITAL_L2));
-    arm_flip_control(controller.get_digital(DIGITAL_B));
+    doinker_control(controller.get_digital(DIGITAL_B));
 }
 
 const double overallScaleFactor = 600.0 / 127.0;
@@ -51,7 +51,6 @@ void arm_control(bool up, bool down)
 {
     left_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     right_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-
 
     if (up)
     {
@@ -94,25 +93,25 @@ void stake_clamp_control(bool control)
 }
 
 
-bool armOpen, armLatch;
+bool doinkerOpen, doinkerLatch;
 
 
-void arm_flip_control(bool control)
+void doinker_control(bool control)
 {
     if (control)
     {
-        if (!armLatch)
+        if (!doinkerLatch)
         {
-            armOpen = !armOpen;
+            doinkerOpen = !doinkerOpen;
 
-            arm_flip.set_value(armOpen);
-            arm_flip.set_value(armOpen);
+            doinker.set_value(doinkerOpen);
+            doinker.set_value(doinkerOpen);
 
-            armLatch = true;
+            doinkerLatch = true;
         }
     }
     else
     {
-        armLatch = false;
+        doinkerLatch = false;
     }
 }
