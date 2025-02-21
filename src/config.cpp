@@ -46,23 +46,25 @@ using MotorUnits = pros::v5::MotorUnits;
 pros::MotorGroup left_drive({-12, -13, -20}, MotorGearset::blue);
 pros::MotorGroup right_drive({14, 15, 19}, MotorGearset::blue);
 
-//pros::Motor intake(18, MotorGearset::blue, MotorUnits::degrees); OLD ROBOT
 pros::Motor intake(16, MotorGearset::blue, MotorUnits::degrees);
-//pros::Motor arm(19, MotorGearset::green, MotorUnits::degrees); OLD ROBOT
+
 pros::Motor left_arm(17, MotorGearset::green, MotorUnits::degrees);
 pros::Motor right_arm(-18, MotorGearset::green, MotorUnits::degrees);
-pros::Imu inertial_sensor_left(9);
-pros::Imu inertial_sensor_right(10);
+
+pros::Imu left_inertial_sensor(9);
+pros::Imu right_inertial_sensor(10);
+
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(10);
 pros::Rotation arm_rotation_sensor(8);
+
 pros::adi::DigitalOut mobile_stake_clamp('A');
 pros::adi::DigitalOut doinker('B');
 
 // -----------------------------------------------------------------------------
 // PID configuration
 ArmController arm (
-    0.05,
+    0.2,
     0.0,
     0.8,
     left_arm,

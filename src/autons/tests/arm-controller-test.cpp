@@ -11,4 +11,6 @@ void arm_test()
     right_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     arm.resetPosition(0.0);
     arm.moveToPosition(100.0);
+    arm.moveToPosition(60.0);
+    arm.moveToPosition(120.0);
 }
