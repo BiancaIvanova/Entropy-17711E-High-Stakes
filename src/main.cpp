@@ -48,6 +48,7 @@ void autonomous()
 void opcontrol()
 {
 	intake_controlled(0);
+	start_arm_control();
 
 	while (true)
 	{

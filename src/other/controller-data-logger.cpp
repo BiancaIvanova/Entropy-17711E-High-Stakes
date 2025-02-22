@@ -95,6 +95,7 @@ void read_logs_from_file()
     pros::lcd::print(0, "Done.");
 }
 
+/*
 // Function to replay the controller log
 void replay_logs()
 {
@@ -125,7 +126,6 @@ void replay_logs()
 }
 
 
-/*
 LOGGER
 
     intake_controlled(0);

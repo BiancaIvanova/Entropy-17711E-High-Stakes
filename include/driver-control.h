@@ -11,6 +11,8 @@ extern bool prevDown;
 
 void split_curvature();
 void intake_control(bool in, bool out);
-void arm_control(bool up, bool down);
 void stake_clamp_control(bool control);
 void doinker_control(bool control);
+
+void start_arm_control();
+void arm_control_logic(bool up, bool down);
