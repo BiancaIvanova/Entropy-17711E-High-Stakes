@@ -30,6 +30,8 @@ public:
     void moveToPosition(double position);
 
     void resetPosition(double newPosition);
+
+    double getPosition() const;
 };
 
 #endif

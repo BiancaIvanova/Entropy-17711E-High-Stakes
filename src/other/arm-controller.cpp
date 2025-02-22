@@ -44,3 +44,7 @@ void ArmController::resetPosition(double newPosition) {
     rotationSensor.reset_position();
     rotationSensor.set_position(newPosition);
 }
+
+double ArmController::getPosition() const {
+    return rotationSensor.get_position() / 100.0;
+}
