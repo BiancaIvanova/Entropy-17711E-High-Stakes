@@ -18,6 +18,7 @@
 #include "pros/optical.hpp"
 #include "pros/rotation.hpp"
 #include "arm-controller.h"
+#include "double-imu.h"
 #include <cmath>
 #include <iostream>
 #define _USE_MATH_DEFINES
@@ -40,9 +41,6 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 using MotorGearset = pros::MotorGearset;
 using MotorUnits = pros::v5::MotorUnits;
 
-//pros::MotorGroup left_drive({-11, -12, 13}, MotorGearset::blue); OLD ROBOT
-//pros::MotorGroup right_drive({16, 15, -14}, MotorGearset::blue); OLD ROBOT
-
 pros::MotorGroup left_drive({-12, -13, -20}, MotorGearset::blue);
 pros::MotorGroup right_drive({14, 15, 19}, MotorGearset::blue);
 
@@ -60,6 +58,8 @@ pros::Rotation arm_rotation_sensor(8);
 
 pros::adi::DigitalOut mobile_stake_clamp('A');
 pros::adi::DigitalOut doinker('B');
+
+DoubleImu double_imu(&left_inertial_sensor, &right_inertial_sensor);
 
 // -----------------------------------------------------------------------------
 // PID configuration
@@ -90,7 +90,7 @@ lemlib::OdomSensors sensors {
     nullptr,
     nullptr,
     nullptr,
-    &left_inertial_sensor,
+    &double_imu,
 };
 
 // Forward/Backward PID
