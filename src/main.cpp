@@ -26,21 +26,6 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	/*
-	ArmController armController = ArmController(
-		0.1,
-		0.0,
-		0.0,
-		0,
-		100,
-		5500,
-		arm_rotation_sensor,
-		arm
-	);
-
-	armController.moveToPosition(3000);
-	*/
-
 	arm_test();
 }
 
