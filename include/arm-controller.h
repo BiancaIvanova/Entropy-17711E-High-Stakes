@@ -9,9 +9,9 @@
 enum ArmPosition {
     DOWN = 0,
     LOAD = 25,
-    UP = 65,
-    WALL_STAKE = 80,
-    ALLIANCE_STAKE = 140
+    UP = 85,
+    WALL_STAKE = 140,
+    ALLIANCE_STAKE = 200
 };
 
 class ArmController {
