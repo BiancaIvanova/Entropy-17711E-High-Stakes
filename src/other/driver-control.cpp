@@ -11,7 +11,7 @@ is a minimum 10 millisecond delay using pros::delay();
 */
 
 const int INTAKE_VELOCITY = 600;
-const int ARM_VELOCITY = 200;
+const int ARM_VELOCITY = 150;
 double const POSITION_TOLERANCE = 5.0;
 
 bool doinkerOpen, doinkerLatch;
@@ -19,6 +19,9 @@ bool stakeClampOpen, stakeClampLatch;
 
 const double overallScaleFactor = 600.0 / 127.0;
 const double mainWheelSpeedFactor = 1.0 / 1.02857;
+
+int currentIndex = 0;
+bool prevUp, prevDown = false;
 
 
 void split_curvature()
@@ -88,7 +91,7 @@ void arm_control_logic(bool up, bool down)
         }
     } 
 
-    if (currentIndex > 1)
+    if (currentIndex == 2)
     {
         if (up)
         {
