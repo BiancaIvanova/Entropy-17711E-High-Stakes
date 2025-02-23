@@ -11,7 +11,7 @@ enum ArmPosition {
     LOAD = 25,
     UP = 85,
     WALL_STAKE = 140,
-    ALLIANCE_STAKE = 200
+    ALLIANCE_STAKE = 185
 };
 
 class ArmController {

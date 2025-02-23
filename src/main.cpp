@@ -24,7 +24,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	drive_square();
+	north_side_red();
 }
 
 

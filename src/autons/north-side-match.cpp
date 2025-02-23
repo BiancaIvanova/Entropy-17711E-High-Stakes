@@ -7,15 +7,17 @@
 
 void north_side_red()
 {
-    chassis.setPose(-56, 12, 225);
+    chassis.setPose(-53, 10, 235);
     arm.resetPosition(ArmPosition::LOAD);
 
     // Place ring on alliance stake
+    chassis.moveToPose(-57.5, 8, 235, 400, {.minSpeed=65});
     arm.moveToPosition(ArmPosition::ALLIANCE_STAKE);
 
     // Move back and grab left 
     mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(-27, 21, 750, {.forwards=false, .minSpeed = 60});
+    chassis.moveToPoint(-26, 22, 750, {.forwards=false, .minSpeed = 65});
+    /*
     chassis.moveToPoint(-21, 24, 500, {.forwards=false, .maxSpeed = 80}); // slower
     mobile_stake_clamp.set_value(false);
 
@@ -54,4 +56,5 @@ void north_side_red()
     //Turn and touch ladder
     chassis.turnToPoint(-24, -4, 1000);
     chassis.moveToPoint(-24, -44, 1000);
+    */
 }
