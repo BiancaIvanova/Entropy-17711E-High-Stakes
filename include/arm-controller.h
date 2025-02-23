@@ -23,14 +23,16 @@ class ArmController {
     pros::Motor& rightArmMotor;
     pros::Rotation& rotationSensor;
 
+    void moveToPositionTask(double position);
+
 public:
     ArmController(double kP, double kI, double kD, 
                   pros::Motor& leftArmMotor, pros::Motor& rightArmMotor, pros::Rotation& rotationSensor);
 
-    void moveToPosition(double position);
+    void moveToPosition(double position, bool async = true);
 
     void resetPosition(double newPosition);
-
+    
     double getPosition() const;
 };
 

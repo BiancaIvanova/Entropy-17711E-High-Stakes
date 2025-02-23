@@ -1,7 +1,10 @@
 #include "arm-controller.h"
+#include "pros/rtos.hpp"  // For task management
 
 double const SCALING_FACTOR = 10;
+int const TIME_STEP = 20;  // Example time step value
 
+// Constructor
 ArmController::ArmController(double kP, double kI, double kD,
                              pros::Motor& leftArmMotor, pros::Motor& rightArmMotor, pros::Rotation& rotationSensor)
     : pid(kP, kI, kD),
@@ -9,21 +12,29 @@ ArmController::ArmController(double kP, double kI, double kD,
       rightArmMotor(rightArmMotor),
       rotationSensor(rotationSensor) {}
 
-void ArmController::moveToPosition(double position) {
+void ArmController::moveToPosition(double position, bool async) {
+    if (async) {
+        pros::Task moveTask([=]() {
+            this->moveToPositionTask(position);
+        });
+    } else {
+        moveToPositionTask(position);
+    }
+}
+
+void ArmController::moveToPositionTask(double position) {
     targetPosition = position * 100.0;
-    double const VELOCITY_THRESHOLD = 100.0; // centidegrees a second
-    double tolerance = 250.0; // 2.5 degrees
+    double const VELOCITY_THRESHOLD = 100.0;
+    double tolerance = 250.0;
 
-    double meanVelocity = (leftArmMotor.get_actual_velocity() + rightArmMotor.get_actual_velocity()) / 2;
+    while (fabs(currentPosition - targetPosition) > tolerance ||
+           fabs((leftArmMotor.get_actual_velocity() + rightArmMotor.get_actual_velocity()) / 2) > VELOCITY_THRESHOLD) {
 
-    while (fabs(currentPosition - targetPosition) > tolerance || fabs(meanVelocity) > VELOCITY_THRESHOLD) {
         currentPosition = rotationSensor.get_position();
         double error = targetPosition - currentPosition;
 
-        // Calculate velocity using PID
         double velocity = pid.update(error, TIME_STEP);
 
-        // Calculate voltage
         double voltage = velocity * SCALING_FACTOR;
         voltage = std::clamp(voltage, -12000.0, 12000.0);
 
