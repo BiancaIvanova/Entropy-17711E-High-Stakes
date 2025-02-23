@@ -55,6 +55,8 @@ pros::Imu right_inertial_sensor(10);
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(10);
 pros::Rotation arm_rotation_sensor(8);
+pros::Rotation vertical_odom(5);
+pros::Rotation horizontal_odom(6);
 
 pros::adi::DigitalOut mobile_stake_clamp('A');
 pros::adi::DigitalOut doinker('B');
@@ -76,6 +78,9 @@ ArmController arm (
 // -----------------------------------------------------------------------------
 // Lemlib configuration
 
+lemlib::TrackingWheel vertical(&vertical_odom, lemlib::Omniwheel::NEW_2, 1);
+lemlib::TrackingWheel horizontal(&horizontal_odom, lemlib::Omniwheel::NEW_2, 0);
+
 lemlib::Drivetrain drivetrain {
     &left_drive,
     &right_drive,
@@ -90,27 +95,27 @@ lemlib::OdomSensors sensors {
     nullptr,
     nullptr,
     nullptr,
-    &double_imu,
+    &left_inertial_sensor,
 };
 
 // Forward/Backward PID
 lemlib::ControllerSettings lateralController {
-    10,
+    12.5,
     0,
-    3,
+    1,
     3,
     1,
     100,
     3,
     500,
-    20
+    30
 };
  
 // Turning PID
 lemlib::ControllerSettings angularController {
-    1.95,
+    2.8,
     0,
-    10,
+    1.5,
     3,
     1,
     100,
