@@ -5,6 +5,8 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
+// FINISHED AWP, DO NOT TOUCH
+
 void north_side_red()
 {
     chassis.setPose(-53, 10, 240);
