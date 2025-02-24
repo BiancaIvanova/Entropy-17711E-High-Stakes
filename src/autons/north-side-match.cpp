@@ -11,29 +11,34 @@ void north_side_red()
     arm.resetPosition(ArmPosition::LOAD);
 
     // Place ring on alliance stake
-    chassis.moveToPose(-57.5, 8, 235, 400, {.minSpeed=65});
+    chassis.moveToPoint(-60.5, 6, 400);
     arm.moveToPosition(ArmPosition::ALLIANCE_STAKE);
+    pros::delay(750);
 
     // Move back and grab left 
     mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(-26, 22, 750, {.forwards=false, .minSpeed = 65});
-    /*
-    chassis.moveToPoint(-21, 24, 500, {.forwards=false, .maxSpeed = 80}); // slower
+    arm.moveToPosition(ArmPosition::DOWN);
+    chassis.moveToPoint(-34, 19, 750, {.forwards=false});
+    chassis.moveToPoint(-24, 24, 500, {.forwards=false, .maxSpeed = 50}, false); // slower
+    pros::delay(250);
     mobile_stake_clamp.set_value(false);
+    pros::delay(250);
 
     // Turn and grab first ring
     intake_controlled(600);
-    chassis.turnToPoint(-24, 51, 750);
-    chassis.moveToPoint(-24, 51, 1000);
+    chassis.turnToPoint(-29, 49, 750);
+    chassis.moveToPoint(-29, 49, 1000);
 
     // Grab second ring
-    chassis.turnToPoint(-9, 51, 750);
-    chassis.moveToPoint(-9, 51, 1000);
-    chassis.moveToPoint(-14, 50, 1000, {.forwards=false}); // back off
+    chassis.turnToPoint(-17, 52, 750);
+    chassis.moveToPoint(-17, 52, 1000);
+    chassis.moveToPoint(-23, 48, 750, {.forwards=false}); // back off
 
     // Grab third ring
-    chassis.turnToPoint(-8, 47, 750);
-    chassis.moveToPoint(-8, 47, 1000);
+    chassis.turnToPoint(-16.5, 46.5, 750);
+    /*
+    chassis.moveToPoint(-12, 46, 1000);
+    
     chassis.moveToPoint(-17, 46, 1000, {.forwards=false}); // back off
 
     // Move to other side of field

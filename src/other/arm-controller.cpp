@@ -1,10 +1,9 @@
 #include "arm-controller.h"
-#include "pros/rtos.hpp"  // For task management
+#include "pros/rtos.hpp"
 
 double const SCALING_FACTOR = 10;
-int const TIME_STEP = 20;  // Example time step value
+int const TIME_STEP = 20;
 
-// Constructor
 ArmController::ArmController(double kP, double kI, double kD,
                              pros::Motor& leftArmMotor, pros::Motor& rightArmMotor, pros::Rotation& rotationSensor)
     : pid(kP, kI, kD),

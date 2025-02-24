@@ -8,13 +8,6 @@ void auton_skills_stage_2();
 void auton_skills_stage_3();
 void auton_skills_stage_4();
 
-// New Auton Skills
-void auton_skills_new();
-void auton_skills_stage_1_new();
-void auton_skills_stage_2_new();
-void auton_skills_stage_3_new();
-void auton_skills_stage_4_new();
-
 // Driver Skills
 void driver_skills_auton();
 
