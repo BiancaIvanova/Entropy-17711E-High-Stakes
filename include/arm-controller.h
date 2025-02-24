@@ -11,7 +11,7 @@ enum ArmPosition {
     LOAD = 25,
     UP = 85,
     WALL_STAKE = 140,
-    ALLIANCE_STAKE = 185
+    ALLIANCE_STAKE = 195
 };
 
 class ArmController {
@@ -23,13 +23,16 @@ class ArmController {
     pros::Motor& rightArmMotor;
     pros::Rotation& rotationSensor;
 
-    void moveToPositionTask(double position);
+    // Updated to include maxSpeed parameter
+    void moveToPositionTask(double position, double maxSpeed);
 
 public:
+    // Updated to include maxSpeed parameter
     ArmController(double kP, double kI, double kD, 
                   pros::Motor& leftArmMotor, pros::Motor& rightArmMotor, pros::Rotation& rotationSensor);
 
-    void moveToPosition(double position, bool async = true);
+    // Updated to include maxSpeed parameter
+    void moveToPosition(double position, bool async = true, double maxSpeed = 1.0);
 
     void resetPosition(double newPosition);
     

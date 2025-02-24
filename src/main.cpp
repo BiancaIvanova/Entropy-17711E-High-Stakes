@@ -25,7 +25,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	auton_skills();
+	north_side_red();
 }
 
 

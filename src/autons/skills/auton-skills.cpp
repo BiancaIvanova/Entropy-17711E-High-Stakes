@@ -80,12 +80,18 @@ void auton_skills_stage_1()
 void auton_skills_stage_2()
 {
     chassis.setPose(-52, 58, 120);
+    
     // Drive forwards to the right mogo
     chassis.moveToPoint(-48, 53, 1500, {.maxSpeed=70});
 
+    // Drive forwards to the right mogo
+    chassis.turnToPoint(-48, 61, 750, {.forwards=false, .maxSpeed=70});
+    chassis.moveToPoint(-48, 61, 1500, {.forwards=false, .maxSpeed=70});
+    chassis.setPose(-48, 61, 180);
+
     // Move and grab mogo
-    chassis.turnToPoint(-48, -28, 800, {.forwards=false, .maxSpeed=65}, false);
-    chassis.moveToPoint(-48, -28, 1750, {.forwards=false, .maxSpeed=85, .earlyExitRange=10}, false);
+    chassis.turnToPoint(-48, -26, 800, {.forwards=false, .maxSpeed=65}, false);
+    chassis.moveToPoint(-48, -26, 1750, {.forwards=false, .maxSpeed=85, .earlyExitRange=10}, false);
     pros::delay(300);
     chassis.moveToPoint(-48, -28, 1200, {.forwards=false, .maxSpeed=45}, false); // slower
     pros::delay(750);
@@ -112,12 +118,104 @@ void auton_skills_stage_2()
     // Get the sixth ring
     chassis.turnToPoint(-58, -48, 500);
     chassis.moveToPoint(-58, -48, 750);
-    /*
     
     // Leave mogo in the right corner
     chassis.turnToPoint(0, 24, 500);
-    
+    pros::delay(1500);
     mobile_stake_clamp.set_value(true);
+    intake_controlled(-600);
+    pros::delay(250);
     intake_controlled(0);
-    */
+
+    // Push it into the corner
+    chassis.moveToPoint(-75, -75, 1000, {.forwards=false});
+
+    // Reset pose there
+    chassis.setPose(9, -48, 90);
+}
+
+void auton_skills_stage_3()
+{
+    
+
+    // Get first ring
+    chassis.moveToPoint(24, -48, 1000, {.maxSpeed=85});
+    intake_controlled(500);
+    pros::delay(750);
+    intake_controlled(0);
+
+    // Get second ring
+    chassis.turnToPoint(24, -19, 750);
+    chassis.moveToPoint(24, -19, 1000);
+    intake_controlled(500);
+    pros::delay(750);
+    intake_controlled(0);
+
+    // Turn and grab back mobile goal
+    chassis.turnToPoint(48, 0, 1250, {.forwards=false, .maxSpeed=80});
+    chassis.moveToPoint(48, 0, 1500, {.forwards=false, .maxSpeed=80, .earlyExitRange=8});
+    chassis.moveToPoint(48, 0, 1000, {.forwards=false, .maxSpeed=45});
+    pros::delay(500);
+    mobile_stake_clamp.set_value(false);
+    pros::delay(500);
+
+    // Score the two rings
+    intake_controlled(500);
+
+    // Score the third ring
+    chassis.turnToPoint(24, 24, 750);
+    chassis.moveToPoint(24, 24, 1000);
+    
+    // Score the fourth ring
+    chassis.turnToPoint(24, 48, 750);
+    chassis.moveToPoint(24, 48, 1000);
+
+    // Score the fifth/sixth rings
+    chassis.turnToPoint(53, 48, 1000);
+    chassis.moveToPoint(53, 48, 1500, {.maxSpeed=85});
+
+    // Grab the seventh ring
+    chassis.turnToPoint(48, 56, 750);
+    chassis.moveToPoint(48, 56, 1250);
+
+    // Place mogo in corner
+    chassis.turnToPoint(0, -24, 500, {}, false);
+    pros::delay(1500);
+    mobile_stake_clamp.set_value(true);
+    intake_controlled(-600);
+    pros::delay(250);
+    intake_controlled(0);
+
+    // Push it into the corner
+    chassis.moveToPoint(75, 75, 1000, {.forwards=false});
+}
+
+void auton_skills_stage_4()
+{
+    chassis.setPose(52, 58, 245);
+
+    // Drive out of corner
+    chassis.moveToPoint(40, 38, 1500, {.maxSpeed=70});
+
+    // Turn and drive to alliance stake
+    chassis.turnToPoint(40, 0, 1000, {.forwards=false, .maxSpeed=95}, false);
+    chassis.moveToPoint(40, 0, 1750, {.forwards=false, .maxSpeed=95}, false);
+
+    // Align with and back into stake
+    chassis.turnToPoint(66, 0, 1000, {.forwards=false, .maxSpeed=95}, false);
+    chassis.moveToPoint(66, 0, 1500, {.forwards=false, .maxSpeed=95}, false);
+
+    // Go a bit forward
+    chassis.setPose(66, 0, 270);
+    chassis.moveToPoint(64, 0, 1000, {.maxSpeed=70});
+
+    // Score whatever ring is being held
+    intake_controlled(600);
+    pros::delay(750);
+    intake_controlled(0);
+
+    // Turn and push last mogo in corner
+    chassis.turnToPoint(60, -60, 750);
+    chassis.moveToPoint(60, -60, 1000, {.minSpeed=60, .earlyExitRange=12});
+    chassis.moveToPoint(75, -75, 1000);
 }

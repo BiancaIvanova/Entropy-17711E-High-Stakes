@@ -95,7 +95,7 @@ lemlib::OdomSensors sensors {
     nullptr,
     nullptr,
     nullptr,
-    &left_inertial_sensor,
+    &right_inertial_sensor,
 };
 
 // Forward/Backward PID

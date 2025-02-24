@@ -11,20 +11,24 @@ ArmController::ArmController(double kP, double kI, double kD,
       rightArmMotor(rightArmMotor),
       rotationSensor(rotationSensor) {}
 
-void ArmController::moveToPosition(double position, bool async) {
+// Now includes maxSpeed parameter
+void ArmController::moveToPosition(double position, bool async, double maxSpeed) {
     if (async) {
         pros::Task moveTask([=]() {
-            this->moveToPositionTask(position);
+            this->moveToPositionTask(position, maxSpeed);
         });
     } else {
-        moveToPositionTask(position);
+        moveToPositionTask(position, maxSpeed);
     }
 }
 
-void ArmController::moveToPositionTask(double position) {
+void ArmController::moveToPositionTask(double position, double maxSpeed) {
     targetPosition = position * 100.0;
     double const VELOCITY_THRESHOLD = 100.0;
     double tolerance = 250.0;
+
+    // Ensure maxSpeed is within a valid range (0.0 to 1.0)
+    maxSpeed = std::clamp(maxSpeed, 0.0, 1.0);
 
     while (fabs(currentPosition - targetPosition) > tolerance ||
            fabs((leftArmMotor.get_actual_velocity() + rightArmMotor.get_actual_velocity()) / 2) > VELOCITY_THRESHOLD) {
@@ -34,10 +38,13 @@ void ArmController::moveToPositionTask(double position) {
 
         double velocity = pid.update(error, TIME_STEP);
 
-        double voltage = velocity * SCALING_FACTOR;
-        voltage = std::clamp(voltage, -12000.0, 12000.0);
+        // Scale the voltage by maxSpeed (0 to 1 range)
+        double voltage = velocity * SCALING_FACTOR * maxSpeed;
 
-        printf("Current Position: %f, Error: %f, Voltage: %f\n", currentPosition, error, voltage);
+        // Clamp the voltage based on maxSpeed
+        voltage = std::clamp(voltage, -12000.0 * maxSpeed, 12000.0 * maxSpeed);
+
+        printf("Current Position: %f, Error: %f, Voltage: %f, MaxSpeed: %f\n", currentPosition, error, voltage, maxSpeed);
 
         leftArmMotor.move_voltage(voltage);
         rightArmMotor.move_voltage(voltage);
@@ -48,6 +55,7 @@ void ArmController::moveToPositionTask(double position) {
     leftArmMotor.move_velocity(0);
     rightArmMotor.move_velocity(0);
 }
+
 
 void ArmController::resetPosition(double newPosition) {
     currentPosition = newPosition;
