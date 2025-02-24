@@ -90,13 +90,13 @@ void north_side_blue()
     chassis.moveToPoint(29, 46, 1000);
 
     // Grab second ring
-    chassis.turnToPoint(20, 51, 750);
-    chassis.moveToPoint(20, 51, 900);
+    chassis.turnToPoint(20, 50, 750);
+    chassis.moveToPoint(20, 50, 900);
     chassis.moveToPoint(23, 48, 750, {.forwards=false}, false); // back off
 
     // Move to other side of field
     chassis.turnToPoint(49, 18, 750);
-    chassis.moveToPoint(-9, 18, 1400);
+    chassis.moveToPoint(49, 18, 1400);
     intake_controlled(0);
     mobile_stake_clamp.set_value(true);
     

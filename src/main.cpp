@@ -26,7 +26,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	north_side_red();
+	north_side_blue();
 }
 
 void opcontrol()
