@@ -53,7 +53,7 @@ pros::Imu left_inertial_sensor(9);
 pros::Imu right_inertial_sensor(10);
 
 pros::GPS gps_sensor(20);
-pros::Optical optical_sensor(10);
+pros::Optical optical_sensor(7);
 pros::Rotation arm_rotation_sensor(8);
 pros::Rotation vertical_odom(5);
 pros::Rotation horizontal_odom(6);

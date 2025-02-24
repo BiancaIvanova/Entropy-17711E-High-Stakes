@@ -14,6 +14,7 @@ void initialize()
 	right_inertial_sensor.reset();
 	chassis.calibrate();
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
+	intake.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
 }
 
 
@@ -27,7 +28,6 @@ void autonomous()
 {
 	north_side_red();
 }
-
 
 void opcontrol()
 {
