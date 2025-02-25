@@ -26,13 +26,12 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	north_side_blue();
+	auton_skills();
 }
 
 void opcontrol()
 {
 	intake_controlled(0);
-	start_arm_control();
 
 	while (true)
 	{

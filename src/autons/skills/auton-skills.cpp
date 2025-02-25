@@ -45,28 +45,31 @@ void auton_skills_stage_1()
 
     // Get the first ring
     intake_controlled(500); //fix
-    chassis.turnToPoint(-24, 21, 500);
-    chassis.moveToPoint(-24, 21, 1000);
+    chassis.turnToPoint(-24, 23, 500);
+    chassis.moveToPoint(-24, 23, 1000);
     
     // Get the second ring
-    chassis.turnToPoint(-4.5, 48, 750);
-    chassis.moveToPoint(-4.5, 48, 1200);
+    chassis.turnToPoint(-4.5, 51, 750);
+    chassis.moveToPoint(-4.5, 51, 1200);
 
     // Get the third ring
     chassis.turnToPoint(-21, 46, 750);
     chassis.moveToPoint(-21, 46, 1200);
 
     // Get the fourth/fifth rings
-    chassis.turnToPoint(-55, 46, 750);
-    chassis.moveToPoint(-55, 48, 1500, {.maxSpeed=85});
+    chassis.turnToPoint(-55, 44, 750);
+    chassis.moveToPoint(-55, 44, 1500, {.maxSpeed=85});
     pros::delay(350);
 
     // Get the sixth ring
-    chassis.turnToPoint(-53, 58, 500);
-    chassis.moveToPoint(-53, 58, 500);
+    chassis.turnToPoint(-50, 53, 1000);
+    chassis.moveToPoint(-50, 53, 1200);
+
+    // Move a bit back before turning
+    chassis.moveToPoint(-49, 49, 1000, {.forwards=false});
 
     // Leave mogo in the left corner
-    chassis.turnToPoint(0, 24, 500, {}, false);
+    chassis.turnToPoint(0, 30, 500, {}, false);
     pros::delay(1500);
     mobile_stake_clamp.set_value(true);
     intake_controlled(-600);
@@ -79,18 +82,14 @@ void auton_skills_stage_1()
 
 void auton_skills_stage_2()
 {
-    chassis.setPose(-52, 58, 120);
+    chassis.turnToHeading(130, 500);
+    chassis.setPose(-54, 54, 130);
     
     // Drive forwards to the right mogo
     chassis.moveToPoint(-48, 53, 1500, {.maxSpeed=70});
 
-    // Drive forwards to the right mogo
-    chassis.turnToPoint(-48, 61, 750, {.forwards=false, .maxSpeed=70});
-    chassis.moveToPoint(-48, 61, 1500, {.forwards=false, .maxSpeed=70});
-    chassis.setPose(-48, 61, 180);
-
     // Move and grab mogo
-    chassis.turnToPoint(-48, -26, 800, {.forwards=false, .maxSpeed=65}, false);
+    chassis.turnToPoint(-48, -26, 2000, {.forwards=false, .maxSpeed=45}, false);
     chassis.moveToPoint(-48, -26, 1750, {.forwards=false, .maxSpeed=85, .earlyExitRange=10}, false);
     pros::delay(300);
     chassis.moveToPoint(-48, -28, 1200, {.forwards=false, .maxSpeed=45}, false); // slower
@@ -136,8 +135,6 @@ void auton_skills_stage_2()
 
 void auton_skills_stage_3()
 {
-    
-
     // Get first ring
     chassis.moveToPoint(24, -48, 1000, {.maxSpeed=85});
     intake_controlled(500);
