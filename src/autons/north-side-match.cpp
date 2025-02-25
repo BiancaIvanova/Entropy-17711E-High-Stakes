@@ -5,7 +5,7 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
-// FINISHED AWP, DO NOT TOUCH
+// FINISHED AWP BLUE + RED, DO NOT TOUCH
 
 void north_side_red()
 {
