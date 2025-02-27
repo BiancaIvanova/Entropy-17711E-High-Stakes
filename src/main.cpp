@@ -26,7 +26,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	auton_skills();
+	mogo_rush_red();
 }
 
 void opcontrol()

@@ -30,3 +30,5 @@ void south_side_blue();
 // Elims auton
 void elims_red();
 void elims_blue();
+
+void mogo_rush_red();
