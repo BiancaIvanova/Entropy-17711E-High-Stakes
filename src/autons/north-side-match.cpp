@@ -121,3 +121,44 @@ void north_side_blue()
     chassis.turnToPoint(28, 7, 500);
     chassis.moveToPoint(28, 7, 2000);
 }
+
+
+void north_side_red_old()
+{
+    chassis.setPose(-53, 10, 240);
+    arm.resetPosition(ArmPosition::LOAD);
+
+    // Place ring on alliance stake
+    chassis.moveToPoint(-60.5, 6, 400);
+    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, true, 0.35);
+    pros::delay(750);
+
+    // Move back and grab left stake
+    mobile_stake_clamp.set_value(true);
+    chassis.moveToPoint(-34, 21, 750, {.forwards=false}, false);
+    arm.moveToPosition(ArmPosition::DOWN);
+    chassis.moveToPoint(-24, 26, 500, {.forwards=false, .maxSpeed = 50}, false); // slower
+    pros::delay(250);
+    mobile_stake_clamp.set_value(false);
+    arm.moveToPosition(ArmPosition::DOWN);
+    pros::delay(250);
+    
+    // Turn and grab first ring
+    intake_controlled(600);
+    chassis.turnToPoint(-29, 46, 750);
+    chassis.moveToPoint(-29, 46, 1000);
+
+    // Grab second ring
+    chassis.turnToPoint(-20, 51, 750);
+    chassis.moveToPoint(-20, 51, 900);
+    chassis.moveToPoint(-26, 46, 750, {.forwards=false}, false); // back off
+
+    // Grab third ring
+    chassis.turnToPoint(-20, 47, 750);
+    chassis.moveToPoint(-20, 47, 900);
+    chassis.moveToPoint(-28, 46, 750, {.forwards=false}, false); // back off
+
+    // Turn to ladder touch
+    chassis.turnToPoint(-26, -12, 750);
+    chassis.moveToPoint(-26, -12, 900);
+}

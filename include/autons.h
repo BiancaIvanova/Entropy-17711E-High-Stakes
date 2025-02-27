@@ -23,6 +23,8 @@ void double_side_blue();
 void north_side_red();
 void north_side_blue();
 
+void north_side_red_old();
+
 // South Side Match
 void south_side_red();
 void south_side_blue();
