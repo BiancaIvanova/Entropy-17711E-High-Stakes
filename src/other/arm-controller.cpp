@@ -11,10 +11,18 @@ ArmController::ArmController(double kP, double kI, double kD,
       rightArmMotor(rightArmMotor),
       rotationSensor(rotationSensor) {}
 
-// Now includes maxSpeed parameter
+      
+// Now includes maxSpeed parameter and prevents multiple tasks from stacking
 void ArmController::moveToPosition(double position, bool async, double maxSpeed) {
     if (async) {
-        pros::Task moveTask([=]() {
+        // Check if task already exists and is running
+        if (moveTask != nullptr && moveTask->get_state() != pros::E_TASK_STATE_DELETED) {
+            moveTask->remove();  // Stop the previous task
+            delete moveTask;     // Clean up the task pointer
+        }
+
+        // Start a new task with the same pros::Task object
+        moveTask = new pros::Task([=]() {
             this->moveToPositionTask(position, maxSpeed);
         });
     } else {
@@ -52,6 +60,7 @@ void ArmController::moveToPositionTask(double position, double maxSpeed) {
         pros::delay(TIME_STEP);
     }
 
+    // Stop the motors once the target is reached
     leftArmMotor.move_velocity(0);
     rightArmMotor.move_velocity(0);
 }

@@ -5,13 +5,14 @@
 #include "pros/motors.h"
 #include "pros/rotation.hpp"
 #include "pid-controller.h"
+#include "pros/rtos.hpp"
 
 enum ArmPosition {
     DOWN = 0,
     LOAD = 25,
     UP = 85,
     WALL_STAKE = 140,
-    ALLIANCE_STAKE = 195
+    ALLIANCE_STAKE = 185
 };
 
 class ArmController {
@@ -22,20 +23,18 @@ class ArmController {
     pros::Motor& leftArmMotor;
     pros::Motor& rightArmMotor;
     pros::Rotation& rotationSensor;
+    pros::Task* moveTask = nullptr;
 
-    // Updated to include maxSpeed parameter
     void moveToPositionTask(double position, double maxSpeed);
 
 public:
-    // Updated to include maxSpeed parameter
     ArmController(double kP, double kI, double kD, 
                   pros::Motor& leftArmMotor, pros::Motor& rightArmMotor, pros::Rotation& rotationSensor);
 
-    // Updated to include maxSpeed parameter
     void moveToPosition(double position, bool async = true, double maxSpeed = 1.0);
 
     void resetPosition(double newPosition);
-    
+
     double getPosition() const;
 };
 

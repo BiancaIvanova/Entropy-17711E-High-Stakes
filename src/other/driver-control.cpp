@@ -20,8 +20,6 @@ bool stakeClampOpen, stakeClampLatch;
 const double overallScaleFactor = 600.0 / 127.0;
 const double mainWheelSpeedFactor = 1.0 / 1.02857;
 
-int currentIndex = 0;
-bool prevUp, prevDown = false;
 
 
 void split_curvature()
@@ -33,7 +31,7 @@ void split_curvature()
     chassis.curvature(leftY, rightX, curveGain);
     
     intake_control(controller.get_digital(DIGITAL_R2), controller.get_digital(DIGITAL_R1));
-    arm_control(controller.get_digital(DIGITAL_Y), controller.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT));
+    arm_control(controller.get_digital(DIGITAL_Y), controller.get_digital(DIGITAL_RIGHT));
     stake_clamp_control(controller.get_digital(DIGITAL_L2));
     doinker_control(controller.get_digital(DIGITAL_B));
 }
@@ -55,26 +53,24 @@ void intake_control(bool in, bool out)
 }
 
 
-void arm_control(bool up, bool down)
-{
-    left_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-    right_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+std::vector<double> armPositions = {ArmPosition::DOWN, ArmPosition::LOAD, ArmPosition::UP, ArmPosition::WALL_STAKE, ArmPosition::ALLIANCE_STAKE};
+int currentIndex = 0;
 
-    if (up)
-    {
-        left_arm.move_velocity(ARM_VELOCITY);
-        right_arm.move_velocity(ARM_VELOCITY);
+bool prevUp = false;
+bool prevDown = false;
+
+void arm_control(bool up, bool down) {
+    if (up && !prevUp && currentIndex < armPositions.size() - 1) {
+        currentIndex++;
+        arm.moveToPosition(armPositions[currentIndex]);
     }
-    else if (down)
-    {
-        left_arm.move_velocity(ARM_VELOCITY * -1);
-        right_arm.move_velocity(ARM_VELOCITY * -1);
+    else if (down && !prevDown && currentIndex > 0) {
+        currentIndex--;
+        arm.moveToPosition(armPositions[currentIndex]);
     }
-    else
-    {
-        left_arm.move_velocity(0);
-        right_arm.move_velocity(0);
-    }
+
+    prevUp = up;
+    prevDown = down;
 }
 
 
