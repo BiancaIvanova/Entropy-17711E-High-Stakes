@@ -16,3 +16,4 @@ void doinker_control(bool control);
 
 void arm_control(bool up, bool down);
 void arm_control_logic(bool up, bool down);
+void start_arm_control();
