@@ -12,7 +12,8 @@ ArmController::ArmController(double kP, double kI, double kD,
       rotationSensor(rotationSensor) {}
 
       
-void ArmController::moveToPosition(double position, bool async, double maxSpeed) {
+void ArmController::
+moveToPosition(double position, bool async, double maxSpeed) {
     if (async) {
         // Check if task already exists and is running
         if (moveTask != nullptr && moveTask->get_state() != pros::E_TASK_STATE_DELETED) {
@@ -38,7 +39,8 @@ void ArmController::moveToPositionTask(double position, double maxSpeed) {
     maxSpeed = std::clamp(maxSpeed, 0.0, 1.0);
 
     while (fabs(currentPosition - targetPosition) > tolerance ||
-           fabs((leftArmMotor.get_actual_velocity() + rightArmMotor.get_actual_velocity()) / 2) > VELOCITY_THRESHOLD) {
+           fabs((leftArmMotor.get_actual_velocity() + rightArmMotor.get_actual_velocity()) / 2)
+                        > VELOCITY_THRESHOLD) {
 
         currentPosition = rotationSensor.get_position();
         double error = targetPosition - currentPosition;
@@ -51,7 +53,8 @@ void ArmController::moveToPositionTask(double position, double maxSpeed) {
         // Clamp the voltage based on maxSpeed
         voltage = std::clamp(voltage, -12000.0 * maxSpeed, 12000.0 * maxSpeed);
 
-        printf("Current Position: %f, Error: %f, Voltage: %f, MaxSpeed: %f\n", currentPosition, error, voltage, maxSpeed);
+        printf("Current Position: %f, Error: %f, Voltage: %f, MaxSpeed: %f\n", currentPosition,
+            error, voltage, maxSpeed);
 
         leftArmMotor.move_voltage(voltage);
         rightArmMotor.move_voltage(voltage);

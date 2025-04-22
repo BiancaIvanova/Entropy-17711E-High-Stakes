@@ -95,7 +95,7 @@ void read_logs_from_file()
     pros::lcd::print(0, "Done.");
 }
 
-/*
+
 // Function to replay the controller log
 void replay_logs()
 {
@@ -117,7 +117,7 @@ void replay_logs()
         intake_control(log.R2, log.R1);
         arm_control(log.Y, log.RIGHT);
         stake_clamp_control(log.L2);
-        doinker_control(log.B);
+        left_doinker_control(log.B);
 
         pros::delay(20);
     }
@@ -125,6 +125,7 @@ void replay_logs()
     pros::lcd::print(1, "Replay complete.");
 }
 
+/*
 
 LOGGER
 

@@ -41,25 +41,26 @@ pros::Controller controller(pros::E_CONTROLLER_MASTER);
 using MotorGearset = pros::MotorGearset;
 using MotorUnits = pros::v5::MotorUnits;
 
-pros::MotorGroup left_drive({-12, -13, -20}, MotorGearset::blue);
-pros::MotorGroup right_drive({14, 15, 19}, MotorGearset::blue);
+pros::MotorGroup left_drive({-14, -17, -19}, MotorGearset::blue);
+pros::MotorGroup right_drive({18, 20, 3}, MotorGearset::blue);
 
-pros::Motor intake(16, MotorGearset::blue, MotorUnits::degrees);
+pros::Motor intake(-4, MotorGearset::blue, MotorUnits::degrees);
 
-pros::Motor left_arm(17, MotorGearset::green, MotorUnits::degrees);
-pros::Motor right_arm(-18, MotorGearset::green, MotorUnits::degrees);
+pros::Motor left_arm(-2, MotorGearset::green, MotorUnits::degrees);
+pros::Motor right_arm(1, MotorGearset::green, MotorUnits::degrees);
 
-pros::Imu left_inertial_sensor(9);
-pros::Imu right_inertial_sensor(10);
+pros::Imu left_inertial_sensor(15);
+pros::Imu right_inertial_sensor(19);
 
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(7);
-pros::Rotation arm_rotation_sensor(8);
+pros::Rotation arm_rotation_sensor(5);
 pros::Rotation vertical_odom(5);
 pros::Rotation horizontal_odom(6);
 
 pros::adi::DigitalOut mobile_stake_clamp('A');
-pros::adi::DigitalOut doinker('B');
+pros::adi::DigitalOut left_doinker('C');
+pros::adi::DigitalOut right_doinker('B');
 
 DoubleImu double_imu(&left_inertial_sensor, &right_inertial_sensor);
 

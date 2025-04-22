@@ -11,10 +11,11 @@ is a minimum 10 millisecond delay using pros::delay();
 */
 
 const int INTAKE_VELOCITY = 600;
-const int ARM_VELOCITY = 150;
+const int ARM_VELOCITY = 200;
 double const POSITION_TOLERANCE = 5.0;
 
-bool doinkerOpen, doinkerLatch;
+bool leftDoinkerOpen, leftDoinkerLatch;
+bool rightDoinkerOpen, rightDoinkerLatch;
 bool stakeClampOpen, stakeClampLatch;
 
 const double overallScaleFactor = 600.0 / 127.0;
@@ -33,7 +34,8 @@ void split_curvature()
     intake_control(controller.get_digital(DIGITAL_R2), controller.get_digital(DIGITAL_R1));
     arm_control(controller.get_digital(DIGITAL_Y), controller.get_digital(DIGITAL_RIGHT));
     stake_clamp_control(controller.get_digital(DIGITAL_L2));
-    doinker_control(controller.get_digital(DIGITAL_B));
+    left_doinker_control(controller.get_digital(DIGITAL_DOWN));
+    right_doinker_control(controller.get_digital(DIGITAL_B));
 }
 
 void intake_control(bool in, bool out)
@@ -53,7 +55,7 @@ void intake_control(bool in, bool out)
 }
 
 
-std::vector<double> armPositions = {ArmPosition::DOWN, ArmPosition::LOAD, ArmPosition::UP, ArmPosition::WALL_STAKE, ArmPosition::ALLIANCE_STAKE};
+std::vector<double> armPositions = {ArmPosition::DOWN, ArmPosition::LOAD, ArmPosition::WALL_STAKE, ArmPosition::ALLIANCE_STAKE};
 int currentIndex = 0;
 
 bool prevUp = false;
@@ -95,22 +97,42 @@ void stake_clamp_control(bool control)
     }
 }
 
-void doinker_control(bool control)
+void left_doinker_control(bool control)
 {
     if (control)
     {
-        if (!doinkerLatch)
+        if (!leftDoinkerLatch)
         {
-            doinkerOpen = !doinkerOpen;
+            leftDoinkerOpen = !leftDoinkerOpen;
 
-            doinker.set_value(doinkerOpen);
-            doinker.set_value(doinkerOpen);
+            left_doinker.set_value(leftDoinkerOpen);
+            left_doinker.set_value(leftDoinkerOpen);
 
-            doinkerLatch = true;
+            leftDoinkerLatch = true;
         }
     }
     else
     {
-        doinkerLatch = false;
+        leftDoinkerLatch = false;
+    }
+}
+
+void right_doinker_control(bool control)
+{
+    if (control)
+    {
+        if (!rightDoinkerLatch)
+        {
+            rightDoinkerOpen = !rightDoinkerOpen;
+
+            right_doinker.set_value(rightDoinkerOpen);
+            right_doinker.set_value(rightDoinkerOpen);
+
+            rightDoinkerLatch = true;
+        }
+    }
+    else
+    {
+        rightDoinkerLatch = false;
     }
 }

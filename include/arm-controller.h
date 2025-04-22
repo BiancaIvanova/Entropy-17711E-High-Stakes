@@ -9,8 +9,7 @@
 
 enum ArmPosition {
     DOWN = 0,
-    LOAD = 25,
-    UP = 85,
+    LOAD = 28,
     WALL_STAKE = 140,
     ALLIANCE_STAKE = 185
 };

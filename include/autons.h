@@ -24,6 +24,7 @@ void north_side_red();
 void north_side_blue();
 
 void north_side_red_old();
+void north_side_blue_old();
 
 // South Side Match
 void south_side_red();
@@ -33,4 +34,10 @@ void south_side_blue();
 void elims_red();
 void elims_blue();
 
+void elims_north_red();
+void elims_north_blue();
+
 void mogo_rush_red();
+
+void nats_north_red();
+void nats_north_blue();

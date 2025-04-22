@@ -11,13 +11,13 @@ void auton_skills()
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     arm.resetPosition(ArmPosition::LOAD);
     
-    //Robot starts with the front facing alliance wall stake
+    //  Robot starts with the front facing alliance wall stake
     chassis.setPose(-60, 0, 90);
 
     // Deal with the close left side of the field
-    //auton_skills_stage_1();
+    auton_skills_stage_1();
     // Do the same with the close right side of the field
-    //auton_skills_stage_2();
+    auton_skills_stage_2();
     // Move to the back of the field and fill the last empty stake
     auton_skills_stage_3();
     // Finish by putting the two blue ring stakes into the corners
@@ -156,8 +156,6 @@ void auton_skills_stage_2()
 
 void auton_skills_stage_3()
 {
-    chassis.setPose(8, -48, 90); // REMOVE WHEN COMBINING
-
     // Get first ring
     chassis.moveToPoint(20, -48, 1000, {.maxSpeed=85});
     intake_controlled(200);

@@ -29,12 +29,13 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	mogo_rush_red();
+	nats_north_blue();
 }
 
 void opcontrol()
 {
 	intake_controlled(0);
+	arm.resetPosition(ArmPosition::DOWN);
 
 	while (true)
 	{
