@@ -228,8 +228,8 @@ void init_display()
     detection_status_bar = Graphics::create_rectangle(85, 5, 220, 195, status_yellow_color);
 
     // Declare radio buttons
-    assign_button(325, 10, 143, 40, "Red North Side", 1, [](){red_north_side(); });
-    assign_button(325, 58, 143, 40, "Red South Side", 2, [](){red_south_side(); });
+    assign_button(325, 10, 143, 40, "Red North Side", 1, [](){south_side_red(); });
+    assign_button(325, 58, 143, 40, "Red South Side", 2, [](){south_side_red(); });
     assign_button(325, 106, 143, 40, "---", 3, [](){ });
     assign_button(325, 154, 143, 40, "---", 4, [](){ });
 
@@ -250,12 +250,12 @@ void init_display()
 
 void confirm_selection()
 {
-    ready_display();
+    ready_display("N/A");
     pros::delay(100);
 }
 
 
-void ready_display() 
+void ready_display(std::string subtitle) 
 {
     // Clear screen
     lv_obj_clean(lv_scr_act());
@@ -264,32 +264,27 @@ void ready_display()
     lv_obj_t *entropy_logo = Graphics::create_image(&entropy_logo_scaled, 18, 87);
 
     // Selected Auton
+    /*
     std::string upper_button_name = selected_button_name;
     std::transform(upper_button_name.begin(), upper_button_name.end(), upper_button_name.begin(), ::toupper);
-    lv_obj_t *selected_auton_text = Graphics::create_label(upper_button_name.c_str(), 30, 202, &roboto_bold_18px, white_colour, Alignment::LEFT);
-
+    */
+    lv_obj_t *selected_auton_text = Graphics::create_label(subtitle.c_str(), 30, 202, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    
     // Vertical bar
     lv_obj_t *vertical_line = Graphics::create_rectangle(2, 210, 346, 18, white_colour);
 
     // Data logs
-    lv_obj_t *gps_title = Graphics::create_label("Optical: Online", 370, 22, &roboto_bold_18px, white_colour, Alignment::LEFT);
-    gps_x_label = Graphics::create_label("Dist1: Online", 370, 42, &roboto_medium_16px, white_colour, Alignment::LEFT);
-    gps_y_label = Graphics::create_label("Dist2: Online", 370, 62, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    lv_obj_t *gps_title = Graphics::create_label("Online", 370, 22, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    gps_x_label = Graphics::create_label("Optical", 370, 42, &roboto_medium_16px, white_colour, Alignment::LEFT);
+    gps_y_label = Graphics::create_label("Dist1", 370, 62, &roboto_medium_16px, white_colour, Alignment::LEFT);
 
-    lv_obj_t *optical_title = Graphics::create_label("GPS: Standby", 370, 95, &roboto_bold_18px, white_colour, Alignment::LEFT);
+    lv_obj_t *optical_title = Graphics::create_label("GPS Ready", 370, 95, &roboto_bold_18px, white_colour, Alignment::LEFT);
     //optical_r_label = Graphics::create_label("r: ", 370, 115, &roboto_medium_16px, white_colour, Alignment::LEFT);
     //optical_b_label = Graphics::create_label("b: ", 370, 135, &roboto_medium_16px, white_colour, Alignment::LEFT);
 
     // Status 'Ready'
     lv_obj_t *status_text = Graphics::create_label("READY", 370, 195, &roboto_bold_18px, white_colour, Alignment::LEFT);
     lv_obj_t *status_bar = Graphics::create_rectangle(85, 5, 370, 215, status_green_color);
-
-    pros::Task update_task([]() {
-        while (true) {
-            update_display_data();
-            pros::delay(1000);
-        }
-    });
 }
 
 
@@ -298,11 +293,11 @@ void automatic_gps() {
 
     // Select auton based on gps coords
     if (gps_x_data < HALF_FIELD && gps_y_data < HALF_FIELD) {
-        selected_auton_callback = red_north_side;
+        selected_auton_callback = south_side_red;
         current_detection_state = DetectionState::AUTO;
     } 
     else if (gps_x_data < HALF_FIELD && gps_y_data > HALF_FIELD) {
-        selected_auton_callback = red_south_side;
+        selected_auton_callback = south_side_red;
         current_detection_state = DetectionState::AUTO;
     } 
     else {
@@ -315,9 +310,9 @@ void automatic_gps() {
 
 void update_display_data()
 {
-    gps_x_data = gps_sensor.get_position_x() * M_TO_IN_CONV;
-    gps_y_data = gps_sensor.get_position_y() * M_TO_IN_CONV;
-    gps_theta_data = gps_sensor.get_heading();
+    //gps_x_data = gps_sensor.get_position_x() * M_TO_IN_CONV;
+    //gps_y_data = gps_sensor.get_position_y() * M_TO_IN_CONV;
+    //gps_theta_data = gps_sensor.get_heading();
     //red_data = optical_sensor.get_rgb().red;
     //blue_data = optical_sensor.get_rgb().blue;
     //range_data = optical_sensor.get_proximity();
