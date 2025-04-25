@@ -19,21 +19,24 @@ void logPose() {
     }
 }
 
+IntakeController::IntakeController(pros::Motor& intakeMotor) 
+    : intakeMotor(intakeMotor) {}
 
-void handle_intake_jam(int velocity)
+
+void IntakeController::handle_intake_jam(int velocity)
 {
-    const int REVERSE_DISTANCE = 600;
+    const int REVERSE_DISTANCE = 200;
     const int REVERSE_VELOCITY = 300;
     const int GRACE_PERIOD_MS = 100;
     
     // Stop the intake and vibrate the controller
-    intake.move_velocity(0);
+    intake_motor.move_velocity(0);
     controller.rumble(".");
 
     // Reverse the intake to clear the jam
-    intake.move_relative(-REVERSE_DISTANCE, REVERSE_VELOCITY);
+    intake_motor.move_relative(-REVERSE_DISTANCE, REVERSE_VELOCITY);
     pros::delay(600);
-    intake.move_velocity(velocity);
+    intake_motor.move_velocity(velocity);
 
     // Grace period to prevent immediate detection of another jam
     for (int i = 0; i < floor(GRACE_PERIOD_MS / TASK_DELAY_MS); ++i)
@@ -43,40 +46,45 @@ void handle_intake_jam(int velocity)
 }
 
 
-void intake_controlled(int velocity)
+void IntakeController::intake_control(int velocity, IntakeParams options)
 {
-    static pros::Task* intake_task = nullptr; 
+    static pros::Task* jamTask = nullptr;
+    static pros::Task* ringTask = nullptr;
 
     if (velocity == 0)
     {
-        // If the velocity has been set to 0, stop the intake
-        if (intake_task)
+        if (jamTask)
         {
-            intake_task->suspend();
-            delete intake_task;
-            intake_task = nullptr;
+            jamTask->suspend();
+            delete jamTask;
+            jamTask = nullptr;
         }
-        intake.move_velocity(0);
+
+        if (ringTask)
+        {
+            ringTask->suspend();
+            delete ringTask;
+            ringTask = nullptr;
+        }
+
+        intake_motor.move_velocity(0);
         return;
     }
 
-    // Create new thread for intake control
-    if (!intake_task) 
+    // Jam Detection Task
+    if (options.jam_detection && jamTask == nullptr)
     {
-        intake_task = new pros::Task([velocity]()
-        {
-            const int JAM_TIME_THRESHOLD = 1200;
+        jamTask = new pros::Task([this, velocity]() {
+            const int JAM_TIME_THRESHOLD = 350;
             const int MIN_VELOCITY_THRESHOLD = velocity * 0.2;
 
-            // Start moving intake at input velocity
-            intake.move_velocity(velocity);
+            intake_motor.move_velocity(velocity);
             int jam_time = 0;
-            
+
             while (true)
             {
-                int actual_velocity = intake.get_actual_velocity();
+                int actual_velocity = intake_motor.get_actual_velocity();
 
-                // If velocity drops below threshold, start a timer
                 if (actual_velocity < MIN_VELOCITY_THRESHOLD && velocity != 0)
                 {
                     jam_time += TASK_DELAY_MS;
@@ -86,7 +94,6 @@ void intake_controlled(int velocity)
                     jam_time = 0;
                 }
 
-                // Handle jam if it has been stuck for longer than the threshold time
                 if (jam_time >= JAM_TIME_THRESHOLD)
                 {
                     handle_intake_jam(velocity);
@@ -97,97 +104,92 @@ void intake_controlled(int velocity)
             }
         });
     }
-}
 
-void intake_ring_detect(int velocity)
-{
-    const int RED_LOWER_THRESHOLD = 5;
-    const int RED_UPPER_THRESHOLD = 25;
-    const int BLUE_LOWER_THRESHOLD = 208;
-    const int BLUE_UPPER_THRESHOLD = 215;
-
-    AllianceColour currentAllianceColour = AllianceColour::RED;
-
-    if (currentAllianceColour == AllianceColour::RED)
+    // Colour Sort Task
+    if (options.coloursort && ringTask == nullptr)
     {
-        if (optical_sensor.get_hue() > BLUE_LOWER_THRESHOLD && optical_sensor.get_hue() < BLUE_UPPER_THRESHOLD)
-        {
-            handle_wrong_ring(velocity);
-        }
+        ringTask = new pros::Task([this, velocity]() {
+            intake_colour_sort_task(velocity);
+        });
     }
-    else if (currentAllianceColour == AllianceColour::BLUE)
+
+    // Default behavior if neither option is active
+    if (!options.jam_detection && !options.coloursort)
     {
-        if (optical_sensor.get_hue() > RED_LOWER_THRESHOLD && optical_sensor.get_hue() < RED_UPPER_THRESHOLD)
-        {
-            handle_wrong_ring(velocity);
-        }
+        intake_motor.move_velocity(velocity);
     }
 }
 
-void handle_wrong_ring(int velocity)
-{
-    const int FLING_DISTANCE_THRESHOLD = 500;
-    int start_intake_position = intake.get_position();
 
-    while (abs(intake.get_position() - start_intake_position) < FLING_DISTANCE_THRESHOLD)
+void IntakeController::intake_ring_detect(int velocity)
+{
+    static pros::Task* colour_sort_task = nullptr;
+
+    if (velocity == 0)
+    {
+        if (colour_sort_task)
+        {
+            colour_sort_task->suspend();
+            delete colour_sort_task;
+            colour_sort_task = nullptr;
+        }
+        intake_motor.move_velocity(0);
+        return;
+    }
+
+    if (!colour_sort_task)
+    {
+        colour_sort_task = new pros::Task([this, velocity]()
+        {
+            this->intake_colour_sort_task(velocity);
+        });
+    }
+}
+
+void IntakeController::handle_wrong_ring(int velocity)
+{
+    const int FLING_DISTANCE_THRESHOLD = 530;
+    int start_intake_position = intake_motor.get_position();
+
+    while (abs(intake_motor.get_position() - start_intake_position) < FLING_DISTANCE_THRESHOLD)
     {
         pros::delay(TASK_DELAY_MS);
     }
 
-    intake.move_velocity(0);
+    intake_motor.move_velocity(0);
     pros::delay(200);
-    intake.move_velocity(velocity);
+    intake_motor.move_velocity(velocity);
 }
 
-
-void intake_async(int t, int velocity)
+void IntakeController::intake_colour_sort_task(int velocity)
 {
-    pros::Task task([&]()
-                    {
-    intake.move_velocity(velocity);
-    pros::delay(t);
-    intake.move_velocity(0); });
-}
+    const int RED_LOWER_THRESHOLD = 5;
+    const int RED_UPPER_THRESHOLD = 25;
+    const int BLUE_LOWER_THRESHOLD = 208;
+    const int BLUE_UPPER_THRESHOLD = 225;
+    AllianceColour currentAllianceColour = AllianceColour::RED;
 
-void intake_standard(int t, int velocity)
-{
-    intake.move_velocity(velocity);
-    pros::delay(t);
-    intake.move_velocity(0);
-}
+    intake_motor.move_velocity(velocity);
 
-void intake_into_arm()
-{
-    pros::Task task([&]()
-                    {
-    intake.move_velocity(200);
-    while (optical_sensor.get_proximity() > 120) {}
-    intake.move_velocity(0);
-    intake.move_relative(3, -120);
-    });
-}
-
-void arm_async(int t, int velocity)
-{
-    pros::Task task([&]()
-                    {
-    //arm.move_velocity(velocity);
-    pros::delay(t);
-    //arm.move_velocity(0);
-    });
-}
-
-void arm_standard(int t, int velocity)
-{
-    //arm.move_velocity(velocity);
-    pros::delay(t);
-    //arm.move_velocity(0);
-}
-
-void move_arm_absolute(int position)
-{
-    while (arm_rotation_sensor.get_position())
+    while (true)
     {
-        //arm.move_velocity(100);
+        int hue = optical_sensor.get_hue();
+
+        if (currentAllianceColour == AllianceColour::RED)
+        {
+            if (hue > BLUE_LOWER_THRESHOLD && hue < BLUE_UPPER_THRESHOLD)
+            {
+                handle_wrong_ring(velocity);
+            }
+        }
+        else if (currentAllianceColour == AllianceColour::BLUE)
+        {
+            if (hue > RED_LOWER_THRESHOLD && hue < RED_UPPER_THRESHOLD)
+            {
+                handle_wrong_ring(velocity);
+            }
+        }
+
+        pros::delay(TASK_DELAY_MS);
     }
 }

@@ -42,15 +42,15 @@ void intake_control(bool in, bool out)
 {
     if (in)
     {
-        intake.move_velocity(INTAKE_VELOCITY);
+        intake_motor.move_velocity(INTAKE_VELOCITY);
     }
     else if (out)
     {
-        intake.move_velocity(INTAKE_VELOCITY * -1);
+        intake_motor.move_velocity(INTAKE_VELOCITY * -1);
     }
     else
     {
-        intake.move_velocity(0);
+        intake_motor.move_velocity(0);
     }
 }
 

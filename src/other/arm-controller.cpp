@@ -12,8 +12,7 @@ ArmController::ArmController(double kP, double kI, double kD,
       rotationSensor(rotationSensor) {}
 
       
-void ArmController::
-moveToPosition(double position, bool async, double maxSpeed) {
+void ArmController::moveToPosition(double position, bool async, double maxSpeed) {
     if (async) {
         // Check if task already exists and is running
         if (moveTask != nullptr && moveTask->get_state() != pros::E_TASK_STATE_DELETED) {

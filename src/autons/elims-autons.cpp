@@ -33,9 +33,9 @@ void mogo_rush_red()
     pros::delay(150);
 
     // Score preload
-    intake_controlled(600);
+    intake.intake_controlled(600);
     pros::delay(1250);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Drop mogo
     pros::delay(250);
@@ -61,7 +61,7 @@ void mogo_rush_red()
     
     // Turn and move forward a little to get that ring
     chassis.turnToPoint(-24, 0, 500, {}, false);
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.moveToPoint(-50, -50, 600);
     pros::delay(600);
 
@@ -99,9 +99,9 @@ void mogo_rush_blue()
     pros::delay(150);
 
     // Score preload
-    intake_controlled(600);
+    intake.intake_controlled(600);
     pros::delay(1250);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Drop mogo
     pros::delay(250);
@@ -127,7 +127,7 @@ void mogo_rush_blue()
     
     // Turn and move forward a little to get that ring
     chassis.turnToPoint(24, 0, 500, {}, false);
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.moveToPoint(50, -50, 600);
     pros::delay(600);
 
@@ -156,7 +156,7 @@ void elims_north_red()
     pros::delay(250);
     
     // Turn and grab first ring
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(-29, 46, 750);
     chassis.moveToPoint(-29, 46, 1000);
 
@@ -172,7 +172,7 @@ void elims_north_red()
 
     // Turn and move to corner
     chassis.turnToPoint(-50, 60, 1000, {}, false);
-    intake_controlled(0);
+    intake.intake_controlled(0);
     left_doinker.set_value(true);
     chassis.moveToPoint(-64, 58, 1500, {.maxSpeed=90});
 
@@ -180,7 +180,7 @@ void elims_north_red()
     chassis.turnToPoint(-33, 25, 1500, {.maxSpeed=55}, false);
 
     // Grab ring and go to middle
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(-48, 14, 800);
     chassis.moveToPoint(-48, 14, 2000);
 }
@@ -207,7 +207,7 @@ void elims_north_blue()
     pros::delay(250);
     
     // Turn and grab first ring
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(29, 46, 750);
     chassis.moveToPoint(29, 46, 1000);
 
@@ -223,7 +223,7 @@ void elims_north_blue()
 
     // Turn and move to corner
     chassis.turnToPoint(50, 60, 1000, {}, false);
-    intake_controlled(0);
+    intake.intake_controlled(0);
     left_doinker.set_value(true);
     chassis.moveToPoint(64, 58, 1500, {.maxSpeed=90});
 
@@ -231,7 +231,7 @@ void elims_north_blue()
     chassis.turnToPoint(33, 25, 1500, {.maxSpeed=55}, false);
 
     // Grab ring and go to middle
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(48, 14, 800);
     chassis.moveToPoint(48, 14, 2000);
 }
@@ -258,7 +258,7 @@ void nats_north_red()
     pros::delay(250);
     
     // Turn and grab first ring
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(-29, 46, 750);
     chassis.moveToPoint(-29, 46, 1000);
 
@@ -274,7 +274,7 @@ void nats_north_red()
 
     // Turn to go to middle
     chassis.turnToPoint(-48, 20, 750, {}, false);
-    intake_controlled(0);
+    intake.intake_controlled(0);
     chassis.moveToPoint(-48, 20, 1500);
 
     // Go to pos
@@ -287,9 +287,9 @@ void nats_north_blue()
 {
     chassis.setPose(53, 10, 120);
     arm.resetPosition(ArmPosition::LOAD);
-    intake.move_velocity(300);
+    intake_motor.move_velocity(300);
     pros::delay(200);
-    intake.move_velocity(0);
+    intake_motor.move_velocity(0);
 
     // Place ring on alliance stake
     chassis.moveToPoint(60.5, 6, 400);
@@ -307,7 +307,7 @@ void nats_north_blue()
     pros::delay(250);
     
     // Turn and grab first ring
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(29, 46, 750);
     chassis.moveToPoint(29, 46, 1000);
 
@@ -323,7 +323,7 @@ void nats_north_blue()
 
     // Turn to go to middle
     chassis.turnToPoint(48, 20, 750, {}, false);
-    intake_controlled(0);
+    intake.intake_controlled(0);
     chassis.moveToPoint(48, 20, 1500);
 
     // Go to pos

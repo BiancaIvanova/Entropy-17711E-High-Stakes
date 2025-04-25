@@ -18,6 +18,7 @@
 #include "pros/optical.hpp"
 #include "pros/rotation.hpp"
 #include "arm-controller.h"
+#include "subsystem-control-functions.h"
 #include "double-imu.h"
 #include <cmath>
 #include <iostream>
@@ -44,7 +45,7 @@ using MotorUnits = pros::v5::MotorUnits;
 pros::MotorGroup left_drive({-14, -17, -19}, MotorGearset::blue);
 pros::MotorGroup right_drive({18, 20, 3}, MotorGearset::blue);
 
-pros::Motor intake(-4, MotorGearset::blue, MotorUnits::degrees);
+pros::Motor intake_motor(-4, MotorGearset::blue, MotorUnits::degrees);
 
 pros::Motor left_arm(-2, MotorGearset::green, MotorUnits::degrees);
 pros::Motor right_arm(1, MotorGearset::green, MotorUnits::degrees);
@@ -53,7 +54,7 @@ pros::Imu left_inertial_sensor(15);
 pros::Imu right_inertial_sensor(19);
 
 pros::GPS gps_sensor(20);
-pros::Optical optical_sensor(7);
+pros::Optical optical_sensor(13);
 pros::Rotation arm_rotation_sensor(5);
 pros::Rotation vertical_odom(5);
 pros::Rotation horizontal_odom(6);
@@ -75,6 +76,10 @@ ArmController arm (
     arm_rotation_sensor
 );
 
+IntakeController intake
+{
+    intake_motor
+};
 
 // -----------------------------------------------------------------------------
 // Lemlib configuration

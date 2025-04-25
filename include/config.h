@@ -1,5 +1,6 @@
 #include "main.h"
 #include "arm-controller.h"
+#include "subsystem-control-functions.h"
 #include "lemlib/chassis/trackingWheel.hpp"
 #include "lemlib/api.hpp"
 
@@ -19,7 +20,7 @@ extern AllianceColour currentAllianceColour;
 // Main Configuration
 extern pros::MotorGroup left_drive;
 extern pros::MotorGroup right_drive;
-extern pros::Motor intake;
+extern pros::Motor intake_motor;
 extern pros::Motor left_arm;
 extern pros::Motor right_arm;
 extern pros::Imu left_inertial_sensor;
@@ -34,6 +35,7 @@ extern pros::adi::DigitalOut right_doinker;
 
 // PID Configuration
 extern ArmController arm;
+extern IntakeController intake;
 
 // Lemlib
 extern lemlib::Drivetrain drivetrain;

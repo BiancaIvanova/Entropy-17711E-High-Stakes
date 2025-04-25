@@ -129,7 +129,7 @@ void replay_logs()
 
 LOGGER
 
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
 	while (true)
 	{
@@ -151,7 +151,7 @@ LOGGER
 /*
 PLAYER
 
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
 	read_logs_from_file();
 	replay_logs();

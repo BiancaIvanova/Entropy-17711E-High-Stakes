@@ -13,14 +13,15 @@ void initialize()
 {
 	ready_display("AMA Alliance Reveal");
 
-	optical_sensor.set_led_pwm(100);
+	optical_sensor.set_led_pwm(50);
+	optical_sensor.set_integration_time(TASK_DELAY_MS);
 	right_inertial_sensor.reset();
 	chassis.calibrate();
 	
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
 	left_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     right_arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
-	intake.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
+	intake_motor.set_encoder_units(pros::E_MOTOR_ENCODER_DEGREES);
 }
 
 
@@ -32,12 +33,12 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	nats_north_blue();
+	intake.intake_control(600, {.jam_detection = true, .coloursort = true});
 }
 
 void opcontrol()
 {
-	intake_controlled(0);
+	intake.intake_control(0);
 	arm.resetPosition(ArmPosition::DOWN);
 
 	while (true)

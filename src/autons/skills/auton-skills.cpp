@@ -28,9 +28,9 @@ void auton_skills()
 void auton_skills_stage_1()
 {
     // Score alliance stake
-    intake_controlled(600);
+    intake.intake_controlled(600);
     pros::delay(750);
-    intake_controlled(0);
+    intake.intake_controlled(0);
     chassis.moveToPoint(-50, 0, 500);
 
     // Turn and grab left stake
@@ -44,7 +44,7 @@ void auton_skills_stage_1()
     pros::delay(400);
 
     // Get the first ring
-    intake_controlled(500); //fix
+    intake.intake_controlled(500); //fix
     chassis.turnToPoint(-24, 23, 500);
     chassis.moveToPoint(-24, 23, 1000);
     
@@ -72,9 +72,9 @@ void auton_skills_stage_1()
     chassis.turnToPoint(0, 30, 500, {}, false);
     pros::delay(1500);
     mobile_stake_clamp.set_value(true);
-    intake_controlled(-600);
+    intake.intake_controlled(-600);
     pros::delay(250);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Push it into the corner
     chassis.moveToPoint(-75, 75, 1000, {.forwards=false});
@@ -104,7 +104,7 @@ void auton_skills_stage_2()
     pros::delay(500);
     
     // Get the first ring
-    intake_controlled(500); // fix
+    intake.intake_controlled(500); // fix
     chassis.turnToPoint(-28, -22, 750);
     chassis.moveToPoint(-28, -22, 1000);
 
@@ -131,9 +131,9 @@ void auton_skills_stage_2()
     chassis.turnToPoint(0, -30, 500, {}, false);
     pros::delay(1500);
     mobile_stake_clamp.set_value(true);
-    intake_controlled(-600);
+    intake.intake_controlled(-600);
     pros::delay(250);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Push it into the corner
     chassis.moveToPoint(-75, -75, 1000, {.forwards=false});
@@ -158,17 +158,17 @@ void auton_skills_stage_3()
 {
     // Get first ring
     chassis.moveToPoint(20, -48, 1000, {.maxSpeed=85});
-    intake_controlled(200);
+    intake.intake_controlled(200);
     pros::delay(750);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Get second ring
     chassis.turnToPoint(24, -19, 750);
     chassis.moveToPoint(24, -19, 1000);
     pros::delay(500);
-    intake_controlled(200);
+    intake.intake_controlled(200);
     pros::delay(750);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Turn and grab back mobile goal
     mobile_stake_clamp.set_value(true);
@@ -181,7 +181,7 @@ void auton_skills_stage_3()
     pros::delay(500);
 
     // Score the two rings
-    intake_controlled(500);
+    intake.intake_controlled(500);
 
     // Score the third ring
     chassis.turnToPoint(24, 24, 750);
@@ -197,7 +197,7 @@ void auton_skills_stage_3()
 
     // Move back
     chassis.moveToPoint(37, 58, 500, {.forwards=false});
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Turn around to place mogo in corner
     chassis.turnToPoint(60, 58, 1000, {.forwards=false, .direction=AngularDirection::CCW_COUNTERCLOCKWISE}, false);
@@ -206,17 +206,17 @@ void auton_skills_stage_3()
     chassis.moveToPoint(60, 58, 800, {.forwards=false}, false);
     pros::delay(250);
     mobile_stake_clamp.set_value(true);
-    intake_controlled(-600);
+    intake.intake_controlled(-600);
     pros::delay(250);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Turn a bit
     chassis.turnToPoint(50, 50, 500);
 
     // Grab that ring
-    intake_controlled(300);
+    intake.intake_controlled(300);
     chassis.moveToPoint(50, 50, 500, {}, false);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 }
 
 void auton_skills_stage_4()
@@ -239,9 +239,9 @@ void auton_skills_stage_4()
     chassis.moveToPoint(62, 0, 1000, {.maxSpeed=70});
 
     // Score whatever ring is being held
-    intake_controlled(600);
+    intake.intake_controlled(600);
     pros::delay(1500);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Turn and push last mogo in corner
     chassis.turnToPoint(60, -60, 750);

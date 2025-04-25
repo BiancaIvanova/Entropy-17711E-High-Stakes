@@ -28,7 +28,7 @@ void north_side_red()
     pros::delay(250);
     
     // Turn and grab first ring
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(-29, 46, 750);
     chassis.moveToPoint(-29, 46, 1000);
 
@@ -40,16 +40,16 @@ void north_side_red()
     // Move to other side of field
     chassis.turnToPoint(-49, 18, 750);
     chassis.moveToPoint(-49, 18, 1400);
-    intake_controlled(0);
+    intake.intake_controlled(0);
     mobile_stake_clamp.set_value(true);
     
     // Grab the two ring stack
     chassis.turnToPoint(-46, -11, 750, {.maxSpeed=85}, false);
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.moveToPoint(-46, 0, 1200, {});
     chassis.moveToPoint(-46, -11, 750);
     pros::delay(975);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Grab the other mogo
     chassis.turnToPoint(-30, -20, 750, {.forwards=false});
@@ -58,7 +58,7 @@ void north_side_red()
     pros::delay(250);
     mobile_stake_clamp.set_value(false);
     pros::delay(250);
-    intake_controlled(600);
+    intake.intake_controlled(600);
 
     // Touch the ladder
     chassis.turnToPoint(-28, 7, 500);
@@ -87,7 +87,7 @@ void north_side_blue()
     pros::delay(250);
     
     // Turn and grab first ring
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(29, 46, 750);
     chassis.moveToPoint(29, 46, 1000);
 
@@ -99,16 +99,16 @@ void north_side_blue()
     // Move to other side of field
     chassis.turnToPoint(49, 18, 750);
     chassis.moveToPoint(49, 18, 1400);
-    intake_controlled(0);
+    intake.intake_controlled(0);
     mobile_stake_clamp.set_value(true);
     
     // Grab the two ring stack
     chassis.turnToPoint(46, -11, 750, {.maxSpeed=85}, false);
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.moveToPoint(46, 0, 1200, {});
     chassis.moveToPoint(46, -11, 750);
     pros::delay(975);
-    intake_controlled(0);
+    intake.intake_controlled(0);
 
     // Grab the other mogo
     chassis.turnToPoint(30, -20, 750, {.forwards=false});
@@ -117,7 +117,7 @@ void north_side_blue()
     pros::delay(250);
     mobile_stake_clamp.set_value(false);
     pros::delay(250);
-    intake_controlled(600);
+    intake.intake_controlled(600);
 
     // Touch the ladder
     chassis.turnToPoint(28, 7, 500);
@@ -146,7 +146,7 @@ void north_side_blue_old()
     pros::delay(250);
     
     // Turn and grab first ring
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(29, 46, 750);
     chassis.moveToPoint(29, 46, 1000);
 
@@ -182,7 +182,7 @@ void north_side_red_old()
     pros::delay(250);
     
     // Turn and grab first ring
-    intake_controlled(600);
+    intake.intake_controlled(600);
     chassis.turnToPoint(-29, 46, 750);
     chassis.moveToPoint(-29, 46, 1000);
 
