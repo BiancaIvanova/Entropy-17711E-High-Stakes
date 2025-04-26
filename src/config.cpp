@@ -29,12 +29,14 @@ const int TASK_DELAY_MS = 20;
 const float TRACKWIDTH = 12.8;
 const float MOTOR_GEAR_TEETH = 36.0;
 const float MOTOR_RPM = 600.0;
-const float WHEEL_GEAR_TEETH = 60.0;
+const float WHEEL_GEAR_TEETH = 48.0;
 const float WHEEL_RPM = MOTOR_RPM / (WHEEL_GEAR_TEETH / MOTOR_GEAR_TEETH);
-const float WHEEL_DIAMETER = lemlib::Omniwheel::NEW_325;
+const float WHEEL_DIAMETER = lemlib::Omniwheel::NEW_275;
 
 pros::Controller controller(pros::E_CONTROLLER_MASTER);
 
+AllianceColour currentAllianceColour = RED;
+std::string currentAutonName = "";
 
 // -----------------------------------------------------------------------------
 // Ports Configuration
@@ -50,8 +52,8 @@ pros::Motor intake_motor(-4, MotorGearset::blue, MotorUnits::degrees);
 pros::Motor left_arm(-2, MotorGearset::green, MotorUnits::degrees);
 pros::Motor right_arm(1, MotorGearset::green, MotorUnits::degrees);
 
-pros::Imu left_inertial_sensor(15);
-pros::Imu right_inertial_sensor(19);
+pros::Imu left_inertial_sensor(10);
+pros::Imu right_inertial_sensor(15);
 
 pros::GPS gps_sensor(20);
 pros::Optical optical_sensor(13);
@@ -101,28 +103,28 @@ lemlib::OdomSensors sensors {
     nullptr,
     nullptr,
     nullptr,
-    &right_inertial_sensor,
+    &left_inertial_sensor,
 };
 
 // Forward/Backward PID
 lemlib::ControllerSettings lateralController {
-    12.5,
+    13,
     0,
-    1,
+    3,
     3,
     1,
     100,
     3,
     500,
-    30
+    20
 };
  
 // Turning PID
 lemlib::ControllerSettings angularController {
-    2.8,
+    1.7,
     0,
-    1.5,
-    3,
+    10.0,
+    0,
     1,
     100,
     3,

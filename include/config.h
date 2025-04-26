@@ -16,6 +16,7 @@ enum AllianceColour
 
 // Global variable defining our alliance colour
 extern AllianceColour currentAllianceColour;
+extern std::string currentAutonName;
 
 // Main Configuration
 extern pros::MotorGroup left_drive;

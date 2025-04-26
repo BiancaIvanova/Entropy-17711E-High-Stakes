@@ -25,8 +25,8 @@ IntakeController::IntakeController(pros::Motor& intakeMotor)
 
 void IntakeController::handle_intake_jam(int velocity)
 {
-    const int REVERSE_DISTANCE = 200;
-    const int REVERSE_VELOCITY = 300;
+    const int REVERSE_DISTANCE = 300;
+    const int REVERSE_VELOCITY = 600;
     const int GRACE_PERIOD_MS = 100;
     
     // Stop the intake and vibrate the controller
@@ -55,14 +55,12 @@ void IntakeController::intake_control(int velocity, IntakeParams options)
     {
         if (jamTask)
         {
-            jamTask->suspend();
             delete jamTask;
             jamTask = nullptr;
         }
 
         if (ringTask)
         {
-            ringTask->suspend();
             delete ringTask;
             ringTask = nullptr;
         }
@@ -75,7 +73,7 @@ void IntakeController::intake_control(int velocity, IntakeParams options)
     if (options.jam_detection && jamTask == nullptr)
     {
         jamTask = new pros::Task([this, velocity]() {
-            const int JAM_TIME_THRESHOLD = 350;
+            const int JAM_TIME_THRESHOLD = 500;
             const int MIN_VELOCITY_THRESHOLD = velocity * 0.2;
 
             intake_motor.move_velocity(velocity);
@@ -148,7 +146,7 @@ void IntakeController::intake_ring_detect(int velocity)
 
 void IntakeController::handle_wrong_ring(int velocity)
 {
-    const int FLING_DISTANCE_THRESHOLD = 530;
+    const int FLING_DISTANCE_THRESHOLD = 542;
     int start_intake_position = intake_motor.get_position();
 
     while (abs(intake_motor.get_position() - start_intake_position) < FLING_DISTANCE_THRESHOLD)

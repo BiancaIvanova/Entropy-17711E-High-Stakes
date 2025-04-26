@@ -20,11 +20,8 @@ void double_side_red();
 void double_side_blue();
 
 // North Side Match
-void north_side_red();
-void north_side_blue();
-
-void north_side_red_old();
-void north_side_blue_old();
+void north_side_red_worlds();
+void north_side_blue_worlds();
 
 // South Side Match
 void south_side_red();

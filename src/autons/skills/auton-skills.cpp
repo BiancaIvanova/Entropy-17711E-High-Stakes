@@ -10,51 +10,65 @@ void auton_skills()
 {
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     arm.resetPosition(ArmPosition::LOAD);
+    currentAllianceColour = AllianceColour::RED;
     
     //  Robot starts with the front facing alliance wall stake
-    chassis.setPose(-60, 0, 90);
+    chassis.setPose(-55.5, 0, 270);
 
     // Deal with the close left side of the field
     auton_skills_stage_1();
     // Do the same with the close right side of the field
-    auton_skills_stage_2();
+    //auton_skills_stage_2();
     // Move to the back of the field and fill the last empty stake
-    auton_skills_stage_3();
+    //auton_skills_stage_3();
     // Finish by putting the two blue ring stakes into the corners
-    auton_skills_stage_4();
+    //auton_skills_stage_4();
 
 }
 
 void auton_skills_stage_1()
 {
     // Score alliance stake
-    intake.intake_controlled(600);
-    pros::delay(750);
-    intake.intake_controlled(0);
-    chassis.moveToPoint(-50, 0, 500);
+    //arm.moveToPosition(155, true);
+    pros::delay(500);
 
     // Turn and grab left stake
-    chassis.turnToPoint(-48, 24, 750, {.forwards=false});
+    chassis.moveToPoint(-48, 0, 500, {.forwards=false}, false);
+    arm.moveToPosition(0);
+    left_arm.move_voltage(-12000);
+    right_arm.move_voltage(-12000);
+    chassis.turnToPoint(-48, 24, 800, {.forwards=false, .maxSpeed=80});
+    left_arm.move_voltage(0);
+    right_arm.move_voltage(0);
+    arm.resetPosition(ArmPosition::DOWN);
+    
+    // Clamp the stake
     mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(-48, 20, 1000, {.forwards=false}, false);
-    pros::delay(350);
-    chassis.moveToPoint(-48, 25, 500, {.forwards=false, .maxSpeed=50}, false);
-    pros::delay(350);
+    chassis.moveToPoint(-48, 19, 800, {.forwards=false}, false);
+    chassis.moveToPoint(-48, 27, 800, {.forwards=false, .maxSpeed=50}, false);
     mobile_stake_clamp.set_value(false);
     pros::delay(400);
 
     // Get the first ring
-    intake.intake_controlled(500); //fix
-    chassis.turnToPoint(-24, 23, 500);
-    chassis.moveToPoint(-24, 23, 1000);
+    intake.intake_control(600, {.jam_detection=true, .coloursort=false});
+    chassis.turnToPoint(-20, 27, 500);
+    chassis.moveToPoint(-20, 27, 1000);
     
-    // Get the second ring
-    chassis.turnToPoint(-4.5, 51, 750);
-    chassis.moveToPoint(-4.5, 51, 1200);
+    // Get the second ring into lady brown
+    chassis.turnToPoint(0, 60, 750, {}, false);
+    pros::delay(250);
+    arm.moveToPosition(ArmPosition::LOAD, true);
+    chassis.moveToPoint(17, 47, 1200);
 
-    // Get the third ring
-    chassis.turnToPoint(-21, 46, 750);
-    chassis.moveToPoint(-21, 46, 1200);
+    // Lady brown score
+    chassis.turnToPoint(0, 47, 250, {.forwards=false});
+    chassis.moveToPoint(0, 47, 800, {.forwards=false});
+    intake_motor.move_velocity(0);
+    chassis.turnToPoint(0, 61, 500, {}, false); // turn to wall stake
+    chassis.moveToPoint(0, 61, 1000);
+    arm.moveToPosition(ArmPosition::WALL_STAKE, true, 0.35);
+    intake.intake_control(600, {.jam_detection=true, .coloursort=false});
+    /*
 
     // Get the fourth/fifth rings
     chassis.turnToPoint(-55, 44, 750);
@@ -78,6 +92,7 @@ void auton_skills_stage_1()
 
     // Push it into the corner
     chassis.moveToPoint(-75, 75, 1000, {.forwards=false});
+    */
 }
 
 void auton_skills_stage_2()

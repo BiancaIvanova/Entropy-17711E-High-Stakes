@@ -7,12 +7,8 @@
 
 void drive_square() {
     chassis.setPose(0, 0, 0);
-    chassis.moveToPose(0, 24, 0, 2000);
+    chassis.moveToPoint(0, 24, 2000);
     chassis.turnToPoint(24, 24, 2000);
-    chassis.moveToPose(24, 24, 90, 2000);
-    chassis.turnToPoint(24, 0, 2000);
-    chassis.moveToPose(24, 0, 180, 2000);
-    chassis.turnToPoint(0, 0, 2000);
-    chassis.moveToPose(0, 0, 270, 2000);
-    chassis.turnToPoint(0, 24, 2000);
+    chassis.moveToPoint(24, 24, 2000);
+    
 }
