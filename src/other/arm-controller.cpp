@@ -68,9 +68,9 @@ void ArmController::moveToPositionTask(double position, double maxSpeed) {
 
 
 void ArmController::resetPosition(double newPosition) {
-    currentPosition = newPosition;
+    currentPosition = newPosition * 100;
     rotationSensor.reset_position();
-    rotationSensor.set_position(newPosition);
+    rotationSensor.set_position(newPosition * 100);
 }
 
 double ArmController::getPosition() const {
