@@ -43,24 +43,26 @@ void auton_skills_stage_1()
     pros::delay(400);
 
     // Get the first ring
-    intake.intake_control(600, {.jam_detection=true, .coloursort=false});
+    intake.intake_control(600, {.jam_detection=false, .coloursort=false});
     chassis.turnToPoint(-20, 27, 500);
     chassis.moveToPoint(-20, 27, 1000);
     
     // Get the second ring into lady brown
     chassis.turnToPoint(0, 60, 750, {}, false);
     pros::delay(250);
+    chassis.moveToPoint(21, 49, 1200, {}, false);
     arm.moveToPosition(ArmPosition::LOAD, true);
-    chassis.moveToPoint(17, 50, 1200);
+    pros::delay(600);
 
     // Lady brown score
-    chassis.turnToPoint(10, 47, 250, {.forwards=false});
-    chassis.moveToPoint(10, 47, 800, {.forwards=false});
-    intake_motor.move_velocity(0);
-    chassis.turnToPoint(0, 61, 500); // turn to wall stake
-    chassis.moveToPoint(0, 61, 1000, {}, false);
-    arm.moveToPosition(ArmPosition::WALL_STAKE, true);
+    chassis.moveToPoint(2, 47, 800, {.forwards=false});
+    chassis.turnToPoint(2, 65, 500); // turn to wall stake
+    chassis.moveToPoint(2, 65, 1000, {}, false);
+    arm.moveToPosition(ArmPosition::WALL_STAKE, false);
+    chassis.moveToPoint(1, 66, 250, {}, false);
     intake.intake_control(600, {.jam_detection=true, .coloursort=false});
+    
+
     /*
 
     // Get the fourth/fifth rings
