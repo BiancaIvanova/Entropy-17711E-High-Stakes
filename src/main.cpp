@@ -34,9 +34,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	arm.resetPosition(ArmPosition::DOWN);
-	arm.moveToPosition(ArmPosition::WALL_STAKE, true);
-	arm.moveToPosition(ArmPosition::DOWN, true);
+	auton_skills();
 }
 
 void opcontrol()

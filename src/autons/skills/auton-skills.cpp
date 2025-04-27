@@ -29,18 +29,11 @@ void auton_skills()
 void auton_skills_stage_1()
 {
     // Score alliance stake
-    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, true);
-    pros::delay(500);
-
+    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, false);
     // Turn and grab left stake
     chassis.moveToPoint(-48, 0, 500, {.forwards=false}, false);
-    arm.moveToPosition(ArmPosition::WALL_STAKE, true);
-    arm.moveToPosition(ArmPosition::LOAD, true);
-    arm.moveToPosition(ArmPosition::DOWN, true);
+    arm.moveToPosition(ArmPosition::DOWN, false);
     chassis.turnToPoint(-48, 24, 800, {.forwards=false, .maxSpeed=80});
-    left_arm.move_voltage(0);
-    right_arm.move_voltage(0);
-    arm.resetPosition(ArmPosition::DOWN);
     
     // Clamp the stake
     mobile_stake_clamp.set_value(true);
