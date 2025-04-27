@@ -29,14 +29,14 @@ void auton_skills()
 void auton_skills_stage_1()
 {
     // Score alliance stake
-    //arm.moveToPosition(155, true);
+    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, true);
     pros::delay(500);
 
     // Turn and grab left stake
     chassis.moveToPoint(-48, 0, 500, {.forwards=false}, false);
-    arm.moveToPosition(0);
-    left_arm.move_voltage(-12000);
-    right_arm.move_voltage(-12000);
+    arm.moveToPosition(ArmPosition::WALL_STAKE, true);
+    arm.moveToPosition(ArmPosition::LOAD, true);
+    arm.moveToPosition(ArmPosition::DOWN, true);
     chassis.turnToPoint(-48, 24, 800, {.forwards=false, .maxSpeed=80});
     left_arm.move_voltage(0);
     right_arm.move_voltage(0);
@@ -58,15 +58,15 @@ void auton_skills_stage_1()
     chassis.turnToPoint(0, 60, 750, {}, false);
     pros::delay(250);
     arm.moveToPosition(ArmPosition::LOAD, true);
-    chassis.moveToPoint(17, 47, 1200);
+    chassis.moveToPoint(17, 50, 1200);
 
     // Lady brown score
-    chassis.turnToPoint(0, 47, 250, {.forwards=false});
-    chassis.moveToPoint(0, 47, 800, {.forwards=false});
+    chassis.turnToPoint(10, 47, 250, {.forwards=false});
+    chassis.moveToPoint(10, 47, 800, {.forwards=false});
     intake_motor.move_velocity(0);
-    chassis.turnToPoint(0, 61, 500, {}, false); // turn to wall stake
-    chassis.moveToPoint(0, 61, 1000);
-    arm.moveToPosition(ArmPosition::WALL_STAKE, true, 0.35);
+    chassis.turnToPoint(0, 61, 500); // turn to wall stake
+    chassis.moveToPoint(0, 61, 1000, {}, false);
+    arm.moveToPosition(ArmPosition::WALL_STAKE, true);
     intake.intake_control(600, {.jam_detection=true, .coloursort=false});
     /*
 

@@ -55,7 +55,7 @@ void intake_control(bool in, bool out)
 }
 
 
-std::vector<double> armPositions = {ArmPosition::DOWN, ArmPosition::LOAD, ArmPosition::WALL_STAKE, ArmPosition::ALLIANCE_STAKE};
+std::vector<double> armPositions = {ArmPosition::DOWN, ArmPosition::LOAD, ArmPosition::WALL_STAKE, ArmPosition::ALLIANCE_STAKE, ArmPosition::MOGO_TIP};
 int currentIndex = 0;
 
 bool prevUp = false;
