@@ -64,11 +64,11 @@ bool prevDown = false;
 void arm_control(bool up, bool down) {
     if (up && !prevUp && currentIndex < armPositions.size() - 1) {
         currentIndex++;
-        arm.moveToPosition(armPositions[currentIndex]);
+        arm.moveToPosition(armPositions[currentIndex], 1500);
     }
     else if (down && !prevDown && currentIndex > 0) {
         currentIndex--;
-        arm.moveToPosition(armPositions[currentIndex]);
+        arm.moveToPosition(armPositions[currentIndex], 1500);
     }
 
     prevUp = up;

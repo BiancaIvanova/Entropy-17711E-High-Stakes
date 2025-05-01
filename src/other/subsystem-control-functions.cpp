@@ -55,12 +55,14 @@ void IntakeController::intake_control(int velocity, IntakeParams options)
     {
         if (jamTask)
         {
+            jamTask->suspend();
             delete jamTask;
             jamTask = nullptr;
         }
 
         if (ringTask)
         {
+            ringTask->suspend();
             delete ringTask;
             ringTask = nullptr;
         }

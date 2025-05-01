@@ -26,7 +26,7 @@
 
 const int TASK_DELAY_MS = 20;
 
-const float TRACKWIDTH = 12;
+const float TRACKWIDTH = 18;
 const float MOTOR_GEAR_TEETH = 36.0;
 const float MOTOR_RPM = 600.0;
 const float WHEEL_GEAR_TEETH = 48.0;

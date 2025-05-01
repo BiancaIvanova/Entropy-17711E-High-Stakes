@@ -48,9 +48,11 @@ void north_side_red_worlds()
 
     // Turn to corner
     chassis.turnToPoint(-62.5, 62, 900);
+    right_doinker.set_value(true);
     chassis.moveToPoint(-62.5, 62, 1500, {}, false);
     pros::delay(250);
 
+    /*
     // Get the ring from corner
     chassis.moveToPoint(-67, 62, 1500, {.forwards=false});
 
@@ -59,7 +61,7 @@ void north_side_red_worlds()
     chassis.moveToPoint(-46.5, 25, 1500, {.earlyExitRange=10});
     chassis.moveToPoint(-46.5, 25, 500, {.maxSpeed=70});
     chassis.turnToPoint(-44, 0, 250);
-
+    */
 }
 
 

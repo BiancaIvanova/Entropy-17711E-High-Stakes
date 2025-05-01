@@ -25,13 +25,13 @@ class ArmController {
     pros::Rotation& rotationSensor;
     pros::Task* moveTask = nullptr;
 
-    void moveToPositionTask(double position, double maxSpeed);
+    void moveToPositionTask(double position, int timeout, double maxSpeed);
 
 public:
     ArmController(double kP, double kI, double kD, 
                   pros::Motor& leftArmMotor, pros::Motor& rightArmMotor, pros::Rotation& rotationSensor);
 
-    void moveToPosition(double position, bool async = true, double maxSpeed = 1.0);
+    void moveToPosition(double position, int timeout = 0, bool async = true, double maxSpeed = 1.0);
 
     void resetPosition(double newPosition);
 

@@ -5,328 +5,57 @@
 #include "pros/motors.h"
 #include "pros/rtos.hpp"
 
-void mogo_rush_red()
+void mogo_rush_red_worlds()
 {
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
     arm.resetPosition(ArmPosition::DOWN);
 
-    chassis.setPose(-54, -29, 115);
+    chassis.setPose(-55, -48, 90);
 
     // Go rush middle mogo
-    chassis.moveToPoint(-22, -39, 1400, {.minSpeed=60});
-    pros::delay(800);
+    chassis.moveToPoint(-14, -48, 1000, {.minSpeed=60});
+    intake.intake_control(600, {.jam_detection=false, .coloursort=true});
+    pros::delay(200);
     left_doinker.set_value(true);
 
-    // Move it back
-    chassis.moveToPoint(-38, -39, 1600, {.forwards=false}, false);
+    // Fling the mogo
+    chassis.turnToPoint(-14, -64,  750, {.minSpeed=50});
+    intake.intake_control(0);
+
+    // Clamp the mogo
+    chassis.turnToPoint(-14, -64,  750, {.forwards=false});
     left_doinker.set_value(false);
-    pros::delay(200);
-
-    // Turn around to grab mogo
-    chassis.turnToPoint(-14.5, -48, 800, {.forwards=false});
     mobile_stake_clamp.set_value(true);
-
-    // Move back to grab mogo
-    chassis.moveToPoint(-19, -46, 800, {.forwards=false, .maxSpeed=90}, false);
-    pros::delay(200);
-    mobile_stake_clamp.set_value(false);
+    chassis.moveToPoint(-14, -64,  750, {.forwards=false}, false);
     pros::delay(150);
-
-    // Score preload
-    intake.intake_controlled(600);
-    pros::delay(1250);
-    intake.intake_controlled(0);
-
-    // Drop mogo
-    pros::delay(250);
-    mobile_stake_clamp.set_value(true);
-
-    // Move forward and turn to grab the other mogo
-    chassis.moveToPoint(-30, -45, 600);
-    chassis.turnToPoint(-30, -24, 700, {.forwards=false});
-    chassis.moveToPoint(-30, -24, 1000, {.forwards=false, .maxSpeed=90}, false);
-    pros::delay(200);
     mobile_stake_clamp.set_value(false);
-    pros::delay(400);
 
-    // Go to corner
-    chassis.turnToPoint(-56, -32, 650);
-    chassis.moveToPoint(-56, -32, 850);
-    chassis.turnToPoint(-60, -54, 500, {}, false);
-    left_doinker.set_value(true);
-    chassis.moveToPoint(-60, -54, 800);
+    // Score the ring
+    intake.intake_control(600, {.jam_detection=false, .coloursort=true});
 
-    // Turn and spin rings away
-    chassis.turnToPoint(-36, 0, 1500, {.direction=AngularDirection::CCW_COUNTERCLOCKWISE, .maxSpeed=60});
-    
-    // Turn and move forward a little to get that ring
-    chassis.turnToPoint(-24, 0, 500, {}, false);
-    intake.intake_controlled(600);
-    chassis.moveToPoint(-50, -50, 600);
-    pros::delay(600);
+    // Get the preload back
+    chassis.turnToPoint(-48, -36,  750);
+    intake.intake_control(600, {.jam_detection=false, .coloursort=true});
+    chassis.moveToPoint(-48, -36,  1000, {}, false);
+    pros::delay(500);
 
-    // Back into the corner
-    chassis.moveToPoint(-58, -56, 1500, {.forwards=false, .maxSpeed=45});
-}
-
-
-
-void mogo_rush_blue()
-{
-    chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-    arm.resetPosition(ArmPosition::DOWN);
-
-    chassis.setPose(54, -29, 115);
-
-    // Go rush middle mogo
-    chassis.moveToPoint(22, -39, 1400, {.minSpeed=60});
-    pros::delay(800);
-    left_doinker.set_value(true);
-
-    // Move it back
-    chassis.moveToPoint(38, -39, 1600, {.forwards=false}, false);
-    left_doinker.set_value(false);
-    pros::delay(200);
-
-    // Turn around to grab mogo
-    chassis.turnToPoint(14.5, -48, 800, {.forwards=false});
+    // Let go of mogo and grab the other one
     mobile_stake_clamp.set_value(true);
-
-    // Move back to grab mogo
-    chassis.moveToPoint(19, -46, 800, {.forwards=false, .maxSpeed=90}, false);
-    pros::delay(200);
-    mobile_stake_clamp.set_value(false);
-    pros::delay(150);
-
-    // Score preload
-    intake.intake_controlled(600);
-    pros::delay(1250);
-    intake.intake_controlled(0);
-
-    // Drop mogo
-    pros::delay(250);
-    mobile_stake_clamp.set_value(true);
-
-    // Move forward and turn to grab the other mogo
-    chassis.moveToPoint(30, -45, 600);
-    chassis.turnToPoint(30, -24, 700, {.forwards=false});
-    chassis.moveToPoint(30, -24, 1000, {.forwards=false, .maxSpeed=90}, false);
-    pros::delay(200);
-    mobile_stake_clamp.set_value(false);
-    pros::delay(400);
-
-    // Go to corner
-    chassis.turnToPoint(56, -32, 650);
-    chassis.moveToPoint(56, -32, 850);
-    chassis.turnToPoint(60, -54, 500, {}, false);
-    left_doinker.set_value(true);
-    chassis.moveToPoint(60, -54, 800);
-
-    // Turn and spin rings away
-    chassis.turnToPoint(36, 0, 1500, {.direction=AngularDirection::CCW_COUNTERCLOCKWISE, .maxSpeed=60});
-    
-    // Turn and move forward a little to get that ring
-    chassis.turnToPoint(24, 0, 500, {}, false);
-    intake.intake_controlled(600);
-    chassis.moveToPoint(50, -50, 600);
-    pros::delay(600);
-
-    // Back into the corner
-    chassis.moveToPoint(58, -56, 1500, {.forwards=false, .maxSpeed=45});
-}
-
-void elims_north_red()
-{
-    chassis.setPose(-53, 10, 240);
-    arm.resetPosition(ArmPosition::LOAD);
-
-    // Place ring on alliance stake
-    chassis.moveToPoint(-60.5, 6, 400);
-    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, true, 0.35);
-    pros::delay(750);
-
-    // Move back and grab left stake
-    mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(-34, 21, 750, {.forwards=false}, false);
-    left_arm.move_velocity(-600);
-    right_arm.move_velocity(-600);
-    chassis.moveToPoint(-24, 26, 500, {.forwards=false, .maxSpeed = 50}, false); // slower
+    intake.intake_control(0);
+    chassis.turnToPoint(-24, -24, 750, {.forwards=false});
+    chassis.moveToPoint(-24, -24, 1000, {.forwards=false}, false);
     pros::delay(250);
     mobile_stake_clamp.set_value(false);
-    pros::delay(250);
-    
-    // Turn and grab first ring
-    intake.intake_controlled(600);
-    chassis.turnToPoint(-29, 46, 750);
-    chassis.moveToPoint(-29, 46, 1000);
 
-    // Grab second ring
-    chassis.turnToPoint(-20, 51, 750);
-    chassis.moveToPoint(-20, 51, 900);
-    chassis.moveToPoint(-26, 46, 750, {.forwards=false}, false); // back off
+    // Turn and get another ring from underneath the ladder
+    chassis.turnToPoint(-10, -10, 750, {}, false);
+    right_doinker.set_value(true);
+    chassis.moveToPoint(-10, -10, 1000);
+    chassis.moveToPoint(-19, -19, 1000, {.forwards=false}, false);
 
-    // Grab third ring
-    chassis.turnToPoint(-20, 47, 750);
-    chassis.moveToPoint(-20, 47, 900);
-    chassis.moveToPoint(-28, 46, 750, {.forwards=false}, false); // back off
-
-    // Turn and move to corner
-    chassis.turnToPoint(-50, 60, 1000, {}, false);
-    intake.intake_controlled(0);
-    left_doinker.set_value(true);
-    chassis.moveToPoint(-64, 58, 1500, {.maxSpeed=90});
-
-    // Turn and doink away
-    chassis.turnToPoint(-33, 25, 1500, {.maxSpeed=55}, false);
-
-    // Grab ring and go to middle
-    intake.intake_controlled(600);
-    chassis.turnToPoint(-48, 14, 800);
-    chassis.moveToPoint(-48, 14, 2000);
-}
-
-
-void elims_north_blue()
-{
-    chassis.setPose(53, 10, 120);
-    arm.resetPosition(ArmPosition::LOAD);
-
-    // Place ring on alliance stake
-    chassis.moveToPoint(60.5, 6, 400);
-    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, true, 0.35);
-    pros::delay(750);
-
-    // Move back and grab left stake
-    mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(34, 21, 750, {.forwards=false}, false);
-    left_arm.move_velocity(-600);
-    right_arm.move_velocity(-600);
-    chassis.moveToPoint(24, 26, 500, {.forwards=false, .maxSpeed = 50}, false); // slower
-    pros::delay(250);
-    mobile_stake_clamp.set_value(false);
-    pros::delay(250);
-    
-    // Turn and grab first ring
-    intake.intake_controlled(600);
-    chassis.turnToPoint(29, 46, 750);
-    chassis.moveToPoint(29, 46, 1000);
-
-    // Grab second ring
-    chassis.turnToPoint(20, 51, 750);
-    chassis.moveToPoint(20, 51, 900);
-    chassis.moveToPoint(26, 46, 750, {.forwards=false}, false); // back off
-
-    // Grab third ring
-    chassis.turnToPoint(20, 47, 750);
-    chassis.moveToPoint(20, 47, 900);
-    chassis.moveToPoint(28, 46, 750, {.forwards=false}, false); // back off
-
-    // Turn and move to corner
-    chassis.turnToPoint(50, 60, 1000, {}, false);
-    intake.intake_controlled(0);
-    left_doinker.set_value(true);
-    chassis.moveToPoint(64, 58, 1500, {.maxSpeed=90});
-
-    // Turn and doink away
-    chassis.turnToPoint(33, 25, 1500, {.maxSpeed=55}, false);
-
-    // Grab ring and go to middle
-    intake.intake_controlled(600);
-    chassis.turnToPoint(48, 14, 800);
-    chassis.moveToPoint(48, 14, 2000);
-}
-
-
-void nats_north_red()
-{
-    chassis.setPose(-53, 10, 240);
-    arm.resetPosition(ArmPosition::LOAD);
-
-    // Place ring on alliance stake
-    chassis.moveToPoint(-60.5, 6, 400);
-    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, true, 0.35);
-    pros::delay(750);
-
-    // Move back                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 and grab left stake
-    mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(-34, 21, 750, {.forwards=false}, false);
-    left_arm.move_velocity(-600);
-    right_arm.move_velocity(-600);
-    chassis.moveToPoint(-24, 26, 500, {.forwards=false, .maxSpeed = 50}, false); // slower
-    pros::delay(250);
-    mobile_stake_clamp.set_value(false);
-    pros::delay(250);
-    
-    // Turn and grab first ring
-    intake.intake_controlled(600);
-    chassis.turnToPoint(-29, 46, 750);
-    chassis.moveToPoint(-29, 46, 1000);
-
-    // Grab second ring
-    chassis.turnToPoint(-20, 51, 750);
-    chassis.moveToPoint(-20, 51, 1200);
-    chassis.moveToPoint(-26, 46, 750, {.forwards=false}, false); // back off
-
-    // Grab third ring
-    chassis.turnToPoint(-20, 47, 750);
-    chassis.moveToPoint(-20, 47, 1200);
-    chassis.moveToPoint(-28, 46, 750, {.forwards=false}, false); // back off
-
-    // Turn to go to middle
-    chassis.turnToPoint(-48, 20, 750, {}, false);
-    intake.intake_controlled(0);
-    chassis.moveToPoint(-48, 20, 1500);
-
-    // Go to pos
-    chassis.turnToPoint(-48, -48, 750);
-    chassis.moveToPoint(-48, -48, 1500);
-}
-
-
-void nats_north_blue()
-{
-    chassis.setPose(53, 10, 120);
-    arm.resetPosition(ArmPosition::LOAD);
-    intake_motor.move_velocity(300);
-    pros::delay(200);
-    intake_motor.move_velocity(0);
-
-    // Place ring on alliance stake
-    chassis.moveToPoint(60.5, 6, 400);
-    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, true, 0.35);
-    pros::delay(750);
-
-    // Move back                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 and grab left stake
-    mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(34, 21, 750, {.forwards=false}, false);
-    left_arm.move_velocity(-600);
-    right_arm.move_velocity(-600);
-    chassis.moveToPoint(24, 26, 500, {.forwards=false, .maxSpeed = 50}, false); // slower
-    pros::delay(250);
-    mobile_stake_clamp.set_value(false);
-    pros::delay(250);
-    
-    // Turn and grab first ring
-    intake.intake_controlled(600);
-    chassis.turnToPoint(29, 46, 750);
-    chassis.moveToPoint(29, 46, 1000);
-
-    // Grab second ring
-    chassis.turnToPoint(18.5, 53, 750);
-    chassis.moveToPoint(18.5, 51, 1200);
-    chassis.moveToPoint(26, 46, 750, {.forwards=false}, false); // back off
-
-    // Grab third ring
-    chassis.turnToPoint(18.5, 47, 750);
-    chassis.moveToPoint(18.5, 47, 1200);
-    chassis.moveToPoint(28, 46, 750, {.forwards=false}, false); // back off
-
-    // Turn to go to middle
-    chassis.turnToPoint(48, 20, 750, {}, false);
-    intake.intake_controlled(0);
-    chassis.moveToPoint(48, 20, 1500);
-
-    // Go to pos
-    chassis.turnToPoint(48, -48, 750);
-    chassis.moveToPoint(48, -48, 1500);
+    // Get the ring and score it
+    right_doinker.set_value(false);
+    intake.intake_control(600, {.jam_detection=false, .coloursort=true});
+    chassis.swingToPoint(-10, -20, DriveSide::LEFT, 500);
+    chassis.moveToPoint(-10, -20, 750);
 }

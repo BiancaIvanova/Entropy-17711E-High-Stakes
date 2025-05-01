@@ -8,29 +8,24 @@
 
 void driver_skills_auton()
 {
-    //arm.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
     chassis.setBrakeMode(pros::E_MOTOR_BRAKE_HOLD);
-    chassis.setPose(-56, 0, 270);
+    arm.resetPosition(ArmPosition::LOAD);
+    currentAllianceColour = AllianceColour::RED;
+    
+    //  Robot starts with the front facing alliance wall stake
+    chassis.setPose(-55.5, 0, 270);
 
-    // Open arm mech
-    arm_rotation_sensor.set_position(0);
-    while (arm_rotation_sensor.get_position() < 4500)
-    {
-        //arm.move_velocity(100);
-    }
-    //arm.move_velocity(0);
-    left_doinker.set_value(true);
+    // Score alliance stake
+    arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, 800, false);
 
-    // Move arm down
-    //arm.move_velocity(-100);
-    pros::delay(1750);
-
-    chassis.moveToPoint(-48, 0, 700, {.forwards=false}, false);
-    left_doinker.set_value(false);
-    chassis.turnToPoint(-48, 22, 700, {.forwards=false}, false);
+    // Turn and grab left stake
+    chassis.moveToPoint(-48, 0, 350, {.forwards=false}, false);
+    arm.moveToPosition(ArmPosition::DOWN, false);
+    chassis.turnToPoint(-48, 24, 500, {.forwards=false, .maxSpeed=70});
+    
+    // Clamp the stake
     mobile_stake_clamp.set_value(true);
-    chassis.moveToPoint(-48, 22, 700, {.forwards=false}, false);
-    //arm.move_velocity(0);
-    chassis.waitUntilDone();
+    chassis.moveToPoint(-48, 19, 500, {.forwards=false}, true);
+    chassis.moveToPoint(-48, 28.5, 500, {.forwards=false, .maxSpeed=50}, false);
     mobile_stake_clamp.set_value(false);
 }
