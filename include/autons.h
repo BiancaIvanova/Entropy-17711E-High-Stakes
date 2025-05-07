@@ -27,6 +27,8 @@ void north_side_blue_worlds();
 void south_side_red_worlds();
 void south_side_blue_worlds();
 
+void south_side_red_other_worlds();
+
 // Elims auton
 void elims_red();
 void elims_blue();

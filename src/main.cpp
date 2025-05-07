@@ -11,7 +11,7 @@
 
 void initialize()
 {
-	currentAutonName = "North Red - Worlds";
+	currentAutonName = "South Red - Worlds";
 	currentAllianceColour = AllianceColour::RED;
 	ready_display(currentAutonName);
 
@@ -34,7 +34,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	north_side_red_worlds();
+	south_side_red_worlds();
 }
 
 void opcontrol()
