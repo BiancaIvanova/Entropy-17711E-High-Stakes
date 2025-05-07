@@ -20,6 +20,7 @@
 #include "arm-controller.h"
 #include "subsystem-control-functions.h"
 #include "double-imu.h"
+#include "line-aligner.h"
 #include <cmath>
 #include <iostream>
 #define _USE_MATH_DEFINES
@@ -65,6 +66,9 @@ pros::adi::DigitalOut mobile_stake_clamp('A');
 pros::adi::DigitalOut left_doinker('C');
 pros::adi::DigitalOut right_doinker('B');
 
+pros::adi::AnalogIn left_line_sensor('D');
+pros::adi::AnalogIn right_line_sensor('E');
+
 DoubleImu double_imu(&left_inertial_sensor, &right_inertial_sensor);
 
 // -----------------------------------------------------------------------------
@@ -76,6 +80,12 @@ ArmController arm (
     left_arm,
     right_arm,
     arm_rotation_sensor
+);
+
+LineAligner lineAligner (
+    left_line_sensor,
+    right_line_sensor,
+    &chassis
 );
 
 IntakeController intake

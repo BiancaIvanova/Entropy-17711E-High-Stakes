@@ -28,4 +28,5 @@ void driver_skills_auton()
     chassis.moveToPoint(-48, 19, 500, {.forwards=false}, true);
     chassis.moveToPoint(-48, 28.5, 500, {.forwards=false, .maxSpeed=50}, false);
     mobile_stake_clamp.set_value(false);
+    arm.resetPosition(ArmPosition::DOWN);
 }

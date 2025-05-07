@@ -24,8 +24,8 @@ void north_side_red_worlds();
 void north_side_blue_worlds();
 
 // South Side Match
-void south_side_red();
-void south_side_blue();
+void south_side_red_worlds();
+void south_side_blue_worlds();
 
 // Elims auton
 void elims_red();

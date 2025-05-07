@@ -11,7 +11,7 @@
 
 void initialize()
 {
-	currentAutonName = "Standard North Red - Worlds";
+	currentAutonName = "North Red - Worlds";
 	currentAllianceColour = AllianceColour::RED;
 	ready_display(currentAutonName);
 
@@ -41,6 +41,8 @@ void opcontrol()
 {
 	intake.intake_control(0);
 	arm.resetPosition(ArmPosition::DOWN);
+
+	//arm.resetPosition(ArmPosition::LOAD);
 
 	while (true)
 	{

@@ -228,8 +228,8 @@ void init_display()
     detection_status_bar = Graphics::create_rectangle(85, 5, 220, 195, status_yellow_color);
 
     // Declare radio buttons
-    assign_button(325, 10, 143, 40, "Red North Side", 1, [](){south_side_red(); });
-    assign_button(325, 58, 143, 40, "Red South Side", 2, [](){south_side_red(); });
+    assign_button(325, 10, 143, 40, "Red North Side", 1, [](){south_side_red_worlds(); });
+    assign_button(325, 58, 143, 40, "Red South Side", 2, [](){south_side_red_worlds(); });
     assign_button(325, 106, 143, 40, "---", 3, [](){ });
     assign_button(325, 154, 143, 40, "---", 4, [](){ });
 
@@ -293,11 +293,11 @@ void automatic_gps() {
 
     // Select auton based on gps coords
     if (gps_x_data < HALF_FIELD && gps_y_data < HALF_FIELD) {
-        selected_auton_callback = south_side_red;
+        selected_auton_callback = south_side_red_worlds;
         current_detection_state = DetectionState::AUTO;
     } 
     else if (gps_x_data < HALF_FIELD && gps_y_data > HALF_FIELD) {
-        selected_auton_callback = south_side_red;
+        selected_auton_callback = south_side_red_worlds;
         current_detection_state = DetectionState::AUTO;
     } 
     else {

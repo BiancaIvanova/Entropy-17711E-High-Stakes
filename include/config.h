@@ -1,5 +1,6 @@
 #include "main.h"
 #include "arm-controller.h"
+#include "line-aligner.h"
 #include "subsystem-control-functions.h"
 #include "lemlib/chassis/trackingWheel.hpp"
 #include "lemlib/api.hpp"
@@ -33,9 +34,12 @@ extern pros::Rotation horizontal_odom;
 extern pros::adi::DigitalOut mobile_stake_clamp;
 extern pros::adi::DigitalOut left_doinker;
 extern pros::adi::DigitalOut right_doinker;
+extern pros::adi::AnalogIn left_line_sensor;
+extern pros::adi::AnalogIn right_line_sensor;
 
 // PID Configuration
 extern ArmController arm;
+extern LineAligner lineAligner;
 extern IntakeController intake;
 
 // Lemlib

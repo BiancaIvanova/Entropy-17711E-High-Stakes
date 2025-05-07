@@ -12,7 +12,7 @@ enum ArmPosition {
     LOAD = 28,
     WALL_STAKE = 140,
     ALLIANCE_STAKE = 185,
-    MOGO_TIP = 235
+    MOGO_TIP = 215
 };
 
 class ArmController {
