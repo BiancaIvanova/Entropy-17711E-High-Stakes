@@ -40,3 +40,5 @@ void mogo_rush_red();
 
 void nats_north_red();
 void nats_north_blue();
+
+void trash();

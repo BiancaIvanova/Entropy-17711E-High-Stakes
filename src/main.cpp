@@ -34,7 +34,7 @@ void competition_initialize() {}
 
 void autonomous()
 {
-	south_side_red_worlds();
+	trash();
 }
 
 void opcontrol()

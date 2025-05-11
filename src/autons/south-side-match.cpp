@@ -11,10 +11,10 @@ void south_side_red_worlds()
     chassis.setPose(54, 7, 180);
     arm.resetPosition(ArmPosition::LOAD);
 
-    pros::delay(2000); // REMOVE
+    pros::delay(3000);
 
     // Place ring on alliance stake
-    chassis.swingToPoint(72, 0, DriveSide::LEFT, 500, {}, false);
+    chassis.swingToPoint(72, 3, DriveSide::LEFT, 500, {}, false);
     arm.moveToPosition(ArmPosition::ALLIANCE_STAKE, 750, false);
 
     // Move back and grab left stake
@@ -151,4 +151,10 @@ void south_side_blue_worlds()
     // Touch ladder
     chassis.turnToPoint(-24, 0, 500);
     chassis.moveToPoint(-24, -10, 1500);
+}
+
+void trash()
+{
+    chassis.setPose(0, 0, 0);
+    chassis.moveToPoint(0, 12, 500);
 }
