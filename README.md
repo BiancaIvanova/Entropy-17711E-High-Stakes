@@ -3,6 +3,11 @@
   Entropy 17711E Codebase for the VEX V5 Robotics Competition High Stakes Season (2024-2025)
 </div>
 
+<br></br>
+
+Post-season codebase organisation and documentation **WIP**
+
+<!---
 &nbsp;
 ## Competition Schedule
 
@@ -16,3 +21,4 @@
 | SLBS Winter Regional           | 11-Jan-2025  | Registered |
 | Essex Regional                 | 18-Jan-2025  | Registered |
 | GCA Regional                   | 25-Jan-2025  | Registered |
+--->
